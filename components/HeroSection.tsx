@@ -34,7 +34,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="mb-6 flex flex-col gap-6 md:gap-8"
+        className="mb-6 flex flex-col gap-6"
       >
         <div className="flex flex-row justify-between">
           <Image

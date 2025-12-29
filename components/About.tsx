@@ -5,7 +5,7 @@ import Section from "./MotionSectionWrapper";
 export default function About() {
   return (
     <Section
-      className="mt-24 max-w-3xl text-start"
+      className="mt-32 max-w-3xl text-start"
     >
       <h3 className="text-2xl font-medium text-primary">
         About

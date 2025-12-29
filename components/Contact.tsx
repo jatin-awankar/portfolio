@@ -42,7 +42,7 @@ export default function Contact() {
         Open to internship and full-time opportunities.
       </p>
       <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3">
-        <p className="text-accent font-extralight">Jatin Kishor Awankar</p>
+        <p className="text-sm text-accent font-light opacity-70">Jatin Kishor Awankar</p>
         <div className="flex flex-row justify-between gap-2 md:gap-4">
           {socialLinks.map((socialMedia) => (
             <Tooltip key={socialMedia.id}>
