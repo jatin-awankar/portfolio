@@ -1,9 +1,8 @@
 import ProjectCard from "@/components/ProjectCard";
-import Section from "./MotionSectionWrapper";
 
 export default function FeaturedProjects() {
   return (
-    <Section className="mt-32 max-w-4xl text-start">
+    <section className="mt-32 max-w-4xl text-start">
       <h3 className="text-2xl text-primary font-medium">Featured Projects</h3>
 
       <p className="mt-2 text-muted-foreground">
@@ -81,6 +80,6 @@ export default function FeaturedProjects() {
           github="#"
         />
       </div>
-    </Section>
+    </section>
   );
 }

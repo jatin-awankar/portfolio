@@ -1,5 +1,3 @@
-import Section from "./MotionSectionWrapper";
-
 const skills = [
   {
     title: "Frontend",
@@ -41,7 +39,7 @@ const skills = [
 
 export default function Skills() {
   return (
-    <Section className="mt-32 max-w-4xl">
+    <section className="mt-32 max-w-4xl">
       <h3 className="text-2xl text-primary font-medium text-start">
         Skills
       </h3>
@@ -68,6 +66,6 @@ export default function Skills() {
           </div>
         ))}
       </div>
-    </Section>
+    </section>
   );
 }

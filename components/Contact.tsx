@@ -1,4 +1,3 @@
-import Section from "./MotionSectionWrapper";
 import Link from "next/link";
 import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
@@ -9,7 +8,7 @@ export default function Contact() {
     {
       id: 1,
       link: "mailto:jatinawankar02@gmail.com",
-      icon: <Image src="/mail.png" alt="X" width={18} height={18} />,
+      icon: <Image src="/gmail.png" alt="Gmail" width={18} height={18} />,
       label: "Gmail",
     },
     {
@@ -21,27 +20,23 @@ export default function Contact() {
     {
       id: 3,
       link: "https://github.com/jay-awankar",
-      icon: <Image src="/github.png" alt="X" width={14} height={14} />,
+      icon: <Image src="/github.png" alt="Github" width={16} height={16} />,
       label: "Github",
     },
     {
       id: 4,
       link: "https://www.linkedin.com/in/jatin-awankar",
-      icon: <Image src="/linkedin.png" alt="X" width={14} height={14} />,
+      icon: <Image src="/linkedin.png" alt="Linkedin" width={16} height={16} />,
       label: "LinkedIn",
     },
   ];
 
   return (
-    <Section className="mt-32 max-w-3xl text-start">
-      {/* <h3 className="text-lg font-medium">
-        Contact
-      </h3> */}
-
+    <section className="mt-32 max-w-3xl text-start">
       <p className="mt-2 text-muted-foregound">
         Open to internship and full-time opportunities.
       </p>
-      <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3">
+      <div className="mt-4 flex flex-col lg:flex-row justify-between items-center gap-3">
         <p className="text-sm text-accent font-light opacity-70">Jatin Kishor Awankar</p>
         <div className="flex flex-row justify-between gap-2 md:gap-4">
           {socialLinks.map((socialMedia) => (
@@ -53,7 +48,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {socialMedia.icon}
+                    {socialMedia.icon} 
                   </Link>
                 </Button>
               </TooltipTrigger>
@@ -63,31 +58,7 @@ export default function Contact() {
             </Tooltip>
           ))}
         </div>
-        {/* <div className="mt-6 flex flex-wrap gap-4 text-sm">
-        <Link
-          href="mailto:your.email@example.com"
-          className="rounded-lg border border-border px-4 py-2 hover:bg-card transition"
-        >
-          Email
-        </Link>
-
-        <Link
-          href="https://github.com/yourusername"
-          target="_blank"
-          className="rounded-lg border border-border px-4 py-2 hover:bg-card transition"
-        >
-          GitHub
-        </Link>
-
-        <Link
-          href="https://linkedin.com/in/yourusername"
-          target="_blank"
-          className="rounded-lg border border-border px-4 py-2 hover:bg-card transition"
-        >
-          LinkedIn
-        </Link>
-      </div> */}
       </div>
-    </Section>
+    </section>
   );
 }

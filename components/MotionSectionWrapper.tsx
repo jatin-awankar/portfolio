@@ -6,9 +6,10 @@ import { ReactNode } from "react";
 type SectionProps = {
   children: ReactNode;
   className?: string;
+  id?: string;
 };
 
-export default function Section({ children, className }: SectionProps) {
+export default function Section({ children, className, id }: SectionProps) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 16 }}
@@ -19,6 +20,7 @@ export default function Section({ children, className }: SectionProps) {
       }}
       viewport={{ once: true, margin: "-80px" }}
       className={className}
+      id={id}
     >
       {children}
     </motion.section>
