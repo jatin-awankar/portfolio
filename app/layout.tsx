@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Jatin Awankar | Full-Stack Developer",
     description:
       "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
-    url: "https://jatinawankar.vercel.app/",
+    url: "https://jatin-awankar.netlify.app/",
     siteName: "Jatin Awankar Portfolio",
     images: [
       {
