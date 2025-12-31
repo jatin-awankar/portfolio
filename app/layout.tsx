@@ -21,6 +21,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jatin-awankar.netlify.app"),
+
   title: "Jatin Awankar | Full-Stack Developer",
   description: "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
 
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
     url: "https://jatin-awankar.netlify.app/",
-    siteName: "Jatin Awankar Portfolio",
+    siteName: "Jatin Awankar",
     images: [
       {
         url: "/og.png",

@@ -1,7 +1,7 @@
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import EngineeringMindset from "@/components/EngineeringMindset";
-import Experience from "@/components/Experience";
+// import Experience from "@/components/Experience";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import HeroSection from "@/components/HeroSection";
 import Section from "@/components/MotionSectionWrapper";
@@ -28,9 +28,9 @@ export default function Home() {
       <Section>
         <EngineeringMindset />
       </Section>
-      <Section>
+      {/* <Section>
         <Experience />
-      </Section>
+      </Section> */}
 
       <Section id="contact">
         <Contact />
