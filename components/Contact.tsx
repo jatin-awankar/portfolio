@@ -19,7 +19,7 @@ export default function Contact() {
     },
     {
       id: 3,
-      link: "https://github.com/jay-awankar",
+      link: "https://github.com/jatin-awankar",
       icon: <Image src="/github.png" alt="Github" width={16} height={16} />,
       label: "Github",
     },

@@ -8,7 +8,7 @@ export default function ProofBar() {
     >
       <div className="pt-8 text-sm text-muted-foreground">
         <TrueFocus
-          sentence="Next.js Full-Stack SaaS System-Design Usage-Based Billing (LedgerFlow) Real-Time Maps Auth Production-Focused"
+          sentence="Next.js Full-Stack SaaS Real-Time Maps Auth Projects Clean-Architecture Production-Focused"
           manualMode={false}
           blurAmount={2}
           borderColor="green"
@@ -19,3 +19,6 @@ export default function ProofBar() {
     </section>
   );
 }
+
+
+// System-Design Usage-Based Billing (LedgerFlow)

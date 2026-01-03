@@ -13,7 +13,7 @@ const HeroSection = () => {
     },
     {
       id: 2,
-      link: "https://github.com/jay-awankar",
+      link: "https://github.com/jatin-awankar",
       icon: <Image src="/github.png" alt="X" width={18} height={18} />,
       label: "Github",
     },

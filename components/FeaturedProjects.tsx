@@ -5,7 +5,6 @@ export default function FeaturedProjects() {
     // {
     //   id: 1,
     //   title:"Industry-Grade Web Application",
-    //   status: "In Progress",
     //       description: "A production-style web application designed with real-world engineering constraints in mind.",
     //       highlights: [
     //         "Authentication with role-based access",
@@ -28,7 +27,6 @@ export default function FeaturedProjects() {
     // {
     //   id: 2,
     //   title:"LedgerFlow",
-    //   status: "In Progress",
     //       description: "A usage-based billing and metering system for SaaS products.",
     //       highlights: [
     //         "Multi-tenant usage ingestion APIs",
@@ -51,7 +49,6 @@ export default function FeaturedProjects() {
     {
       id: 3,
       title: "Petrol Partner",
-      status: "Completed",
       description:
         "A ride-sharing platform built for college students with real-time and safety-focused features.",
       highlights: [
@@ -69,13 +66,12 @@ export default function FeaturedProjects() {
         ],
       },
       stack: ["Next.js", "Supabase", "Mapbox", "Realtime"],
-      github: "https://github.com/jay-awankar/Petrol-Partner",
+      github: "https://github.com/jatin-awankar/Petrol-Partner",
       live: "https://ride-partner.vercel.app",
     },
     {
       id: 4,
       title: "Civic Issue Reporter",
-      status: "Completed",
       description:
         "A location-based platform for reporting and tracking real-world civic and environmental issues.",
       highlights: [
@@ -101,7 +97,7 @@ export default function FeaturedProjects() {
         "Mapbox",
       ],
       live: "https://civic-issue-reporter-application.vercel.app",
-      github: "https://github.com/jay-awankar/Civic-Issue-Reporter",
+      github: "https://github.com/jatin-awankar/Civic-Issue-Reporter",
     },
     {
       id: 5,
@@ -124,7 +120,7 @@ export default function FeaturedProjects() {
       },
       stack: ["Next.js", "TypeScript", "Tailwind CSS", "Clerk", "GetStream"],
       live: "https://stem-connecting-people.vercel.app",
-      github: "https://github.com/jay-awankar/STEM-video-conference-app",
+      github: "https://github.com/jatin-awankar/STEM-video-conference-app",
     },
   ];
 
