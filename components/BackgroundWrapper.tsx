@@ -10,7 +10,7 @@ export default function BackgroundWrapper({
   return (
     <div className="relative min-h-screen w-full">
       {/* background */}
-      <div className="fixed inset-0 -z-10">
+      <div className="pointer-events-none fixed inset-0 -z-10">
         <Squares
           squareSize={40}
           borderColor="#454545"
@@ -18,7 +18,7 @@ export default function BackgroundWrapper({
         />
       </div>
       {/* Page content */}
-      <main className="relative z-10 text-center my-20 mx-6 md:mx-40 lg:mx-100">{children}</main>
+      <main className="relative z-10 text-center my-20 mx-8 md:mx-40 lg:mx-80 xl:mx-100">{children}</main>
     </div>
   );
 }

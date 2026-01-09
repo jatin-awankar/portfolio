@@ -71,6 +71,29 @@ export default function FeaturedProjects() {
     },
     {
       id: 4,
+      title: "STEM Video Conference App",
+      description:
+        "A web-based video conferencing platform built for real-time STEM collaboration.",
+      highlights: [
+        "Real-time video conferencing with low-latency communication",
+        "Authentication and user management with Clerk",
+        "Modern, responsive UI optimized for collaborative workflows",
+      ],
+      details: {
+        context:
+          "This project was built to explore real-time communication systems and collaborative tools, with a focus on creating a clean and extensible video conferencing experience tailored for STEM-related discussions and teamwork.",
+        focus: [
+          "Integrating third-party real-time video infrastructure (GetStream)",
+          "Designing authenticated, user-specific conferencing flows",
+          "Building an extensible frontend architecture for future features",
+        ],
+      },
+      stack: ["Next.js", "TypeScript", "Tailwind CSS", "Clerk", "GetStream"],
+      live: "https://stem-connecting-people.vercel.app",
+      github: "https://github.com/jatin-awankar/STEM-video-conference-app",
+    },
+    {
+      id: 5,
       title: "Civic Issue Reporter",
       description:
         "A location-based platform for reporting and tracking real-world civic and environmental issues.",
@@ -99,34 +122,11 @@ export default function FeaturedProjects() {
       live: "https://civic-issue-reporter-application.vercel.app",
       github: "https://github.com/jatin-awankar/Civic-Issue-Reporter",
     },
-    {
-      id: 5,
-      title: "STEM Video Conference App",
-      description:
-        "A web-based video conferencing platform built for real-time STEM collaboration.",
-      highlights: [
-        "Real-time video conferencing with low-latency communication",
-        "Authentication and user management with Clerk",
-        "Modern, responsive UI optimized for collaborative workflows",
-      ],
-      details: {
-        context:
-          "This project was built to explore real-time communication systems and collaborative tools, with a focus on creating a clean and extensible video conferencing experience tailored for STEM-related discussions and teamwork.",
-        focus: [
-          "Integrating third-party real-time video infrastructure (GetStream)",
-          "Designing authenticated, user-specific conferencing flows",
-          "Building an extensible frontend architecture for future features",
-        ],
-      },
-      stack: ["Next.js", "TypeScript", "Tailwind CSS", "Clerk", "GetStream"],
-      live: "https://stem-connecting-people.vercel.app",
-      github: "https://github.com/jatin-awankar/STEM-video-conference-app",
-    },
   ];
 
   return (
     <section className="mt-32 max-w-4xl text-start">
-      <h3 className="text-2xl text-primary font-medium">Featured Projects</h3>
+      <h3 className="text-xl text-primary font-medium">Featured Projects</h3>
 
       <p className="mt-2 text-muted-foreground">
         A small selection of projects that reflect how I approach real-world

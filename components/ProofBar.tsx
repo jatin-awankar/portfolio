@@ -1,10 +1,15 @@
-"use client"
+"use client";
 
+import { motion } from "framer-motion";
 import TrueFocus from "./TrueFocus";
 
 export default function ProofBar() {
   return (
-    <section className="mt-10"
+    <motion.section
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="mt-10"
     >
       <div className="pt-8 text-sm text-muted-foreground">
         <TrueFocus
@@ -16,9 +21,8 @@ export default function ProofBar() {
           pauseBetweenAnimations={0.5}
         />
       </div>
-    </section>
+    </motion.section>
   );
 }
 
-
-// System-Design Usage-Based Billing (LedgerFlow)
+// System-Design Usage-Based Billing (UsageFlow)

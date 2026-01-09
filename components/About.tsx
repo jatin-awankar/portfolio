@@ -1,35 +1,31 @@
-"use client";
-
-// import Section from "./MotionSectionWrapper";
-
 export default function About() {
   return (
-    <div
+    <section
       className="mt-32 max-w-3xl text-start"
     >
-      <h3 className="text-2xl font-medium text-primary">
+      <h3 className="text-xl font-medium text-primary">
         About
       </h3>
 
       <p className="mt-4 text-muted-foreground leading-relaxed">
-        I am a computer science engineering student focused on full-stack
-        development and system-oriented thinking.
+        I focus on full-stack development with an emphasis on system-oriented
+        thinking and real-world engineering constraints.
       </p>
 
       <p className="mt-4 text-muted-foreground leading-relaxed">
-        I enjoy building applications end-to-end — from database schema design
-        and authentication flows to frontend architecture and deployment.
+        My work involves building applications end-to-end — from database schema
+        design and authentication flows to frontend architecture and deployment.
       </p>
 
       <p className="mt-4 text-muted-foreground leading-relaxed">
-        My approach emphasizes clarity, maintainability, and scalability over
-        quick demos or surface-level features. I prefer designing systems first,
-        then implementing them with clean, readable code.
+        I prioritize clarity, maintainability, and scalability over quick demos
+        or surface-level features, preferring to design systems before
+        implementing them in clean, readable code.
       </p>
 
       <p className="mt-4 text-muted-foreground leading-relaxed">
         I care deeply about how software behaves in real-world conditions.
       </p>
-    </div>
+    </section>
   );
 }

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Button } from "./ui/button";
 
 type ProjectCardProps = {
   title: string;
@@ -31,15 +30,15 @@ export default function ProjectCard({
 
   return (
     <article
-      className="cursor-pointer rounded-xl border-l-2 border-cyan-200 bg-card p-6"
-      onClick={() => setOpen(!open)}
+      className="rounded-xl border-l-2 border-primary bg-card p-6"
     >
-      <div className="flex justify-between gap-3 items-center">
-        <h4 className="textlg font-medium">{title}</h4>
-        <div className="flex gap-4 items-center text-sm">
+      <div className="flex items-start justify-between gap-3">
+        <h4 className="text-lg font-medium text-foreground">{title}</h4>
+        <div className="flex items-center gap-4 text-sm">
           <button
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen((prev) => !prev)}
             className="text-primary hover:underline"
+            aria-expanded={open}
           >
             {open ? "Less" : "More"}
           </button>
@@ -76,14 +75,12 @@ export default function ProjectCard({
 
       <div className="mt-4 flex flex-wrap gap-2 text-sm text-muted-foreground">
         {stack.map((tech, i) => (
-          <Button
-            key={tech || i}
-            variant="outline"
-            size="sm"
-            className="px-1 font-light"
-          >
-            {tech}
-          </Button>
+          <span
+          key={tech || i}
+          className="rounded-md border border-border px-2 py-1"
+        >
+          {tech}
+        </span>
         ))}
       </div>
 
@@ -99,7 +96,7 @@ export default function ProjectCard({
             <p className="text-muted-foreground">{details.context}</p>
 
             <div className="mt-4">
-              <p className="text-sm font-medium">Engineering focus</p>
+              <p className="text-sm font-medium text-foreground">Engineering focus</p>
               <ul className="mt-2 list-disc pl-5 text-muted-foreground">
                 {details.focus.map((item, i) => (
                   <li key={i}>{item}</li>

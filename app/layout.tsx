@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { Analytics } from "@vercel/analytics/next";
 // import Navbar from "@/components/Navbar";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -17,7 +12,7 @@ const geistMono = Geist_Mono({
 
 const poppins = Poppins({
   variable: "--font-poppins",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600"],
   subsets: ["latin"],
 });
 
@@ -41,7 +36,6 @@ export const metadata: Metadata = {
         alt: "Jatin Awankar - Full-Stack Developer",
       },
     ],
-    locale: "en_US",
     type: "website",
   },
 
@@ -62,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${poppins.className} ${geistMono.variable} antialiased`}
       >
         <BackgroundWrapper>
           {/* <Navbar /> */}
