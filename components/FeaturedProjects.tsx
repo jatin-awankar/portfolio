@@ -67,7 +67,7 @@ export default function FeaturedProjects() {
       },
       stack: ["Next.js", "Supabase", "Mapbox", "Realtime"],
       github: "https://github.com/jatin-awankar/Petrol-Partner",
-      live: "https://ride-partner.vercel.app",
+      live: "https://petrol-partner.vercel.app",
     },
     {
       id: 4,
