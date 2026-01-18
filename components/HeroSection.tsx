@@ -91,7 +91,7 @@ const HeroSection = () => {
         </Link>
 
         <Link
-          href="https://docs.google.com/document/d/1p8knR4-FkJEuube6Wzeft_6UMMFFn1goOuzVdSRiimg/edit?usp=sharing"
+          href="/Jatin_Awankar_Resume.pdf"
           target="_blank"
           className="inline-flex items-center justify-center rounded-lg border border-border px-5 py-2 text-sm font-medium text-foreground hover:bg-card transition"
         >

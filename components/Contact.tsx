@@ -32,7 +32,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mt-32 max-w-3xl border-t border-border pt-6 text-start">
+    <footer className="mt-32 max-w-3xl border-t border-foreground/30 pt-6 text-start">
       <p className="text-sm text-muted-foreground">
         Open to internship and full-time opportunities.
       </p>
@@ -56,8 +56,8 @@ export default function Footer() {
                     <Image
                       src={social.icon}
                       alt={social.label}
-                      width={social.label === "Email"? 18 : social.label === "X"? 14 : 16}
-                      height={social.label === "Email"? 18 : social.label === "X"? 14 : 16}
+                      width={social.label === "Email" ? 18 : social.label === "X" ? 14 : 16}
+                      height={social.label === "Email" ? 18 : social.label === "X" ? 14 : 16}
                       className="opacity-70 hover:opacity-100 transition"
                     />
                   </Link>

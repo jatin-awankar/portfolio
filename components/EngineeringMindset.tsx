@@ -16,7 +16,7 @@ export default function EngineeringMindset() {
 
       <ul className="mt-6 space-y-4 text-foreground leading-relaxed">
         {points.map((point, i) => (
-          <li key={i} className="border-l-3 border-border pl-4 py-2">
+          <li key={i} className="border-l rounded-md border-foreground/30 pl-4 py-2">
             {point}
           </li>
         ))}
