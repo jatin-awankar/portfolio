@@ -17,16 +17,40 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://jatin-awankar.vercel.app"),
+  metadataBase: new URL("https://jatinawankar.dev"),
 
   title: "Jatin Awankar | Full-Stack Developer",
-  description: "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
+  description:
+    "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
+
+  applicationName: "Jatin Awankar Portfolio",
+  authors: [{ name: "Jatin Awankar" }],
+  creator: "Jatin Awankar",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
+
+  keywords: [
+    "Jatin Awankar",
+    "portfolio",
+    "Full Stack Developer",
+    "Next.js Developer",
+    "Software Engineer",
+    "Web Developer Portfolio",
+    "SaaS Applications",
+    "System Design",
+    "Real Time Applications",
+    "Map Based Applications",
+    "Authentication Systems",
+    "Production Grade Applications",
+  ],
 
   openGraph: {
     title: "Jatin Awankar | Full-Stack Developer",
     description:
       "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
-    url: "https://jatin-awankar.vercel.app/",
+    url: "https://jatinawankar.dev",
     siteName: "Jatin Awankar",
     images: [
       {
