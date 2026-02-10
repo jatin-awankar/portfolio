@@ -29,9 +29,7 @@ export default function ProjectCard({
   const [open, setOpen] = useState(false);
 
   return (
-    <article
-      className="rounded-xl border-l-2 border-primary bg-card p-6"
-    >
+    <article className="rounded-xl border-l-2 border-primary bg-card p-6">
       <div className="flex items-start justify-between gap-3">
         <h4 className="text-lg font-medium text-foreground">{title}</h4>
         <div className="flex items-center gap-4 text-sm">
@@ -76,11 +74,11 @@ export default function ProjectCard({
       <div className="mt-4 flex flex-wrap gap-2 text-sm text-muted-foreground">
         {stack.map((tech, i) => (
           <span
-          key={tech || i}
-          className="rounded-md border border-border px-2 py-1"
-        >
-          {tech}
-        </span>
+            key={tech || i}
+            className="rounded-md border border-border px-2 py-1"
+          >
+            {tech}
+          </span>
         ))}
       </div>
 
@@ -96,7 +94,9 @@ export default function ProjectCard({
             <p className="text-muted-foreground">{details.context}</p>
 
             <div className="mt-4">
-              <p className="text-sm font-medium text-foreground">Engineering focus</p>
+              <p className="text-sm font-medium text-foreground">
+                Engineering focus
+              </p>
               <ul className="mt-2 list-disc pl-5 text-muted-foreground">
                 {details.focus.map((item, i) => (
                   <li key={i}>{item}</li>
