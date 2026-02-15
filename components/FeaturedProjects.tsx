@@ -32,22 +32,33 @@ export default function FeaturedProjects() {
         id: 2,
         title: "UsageFlow",
         description:
-          "A usage-based billing and metering system for SaaS products.",
+          "A multi-tenant usage metering and billing system designed for SaaS products with flexible pricing and scalable aggregation.",
+
         highlights: [
-          "Multi-tenant usage ingestion APIs",
-          "Background aggregation workers",
-          "Invoice generation and webhooks",
+          "Tenant-isolated usage ingestion APIs",
+          "Asynchronous aggregation with Redis + BullMQ workers",
+          "Invoice generation and webhook-based event delivery",
         ],
+
         details: {
           context:
-            "LedgerFlow addresses the complexity SaaS teams face when tracking usage, pricing flexibly, and generating accurate invoices at scale.",
+            "UsageFlow simulates the complexity SaaS companies face when tracking per-tenant usage, computing pricing tiers, and generating accurate invoices at scale.",
+
           focus: [
-            "Designing schemas for multi-tenant isolation",
-            "Using background jobs for heavy aggregation",
-            "Ensuring idempotent and reliable event processing",
+            "Designing schemas for strict multi-tenant isolation",
+            "Building idempotent event ingestion pipelines",
+            "Offloading heavy aggregation to background workers for scalability",
           ],
         },
-        stack: ["Next.js", "PostgreSQL", "Tailwind", "Auth"],
+
+        stack: [
+          "Next.js",
+          "PostgreSQL (Prisma)",
+          "Redis (BullMQ)",
+          "NextAuth",
+          "Webhooks",
+        ],
+
         github: "https://github.com/jatin-awankar/UsageFlow",
         live: "https://usage-flow.vercel.app/",
       },
@@ -55,22 +66,27 @@ export default function FeaturedProjects() {
         id: 3,
         title: "Petrol Partner",
         description:
-          "A ride-sharing platform built for college students with real-time and safety-focused features.",
+          "A campus-focused ride-sharing platform with real-time tracking, role-based flows, and safety-first system design.",
+
         highlights: [
-          "Ride offer and request matching",
-          "Real-time maps and tracking",
+          "Driver–passenger matching workflows",
+          "Live map tracking with real-time updates",
           "Secure authentication and access control",
         ],
+
         details: {
           context:
-            "Petrol Partner was built as a real-world product idea focusing on usability, safety, and scalability for a closed user group.",
+            "Petrol Partner was built as a product-focused system addressing ride coordination, trust, and scalability within a closed student network.",
+
           focus: [
-            "Real-time updates using maps and live data",
-            "Designing flows for both drivers and passengers",
-            "Planning for scalability and future mobile support",
+            "Designing bidirectional ride offer/request flows",
+            "Managing real-time location updates and state synchronization",
+            "Structuring the system for future mobile and payment integration",
           ],
         },
-        stack: ["Next.js", "Supabase", "Mapbox", "Realtime"],
+
+        stack: ["Next.js", "Supabase", "Mapbox", "Realtime", "Razorpay"],
+
         github: "https://github.com/jatin-awankar/Petrol-Partner",
         live: "https://petrol-partner.vercel.app",
       },
@@ -78,22 +94,27 @@ export default function FeaturedProjects() {
         id: 4,
         title: "STEM Video Conference App",
         description:
-          "A web-based video conferencing platform built for real-time STEM collaboration.",
+          "A real-time video collaboration platform built with third-party streaming infrastructure and authenticated session management.",
+
         highlights: [
-          "Real-time video conferencing with low-latency communication",
-          "Authentication and user management with Clerk",
-          "Modern, responsive UI optimized for collaborative workflows",
+          "Low-latency video sessions using GetStream",
+          "User authentication and protected meeting flows",
+          "Extensible UI designed for collaborative workflows",
         ],
+
         details: {
           context:
-            "This project was built to explore real-time communication systems and collaborative tools, with a focus on creating a clean and extensible video conferencing experience tailored for STEM-related discussions and teamwork.",
+            "This project explores real-time communication architecture, focusing on secure session handling and integration with external streaming infrastructure.",
+
           focus: [
-            "Integrating third-party real-time video infrastructure (GetStream)",
-            "Designing authenticated, user-specific conferencing flows",
-            "Building an extensible frontend architecture for future features",
+            "Integrating and abstracting third-party video APIs",
+            "Designing authenticated, user-scoped meeting sessions",
+            "Structuring the frontend for modular feature expansion",
           ],
         },
+
         stack: ["Next.js", "TypeScript", "Tailwind CSS", "Clerk", "GetStream"],
+
         live: "https://stem-connecting-people.vercel.app",
         github: "https://github.com/jatin-awankar/STEM-video-conference-app",
       },
@@ -101,21 +122,25 @@ export default function FeaturedProjects() {
         id: 5,
         title: "Civic Issue Reporter",
         description:
-          "A location-based platform for reporting and tracking real-world civic and environmental issues.",
+          "A map-driven civic reporting platform enabling structured issue submission and location-aware tracking.",
+
         highlights: [
-          "Location-based issue reporting using interactive maps",
-          "Support for multiple civic issue categories",
-          "Responsive UI focused on accessibility and usability",
+          "Interactive map-based issue reporting",
+          "Category-based issue classification",
+          "Responsive and accessibility-aware interface",
         ],
+
         details: {
           context:
-            "Civic Issue Reporter was built to address common civic and environmental problems such as road damage, waste management, drainage issues, and pipeline leakages by enabling citizens to report issues with precise location context.",
+            "Civic Issue Reporter addresses the need for structured reporting of civic infrastructure problems with precise geolocation context and organized backend data handling.",
+
           focus: [
-            "Designing clear user flows for issue reporting",
-            "Integrating map-based location selection",
-            "Building a scalable backend for issue data management",
+            "Designing intuitive location-selection workflows",
+            "Modeling issue categories and lifecycle states",
+            "Building REST APIs for structured issue management",
           ],
         },
+
         stack: [
           "React (Vite)",
           "Node.js",
@@ -124,11 +149,12 @@ export default function FeaturedProjects() {
           "MongoDB",
           "Mapbox",
         ],
+
         live: "https://civic-issue-reporter-application.vercel.app",
         github: "https://github.com/jatin-awankar/Civic-Issue-Reporter",
       },
     ],
-    []
+    [],
   );
 
   const INITIAL_LIMIT = 3;
