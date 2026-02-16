@@ -75,12 +75,14 @@ const HeroSection = () => {
       </div>
       <div className="text-start flex flex-col">
         <h1 className="text-3xl font-semibold">Jatin Awankar</h1>
-        <p className="text-muted-foreground">Full Stack Developer</p>
+        <p className="text-muted-foreground">
+          Product Engineer — Backend Systems
+        </p>
       </div>
       <p className="text-start text-muted-foreground font-light text-base sm:text-lg leading-relaxed">
-        I build production-grade web applications
-        <br /> with a focus on scalability, clean architecture, and real-world
-        constraints.
+        I design and ship production-focused SaaS systems —
+        <br /> solving real problems around data integrity, concurrency, and
+        system reliability. constraints.
       </p>
       <div className="text-start flex gap-4">
         <Link

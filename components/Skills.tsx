@@ -1,38 +1,38 @@
 const skills = [
   {
-    title: "Frontend",
+    title: "Backend Systems",
     items: [
-      "React, Next.js (App Router)",
+      "REST API design & versioning",
+      "Authentication & RBAC flows",
+      "Concurrency handling & atomic operations",
+      "Webhook integration & retry logic",
+    ],
+  },
+  {
+    title: "Data & Integrity",
+    items: [
+      "PostgreSQL relational modeling",
+      "Schema constraints & transactional updates",
+      "Indexing & query optimization basics",
+      "Multi-tenant data isolation",
+    ],
+  },
+  {
+    title: "Product Infrastructure",
+    items: [
+      "Billing & usage-based logic",
+      "State validation & workflow design",
+      "Failure-case thinking & edge-case handling",
+      "External service integrations",
+    ],
+  },
+  {
+    title: "Frontend (Supporting Layer)",
+    items: [
+      "React & Next.js (App Router)",
       "Component-driven architecture",
-      "State management & data fetching",
+      "Server actions & data fetching patterns",
       "Accessible, responsive UI",
-    ],
-  },
-  {
-    title: "Backend",
-    items: [
-      "REST API design",
-      "Authentication & authorization (RBAC)",
-      "Business logic & validations",
-      "Background jobs & async workflows",
-    ],
-  },
-  {
-    title: "Database & Infrastructure",
-    items: [
-      "PostgreSQL & relational modeling",
-      "Schema design & constraints",
-      "Indexing & performance basics",
-      "Realtime data flows",
-    ],
-  },
-  {
-    title: "Engineering Practices",
-    items: [
-      "System-first design",
-      "Clean, maintainable code",
-      "Git workflows",
-      "Debugging & problem isolation",
     ],
   },
 ];
@@ -40,18 +40,18 @@ const skills = [
 export default function Skills() {
   return (
     <section className="mt-32 max-w-4xl text-start">
-      <h3 className="text-xl text-primary font-medium">
-        Skills
-      </h3>
+      <h3 className="text-xl text-primary font-medium">Skills</h3>
 
       <p className="mt-2 text-muted-foreground">
-        Tools and practices I use to build and maintain real-world
-        applications.
+        Core capabilities I rely on when building production-oriented systems.
       </p>
 
       <div className="mt-10 grid gap-8 sm:grid-cols-2">
         {skills.map((group) => (
-          <div key={group.title} className="rounded-xl border border-border bg-card p-6 hover:border-muted-foreground transition">
+          <div
+            key={group.title}
+            className="rounded-xl border border-border bg-card p-6 hover:border-muted-foreground transition"
+          >
             <h4 className="text-sm font-medium text-foreground">
               {group.title}
             </h4>

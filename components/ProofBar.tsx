@@ -13,7 +13,7 @@ export default function ProofBar() {
     >
       <div className="pt-8 text-sm text-muted-foreground">
         <TrueFocus
-          sentence="Next.js Full-Stack SaaS Real-Time Maps Auth Maintainable-Systems Production-Focused"
+          sentence="Backend-Systems Billing-Infrastructure Concurrency-Handling Failure-Safe-Design SaaS-Architecture"
           manualMode={false}
           blurAmount={2}
           borderColor="green"

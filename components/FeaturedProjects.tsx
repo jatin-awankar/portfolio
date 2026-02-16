@@ -6,38 +6,16 @@ import { useMemo, useState } from "react";
 export default function FeaturedProjects() {
   const projects = useMemo(
     () => [
-      // {
-      //   id: 1,
-      //   title:"Industry-Grade Web Application",
-      //       description: "A production-style web application designed with real-world engineering constraints in mind.",
-      //       highlights: [
-      //         "Authentication with role-based access",
-      //         "Non-trivial relational database schema",
-      //         "End-to-end workflow with edge cases handled",
-      //       ],
-      //       details: {
-      //         context:
-      //           "This project was built to simulate how real products are designed and maintained in industry, focusing on architecture, data modeling, and long-term maintainability rather than quick demos.",
-      //         focus: [
-      //           "System-first design before implementation",
-      //           "Clear separation of concerns across layers",
-      //           "Handling real-world edge cases and failures",
-      //         ],
-      //       },
-      //       stack: ["Next.js", "PostgreSQL", "Tailwind", "Auth"],
-      //       github: "#",
-      //       live: "#",
-      // },
       {
-        id: 2,
+        id: 1,
         title: "UsageFlow",
         description:
-          "A multi-tenant usage metering and billing system designed for SaaS products with flexible pricing and scalable aggregation.",
+          "A multi-tenant SaaS billing infrastructure handling usage ingestion, pricing computation, and invoice generation with reliability-first system design.",
 
         highlights: [
-          "Tenant-isolated usage ingestion APIs",
-          "Asynchronous aggregation with Redis + BullMQ workers",
-          "Invoice generation and webhook-based event delivery",
+          "Enforced strict multi-tenant isolation at the schema level",
+          "Built asynchronous aggregation pipeline using Redis + BullMQ",
+          "Implemented durable webhook delivery with retries and failure logging",
         ],
 
         details: {
@@ -45,9 +23,9 @@ export default function FeaturedProjects() {
             "UsageFlow simulates the complexity SaaS companies face when tracking per-tenant usage, computing pricing tiers, and generating accurate invoices at scale.",
 
           focus: [
-            "Designing schemas for strict multi-tenant isolation",
-            "Building idempotent event ingestion pipelines",
-            "Offloading heavy aggregation to background workers for scalability",
+            "Modeling tenant-aware schemas with strict data boundaries",
+            "Designing billing logic resilient to duplicate or delayed events",
+            "Separating synchronous APIs from background processing for scalability",
           ],
         },
 
@@ -63,15 +41,15 @@ export default function FeaturedProjects() {
         live: "https://usage-flow.vercel.app/",
       },
       {
-        id: 3,
+        id: 2,
         title: "Petrol Partner",
         description:
-          "A campus-focused ride-sharing platform with real-time tracking, role-based flows, and safety-first system design.",
+          "A concurrency-aware ride booking system designed to prevent double allocation, handle real-time coordination, and support secure role-based workflows.",
 
         highlights: [
-          "Driver–passenger matching workflows",
-          "Live map tracking with real-time updates",
-          "Secure authentication and access control",
+          "Implemented atomic seat allocation to prevent race conditions",
+          "Designed driver-passenger matching workflow with state validation",
+          "Handled payment edge cases and booking consistency",
         ],
 
         details: {
@@ -91,7 +69,7 @@ export default function FeaturedProjects() {
         live: "https://petrol-partner.vercel.app",
       },
       {
-        id: 4,
+        id: 3,
         title: "STEM Video Conference App",
         description:
           "A real-time video collaboration platform built with third-party streaming infrastructure and authenticated session management.",
@@ -119,7 +97,7 @@ export default function FeaturedProjects() {
         github: "https://github.com/jatin-awankar/STEM-video-conference-app",
       },
       {
-        id: 5,
+        id: 4,
         title: "Civic Issue Reporter",
         description:
           "A map-driven civic reporting platform enabling structured issue submission and location-aware tracking.",
@@ -171,8 +149,8 @@ export default function FeaturedProjects() {
       <h3 className="text-xl text-primary font-medium">Featured Projects</h3>
 
       <p className="mt-2 text-muted-foreground">
-        A small selection of projects that reflect how I approach real-world
-        engineering problems.
+        Selected systems that demonstrate my approach to reliability,
+        concurrency handling, and production-oriented backend design.
       </p>
 
       <div className="mt-10 space-y-8">

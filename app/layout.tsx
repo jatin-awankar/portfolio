@@ -19,9 +19,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jatinawankar.dev"),
 
-  title: "Jatin Awankar | Full-Stack Developer",
+  title: "Jatin Awankar | Backend-Focused Product Engineer",
   description:
-    "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
+    "Backend-focused product engineer building reliable SaaS systems with emphasis on concurrency handling, billing infrastructure, and failure-safe backend design.",
 
   applicationName: "Jatin Awankar Portfolio",
   authors: [{ name: "Jatin Awankar" }],
@@ -33,23 +33,21 @@ export const metadata: Metadata = {
 
   keywords: [
     "Jatin Awankar",
-    "portfolio",
-    "Full Stack Developer",
+    "Backend Engineer",
+    "Product Engineer",
+    "SaaS Architecture",
+    "Concurrency Handling",
+    "Billing Systems",
     "Next.js Developer",
-    "Software Engineer",
-    "Web Developer Portfolio",
-    "SaaS Applications",
+    "PostgreSQL",
     "System Design",
-    "Real Time Applications",
-    "Map Based Applications",
-    "Authentication Systems",
-    "Production Grade Applications",
+    "Multi-Tenant Applications",
   ],
 
   openGraph: {
-    title: "Jatin Awankar | Full-Stack Developer",
+    title: "Jatin Awankar | Backend-Focused Product Engineer",
     description:
-      "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
+      "Backend-focused product engineer building reliable SaaS systems with emphasis on concurrency handling, billing infrastructure, and failure-safe backend design.",
     url: "https://jatinawankar.dev",
     siteName: "Jatin Awankar",
     images: [
@@ -57,7 +55,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Jatin Awankar - Full-Stack Developer",
+        alt: "Jatin Awankar - Backend-Focused Product Engineer",
       },
     ],
     type: "website",
@@ -65,9 +63,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Jatin Awankar | Full-Stack Developer",
+    title: "Jatin Awankar | Backend-Focused Product Engineer",
     description:
-      "Full-stack developer building production-grade web applications with a focus on scalability, clean architecture, and real-world engineering constraints.",
+      "Backend-focused product engineer building reliable SaaS systems with emphasis on concurrency handling, billing infrastructure, and failure-safe backend design.",
     images: ["/og.png"],
   },
 };
