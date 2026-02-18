@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
 
 type CanvasStrokeStyle = string | CanvasGradient | CanvasPattern;
 
@@ -14,9 +14,9 @@ interface SquaresProps {
 }
 
 const Squares: React.FC<SquaresProps> = ({
-  borderColor = '#999',
+  borderColor = "#999",
   squareSize = 40,
-  hoverFillColor = '#222'
+  hoverFillColor = "#222",
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const numSquaresX = useRef<number>(0);
@@ -26,7 +26,7 @@ const Squares: React.FC<SquaresProps> = ({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
 
     const drawGrid = () => {
       if (!ctx) return;
@@ -35,7 +35,6 @@ const Squares: React.FC<SquaresProps> = ({
       // Simplified loop for static grid
       for (let x = 0; x < canvas.width; x += squareSize) {
         for (let y = 0; y < canvas.height; y += squareSize) {
-          
           // Check if this specific square is hovered
           if (
             hoveredSquareRef.current &&
@@ -59,10 +58,10 @@ const Squares: React.FC<SquaresProps> = ({
         0,
         canvas.width / 2,
         canvas.height / 2,
-        Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 1.5
+        Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 1.5,
       );
-      gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      gradient.addColorStop(1, '#060010');
+      gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
+      gradient.addColorStop(1, "#060010");
 
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -99,20 +98,25 @@ const Squares: React.FC<SquaresProps> = ({
       drawGrid();
     };
 
-    window.addEventListener('resize', resizeCanvas);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
-    
+    window.addEventListener("resize", resizeCanvas);
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+
     resizeCanvas(); // Initial draw
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener("resize", resizeCanvas);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [borderColor, hoverFillColor, squareSize]);
 
-  return <canvas ref={canvasRef} className="squares-canvas w-full h-full absolute top-0 left-0"></canvas>;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="squares-canvas w-full h-full absolute top-0 left-0"
+    ></canvas>
+  );
 };
 
 export default Squares;

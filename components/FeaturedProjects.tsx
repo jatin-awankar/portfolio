@@ -38,7 +38,7 @@ export default function FeaturedProjects() {
         ],
 
         github: "https://github.com/jatin-awankar/UsageFlow",
-        live: "https://usage-flow.vercel.app/",
+        live: "https://usageflow.vercel.app/",
       },
       {
         id: 2,

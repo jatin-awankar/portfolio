@@ -34,8 +34,7 @@ export default function Footer() {
   return (
     <footer className="mt-32 max-w-3xl border-t border-foreground/30 pt-6 text-start">
       <p className="text-sm text-muted-foreground">
-        Backend-focused product engineer exploring impactful opportunities in
-        startup environments.
+        Building systems that remain reliable as they scale.
       </p>
 
       <div className="mt-4 flex items-center justify-between">

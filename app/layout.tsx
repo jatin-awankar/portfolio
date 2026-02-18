@@ -19,13 +19,15 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jatinawankar.dev"),
 
-  title: "Jatin Awankar | Backend-Focused Product Engineer",
+  title: "Jatin Awankar | Software Engineer - Scalable Systems",
+
   description:
-    "Backend-focused product engineer building reliable SaaS systems with emphasis on concurrency handling, billing infrastructure, and failure-safe backend design.",
+    "Software Engineer designing reliable SaaS systems with a focus on scalability, concurrency, and long-term system architecture.",
 
   applicationName: "Jatin Awankar Portfolio",
   authors: [{ name: "Jatin Awankar" }],
   creator: "Jatin Awankar",
+
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png",
@@ -33,21 +35,21 @@ export const metadata: Metadata = {
 
   keywords: [
     "Jatin Awankar",
-    "Backend Engineer",
-    "Product Engineer",
+    "Software Engineer",
+    "Scalable Systems",
     "SaaS Architecture",
-    "Concurrency Handling",
-    "Billing Systems",
-    "Next.js Developer",
-    "PostgreSQL",
     "System Design",
-    "Multi-Tenant Applications",
+    "Concurrency",
+    "Backend Engineering",
+    "Next.js",
+    "PostgreSQL",
+    "Multi-Tenant Systems",
   ],
 
   openGraph: {
-    title: "Jatin Awankar | Backend-Focused Product Engineer",
+    title: "Jatin Awankar | Software Engineer - Scalable Systems",
     description:
-      "Backend-focused product engineer building reliable SaaS systems with emphasis on concurrency handling, billing infrastructure, and failure-safe backend design.",
+      "Designing reliable SaaS systems with a focus on scalability, concurrency, and long-term system architecture.",
     url: "https://jatinawankar.dev",
     siteName: "Jatin Awankar",
     images: [
@@ -55,7 +57,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Jatin Awankar - Backend-Focused Product Engineer",
+        alt: "Jatin Awankar | Software Engineer - Scalable Systems",
       },
     ],
     type: "website",
@@ -63,9 +65,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Jatin Awankar | Backend-Focused Product Engineer",
+    title: "Jatin Awankar | Software Engineer - Scalable Systems",
     description:
-      "Backend-focused product engineer building reliable SaaS systems with emphasis on concurrency handling, billing infrastructure, and failure-safe backend design.",
+      "Designing reliable SaaS systems with a focus on scalability, concurrency, and long-term system architecture.",
     images: ["/og.png"],
   },
 };
