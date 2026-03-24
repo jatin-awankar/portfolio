@@ -1,17 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export type ProjectCardProps = {
   id: number;
   title: string;
   description: string;
   highlights: string[];
-  details: {
-    context: string;
-    focus: string[];
-  };
   stack: string[];
   demo?: {
     email: string;
@@ -19,32 +18,25 @@ export type ProjectCardProps = {
   };
   github?: string;
   live?: string;
+  image?: string;
 };
 
-export const projects: ProjectCardProps[] = [
+export const projects = [
   {
     id: 1,
     title: "UsageFlow",
     description:
-      "Multi-tenant SaaS billing infrastructure handling usage ingestion, pricing computation, and invoice generation with reliability-first design.",
+      "A SaaS billing platform that tracks usage, calculates pricing, and generates invoices reliably — designed for products that scale.",
+    image: "/projects/usageflow.png",
     demo: {
       email: "demo@usageflow.com",
       password: "Test@1234",
     },
     highlights: [
-      "Schema-level multi-tenant isolation",
-      "Async aggregation pipeline using Redis + BullMQ",
-      "Durable webhook delivery with retries and failure logging",
+      "Handles usage ingestion and billing computation",
+      "Background job processing with Redis + BullMQ",
+      "Reliable webhook delivery with retries",
     ],
-    details: {
-      context:
-        "UsageFlow simulates SaaS billing infrastructure for tracking per-tenant usage and generating invoices reliably.",
-      focus: [
-        "Tenant-aware schema modeling",
-        "Idempotent billing logic for duplicate events",
-        "Separation of synchronous APIs and async background jobs",
-      ],
-    },
     stack: ["Next.js", "PostgreSQL", "Redis", "BullMQ", "NextAuth"],
     github: "https://github.com/jatin-awankar/UsageFlow",
     live: "https://usageflow.vercel.app/",
@@ -53,126 +45,153 @@ export const projects: ProjectCardProps[] = [
     id: 2,
     title: "Petrol Partner",
     description:
-      "Concurrency-aware ride booking system preventing double seat allocation and ensuring consistent booking flows.",
+      "A ride-sharing platform with real-time booking and concurrency-safe seat allocation to prevent double bookings.",
+    image: "/projects/petrol-partner.png",
     demo: {
       email: "demo@petrolpartner.com",
       password: "Test@1234",
     },
     highlights: [
-      "Atomic seat allocation to avoid race conditions",
+      "Atomic seat allocation system",
+      "Real-time ride tracking",
       "Driver-passenger matching workflow",
-      "Payment edge case handling",
     ],
-    details: {
-      context:
-        "Ride-sharing platform designed for student communities focusing on trust, coordination, and booking consistency.",
-      focus: [
-        "Bidirectional ride offer/request workflows",
-        "Real-time location updates",
-        "Future-ready architecture for mobile expansion",
-      ],
-    },
     stack: ["Next.js", "Supabase", "Mapbox", "Realtime", "Razorpay"],
     github: "https://github.com/jatin-awankar/Petrol-Partner",
     live: "https://petrol-partner.vercel.app",
   },
   {
     id: 3,
-    title: "STEM Video Conference App",
+    title: "STEM Video App",
     description:
-      "A real-time video collaboration platform built with third-party streaming infrastructure and authenticated session management.",
-
+      "A real-time video collaboration platform with secure sessions and low-latency streaming.",
+    image: "/projects/stem.png",
     highlights: [
-      "Low-latency video sessions using GetStream",
-      "User authentication and protected meeting flows",
-      "Extensible UI designed for collaborative workflows",
+      "Low-latency video streaming",
+      "Secure authenticated sessions",
+      "Scalable meeting architecture",
     ],
-
-    details: {
-      context:
-        "This project explores real-time communication architecture, focusing on secure session handling and integration with external streaming infrastructure.",
-
-      focus: [
-        "Integrating and abstracting third-party video APIs",
-        "Designing authenticated, user-scoped meeting sessions",
-        "Structuring the frontend for modular feature expansion",
-      ],
-    },
-
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Clerk", "GetStream"],
-
-    live: "https://stem-connecting-people.vercel.app",
+    stack: ["Next.js", "TypeScript", "Tailwind", "Clerk", "GetStream"],
     github: "https://github.com/jatin-awankar/STEM-video-conference-app",
+    live: "https://stem-connecting-people.vercel.app",
   },
   {
     id: 4,
     title: "Civic Issue Reporter",
     description:
-      "A map-driven civic reporting platform enabling structured issue submission and location-aware tracking.",
-
+      "A map-based platform for reporting civic issues with structured data and location-aware tracking.",
+    image: "/projects/civic.png",
     highlights: [
-      "Interactive map-based issue reporting",
-      "Category-based issue classification",
-      "Responsive and accessibility-aware interface",
+      "Map-based issue reporting",
+      "Category-based issue tracking",
+      "REST API backend",
     ],
-
-    details: {
-      context:
-        "Civic Issue Reporter addresses the need for structured reporting of civic infrastructure problems with precise geolocation context and organized backend data handling.",
-
-      focus: [
-        "Designing intuitive location-selection workflows",
-        "Modeling issue categories and lifecycle states",
-        "Building REST APIs for structured issue management",
-      ],
-    },
-
-    stack: [
-      "React (Vite)",
-      "Node.js",
-      "Express",
-      "TypeScript",
-      "MongoDB",
-      "Mapbox",
-    ],
-
-    live: "https://civic-issue-reporter-application.vercel.app",
+    stack: ["React", "Node.js", "Express", "TypeScript", "MongoDB", "Mapbox"],
     github: "https://github.com/jatin-awankar/Civic-Issue-Reporter",
+    live: "https://civic-issue-reporter-application.vercel.app",
   },
 ];
 
-const INITIAL_LIMIT = 3;
+const INITIAL_LIMIT = 4;
 
 export default function FeaturedProjects() {
   const [showAll, setShowAll] = useState(false);
 
   const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_LIMIT);
-
   const hiddenCount = projects.length - visibleProjects.length;
 
   return (
-    <section className="mt-32 max-w-4xl text-start">
-      <h3 className="text-xl font-medium text-primary">Featured Projects</h3>
+    <section className="mt-32 max-w-6xl text-left">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="max-w-2xl">
+          <h3 className="text-2xl font-semibold sm:text-3xl">Project Work</h3>
+          <p className="mt-3 text-muted-foreground leading-relaxed">
+            Case studies focused on business-critical outcomes: reliability,
+            speed, and user experience under real usage.
+          </p>
+        </div>
 
-      <p className="mt-2 text-muted-foreground">
-        Selected systems demonstrating reliability, concurrency handling, and
-        production-oriented backend design.
-      </p>
-
-      <div className="mt-10 space-y-8">
-        {visibleProjects.map((project) => (
-          <ProjectCard key={project.id} {...project} />
-        ))}
+        {projects.length > INITIAL_LIMIT && (
+          <div className="inline-flex w-fit items-center rounded-2xl border border-white/10 bg-white/5 p-1">
+            <button
+              type="button"
+              onClick={() => setShowAll(false)}
+              className={cn(
+                "relative rounded-xl px-3 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                !showAll ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {!showAll && (
+                <motion.span
+                  layoutId="projects-toggle"
+                  className="absolute inset-0 rounded-xl bg-white/10"
+                  transition={{ type: "spring", bounce: 0.25, duration: 0.45 }}
+                />
+              )}
+              <span className="relative">Selected</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowAll(true)}
+              className={cn(
+                "relative rounded-xl px-3 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                showAll ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {showAll && (
+                <motion.span
+                  layoutId="projects-toggle"
+                  className="absolute inset-0 rounded-xl bg-white/10"
+                  transition={{ type: "spring", bounce: 0.25, duration: 0.45 }}
+                />
+              )}
+              <span className="relative">All</span>
+            </button>
+          </div>
+        )}
       </div>
 
-      {projects.length > INITIAL_LIMIT && (
-        <div className="mt-10">
-          <button
-            onClick={() => setShowAll((v) => !v)}
-            className="inline-flex items-center justify-center rounded-lg border border-border px-5 py-2 text-sm font-medium text-foreground hover:bg-card transition"
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+            transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+          },
+        }}
+        className="mt-12 grid gap-8 md:grid-cols-2"
+      >
+        <AnimatePresence mode="popLayout">
+          {visibleProjects.map((project) => (
+            <motion.div
+              key={project.id}
+              layout
+              variants={{
+                hidden: { opacity: 0, y: 14 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+              }}
+              exit={{ opacity: 0, y: 10, transition: { duration: 0.2 } }}
+            >
+              <ProjectCard {...project} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+
+      {projects.length > INITIAL_LIMIT && !showAll && (
+        <div className="mt-12">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setShowAll(true)}
+            className="rounded-xl border-white/10 bg-white/5 hover:bg-white/10"
           >
-            {showAll ? "Show less" : `Show more (${hiddenCount})`}
-          </button>
+            Show all projects
+            <span className="ml-2 text-xs text-muted-foreground">({hiddenCount} more)</span>
+          </Button>
         </div>
       )}
     </section>

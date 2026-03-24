@@ -3,7 +3,7 @@ import { Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { Analytics } from "@vercel/analytics/next";
-// import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -19,10 +19,10 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jatinawankar.dev"),
 
-  title: "Jatin Awankar | Software Engineer - Scalable Systems",
+  title: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
 
   description:
-    "Software Engineer designing reliable SaaS systems with a focus on scalability, concurrency, and long-term system architecture.",
+    "I build scalable MVPs and SaaS products with clean backend systems, real-time features, and production-ready architecture.",
 
   applicationName: "Jatin Awankar Portfolio",
   authors: [{ name: "Jatin Awankar" }],
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Jatin Awankar | Software Engineer - Scalable Systems",
+    title: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
     description:
-      "Designing reliable SaaS systems with a focus on scalability, concurrency, and long-term system architecture.",
+      "I build scalable MVPs and SaaS products with clean backend systems, real-time features, and production-ready architecture.",
     url: "https://jatinawankar.dev",
     siteName: "Jatin Awankar",
     images: [
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Jatin Awankar | Software Engineer - Scalable Systems",
+        alt: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
       },
     ],
     type: "website",
@@ -65,9 +65,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Jatin Awankar | Software Engineer - Scalable Systems",
+    title: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
     description:
-      "Designing reliable SaaS systems with a focus on scalability, concurrency, and long-term system architecture.",
+      "I build scalable MVPs and SaaS products with clean backend systems, real-time features, and production-ready architecture.",
     images: ["/og.png"],
   },
 };
@@ -83,7 +83,7 @@ export default function RootLayout({
         className={`${poppins.className} ${geistMono.variable} antialiased`}
       >
         <BackgroundWrapper>
-          {/* <Navbar /> */}
+          <Navbar />
           {children}
           <Analytics />
         </BackgroundWrapper>

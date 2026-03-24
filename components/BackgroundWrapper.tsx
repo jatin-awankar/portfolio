@@ -12,13 +12,15 @@ export default function BackgroundWrapper({
       {/* background */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <Squares
-          squareSize={40}
-          borderColor="#454545"
-          hoverFillColor="#222"
+          borderColor="rgba(255,255,255,0.07)"
+          squareSize={48}
+          hoverFillColor="transparent"
         />
       </div>
       {/* Page content */}
-      <main className="relative z-10 text-center my-20 mx-8 md:mx-40 lg:mx-80 xl:mx-100">{children}</main>
+      <main className="relative z-10 my-16 max-w-6xl mx-auto px-6 lg:px-8">
+        {children}
+      </main>
     </div>
   );
 }
