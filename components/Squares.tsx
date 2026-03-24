@@ -14,9 +14,9 @@ interface SquaresProps {
 }
 
 const Squares: React.FC<SquaresProps> = ({
-  borderColor = "#999",
-  squareSize = 40,
-  hoverFillColor = "#222",
+  borderColor = "rgba(255,255,255,0.04)",
+  squareSize = 48,
+  hoverFillColor = "transparent",
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const numSquaresX = useRef<number>(0);
@@ -75,39 +75,39 @@ const Squares: React.FC<SquaresProps> = ({
       drawGrid(); // Redraw on resize
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const mouseX = event.clientX - rect.left;
-      const mouseY = event.clientY - rect.top;
+    // const handleMouseMove = (event: MouseEvent) => {
+    //   const rect = canvas.getBoundingClientRect();
+    //   const mouseX = event.clientX - rect.left;
+    //   const mouseY = event.clientY - rect.top;
 
-      const hoveredSquareX = Math.floor(mouseX / squareSize);
-      const hoveredSquareY = Math.floor(mouseY / squareSize);
+    //   const hoveredSquareX = Math.floor(mouseX / squareSize);
+    //   const hoveredSquareY = Math.floor(mouseY / squareSize);
 
-      if (
-        !hoveredSquareRef.current ||
-        hoveredSquareRef.current.x !== hoveredSquareX ||
-        hoveredSquareRef.current.y !== hoveredSquareY
-      ) {
-        hoveredSquareRef.current = { x: hoveredSquareX, y: hoveredSquareY };
-        drawGrid(); // Only redraw when the mouse moves to a new square
-      }
-    };
+    //   if (
+    //     !hoveredSquareRef.current ||
+    //     hoveredSquareRef.current.x !== hoveredSquareX ||
+    //     hoveredSquareRef.current.y !== hoveredSquareY
+    //   ) {
+    //     hoveredSquareRef.current = { x: hoveredSquareX, y: hoveredSquareY };
+    //     drawGrid(); // Only redraw when the mouse moves to a new square
+    //   }
+    // };
 
-    const handleMouseLeave = () => {
-      hoveredSquareRef.current = null;
-      drawGrid();
-    };
+    // const handleMouseLeave = () => {
+    //   hoveredSquareRef.current = null;
+    //   drawGrid();
+    // };
 
     window.addEventListener("resize", resizeCanvas);
-    canvas.addEventListener("mousemove", handleMouseMove);
-    canvas.addEventListener("mouseleave", handleMouseLeave);
+    // canvas.addEventListener("mousemove", handleMouseMove);
+    // canvas.addEventListener("mouseleave", handleMouseLeave);
 
     resizeCanvas(); // Initial draw
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      // canvas.removeEventListener("mousemove", handleMouseMove);
+      // canvas.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [borderColor, hoverFillColor, squareSize]);
 
