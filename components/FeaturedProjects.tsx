@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export type ProjectCardProps = {
   id: number;
@@ -26,7 +23,7 @@ export const projects = [
     id: 1,
     title: "UsageFlow",
     description:
-      "A SaaS billing platform that tracks usage, calculates pricing, and generates invoices reliably — designed for products that scale.",
+      "A SaaS billing platform that tracks usage, calculates pricing, and generates invoices reliably -- designed for products that scale.",
     image: "/projects/usageflow.png",
     demo: {
       email: "demo@usageflow.com",
@@ -92,16 +89,9 @@ export const projects = [
   },
 ];
 
-const INITIAL_LIMIT = 4;
-
 export default function FeaturedProjects() {
-  const [showAll, setShowAll] = useState(false);
-
-  const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_LIMIT);
-  const hiddenCount = projects.length - visibleProjects.length;
-
   return (
-    <section className="mt-32 max-w-6xl text-left">
+    <section className="max-w-6xl text-left">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
           <h3 className="text-2xl font-semibold sm:text-3xl">Project Work</h3>
@@ -111,44 +101,10 @@ export default function FeaturedProjects() {
           </p>
         </div>
 
-        {projects.length > INITIAL_LIMIT && (
-          <div className="inline-flex w-fit items-center rounded-2xl border border-white/10 bg-white/5 p-1">
-            <button
-              type="button"
-              onClick={() => setShowAll(false)}
-              className={cn(
-                "relative rounded-xl px-3 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                !showAll ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {!showAll && (
-                <motion.span
-                  layoutId="projects-toggle"
-                  className="absolute inset-0 rounded-xl bg-white/10"
-                  transition={{ type: "spring", bounce: 0.25, duration: 0.45 }}
-                />
-              )}
-              <span className="relative">Selected</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowAll(true)}
-              className={cn(
-                "relative rounded-xl px-3 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                showAll ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {showAll && (
-                <motion.span
-                  layoutId="projects-toggle"
-                  className="absolute inset-0 rounded-xl bg-white/10"
-                  transition={{ type: "spring", bounce: 0.25, duration: 0.45 }}
-                />
-              )}
-              <span className="relative">All</span>
-            </button>
-          </div>
-        )}
+        <div className="inline-flex w-fit items-center gap-3 rounded-full border border-border/70 bg-background/50 px-4 py-2 text-xs font-medium text-muted-foreground">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary/80" />
+          {projects.length} showcased builds
+        </div>
       </div>
 
       <motion.div
@@ -162,38 +118,24 @@ export default function FeaturedProjects() {
             transition: { staggerChildren: 0.08, delayChildren: 0.05 },
           },
         }}
-        className="mt-12 grid gap-8 md:grid-cols-2"
+        className="mt-10 grid gap-8 md:grid-cols-2"
       >
-        <AnimatePresence mode="popLayout">
-          {visibleProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              layout
-              variants={{
-                hidden: { opacity: 0, y: 14 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
-              }}
-              exit={{ opacity: 0, y: 10, transition: { duration: 0.2 } }}
-            >
-              <ProjectCard {...project} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
-
-      {projects.length > INITIAL_LIMIT && !showAll && (
-        <div className="mt-12">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => setShowAll(true)}
-            className="rounded-xl border-white/10 bg-white/5 hover:bg-white/10"
+        {projects.map((project) => (
+          <motion.div
+            key={project.id}
+            variants={{
+              hidden: { opacity: 0, y: 14 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.45, ease: "easeOut" },
+              },
+            }}
           >
-            Show all projects
-            <span className="ml-2 text-xs text-muted-foreground">({hiddenCount} more)</span>
-          </Button>
-        </div>
-      )}
+            <ProjectCard {...project} />
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 }

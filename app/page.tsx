@@ -12,21 +12,21 @@ import Writing from "@/components/Writing";
 
 export default function Home() {
   return (
-    <>
-      <section id="home">
+    <div className="editorial-page">
+      <section id="home" className="editorial-block editorial-block-hero">
         <HeroSection />
         <ProofBar />
       </section>
-      <Section id="services">
+      <Section id="services" className="editorial-block editorial-block-main">
         <Services />
       </Section>
-      <Section id="projects">
+      <Section id="projects" className="editorial-block editorial-block-main">
         <FeaturedProjects />
       </Section>
-      <Section id="skills">
+      <Section id="skills" className="editorial-block editorial-block-main">
         <Skills />
       </Section>
-      <Section id="about">
+      <Section id="about" className="editorial-block editorial-block-main">
         <About />
       </Section>
       {/* <Section>
@@ -35,12 +35,12 @@ export default function Home() {
       {/* <Section>
         <Experience />
       </Section> */}
-      <Section id="writing">
+      <Section id="writing" className="editorial-block editorial-block-main">
         <Writing />
       </Section>
-      <Section id="contact">
+      <Section id="contact" className="editorial-block editorial-block-end">
         <Contact />
       </Section>
-    </>
+    </div>
   );
 }

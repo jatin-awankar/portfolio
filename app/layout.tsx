@@ -4,6 +4,7 @@ import "./globals.css";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -78,15 +79,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.className} ${geistMono.variable} antialiased`}
+        className={`${poppins.className} ${geistMono.variable} editorial-body antialiased`}
       >
-        <BackgroundWrapper>
-          <Navbar />
-          {children}
-          <Analytics />
-        </BackgroundWrapper>
+        <ThemeProvider>
+          <BackgroundWrapper>
+            <Navbar />
+            {children}
+            <Analytics />
+          </BackgroundWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

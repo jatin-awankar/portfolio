@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
-const blogs = [
+const carouselBlogs = [
   {
     title: "Why I Moved from Next.js API Routes to a Dedicated Node.js Backend",
     description:
@@ -19,7 +20,7 @@ const blogs = [
     tag: "System Design",
   },
   {
-    title: "Designing Payment Systems That Don’t Break",
+    title: "Designing Payment Systems That Don&apos;t Break",
     description:
       "How to handle retries, crashes, and race conditions in payments.",
     link: "https://medium.com/@jatinawankar02/designing-payment-systems-that-survive-retries-crashes-and-race-conditions-be9718de5654",
@@ -31,28 +32,29 @@ const blogs = [
     link: "https://medium.com/@jatinawankar02/preventing-double-booking-understanding-race-conditions-in-real-systems-76e92094dee8",
     tag: "Concurrency",
   },
-];
+] as const;
 
 export default function Writing() {
-  const carouselBlogs = [...blogs, ...blogs];
   const [isPaused, setIsPaused] = useState(false);
-
   return (
-    <section className="mt-32 mx-auto text-left">
+    <section className="mx-auto text-left">
       <div className="max-w-2xl">
-        <h3 className="text-2xl font-semibold sm:text-3xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary/90">
+          Notes
+        </p>
+        <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
           Writing and Insights
         </h3>
 
-        <p className="mt-3 text-muted-foreground leading-relaxed">
+        <p className="mt-3 leading-relaxed text-muted-foreground">
           Thought process is part of the product. I publish practical notes on
           architecture and delivery decisions from real builds.
         </p>
       </div>
 
       <div className="group relative mt-10">
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-linear-to-r from-background via-background/80 to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-linear-to-l from-background via-background/80 to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 rounded-2xl bg-linear-to-r from-background via-background/80 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 rounded-2xl bg-linear-to-l from-background via-background/80 to-transparent" />
 
         <div className="overflow-hidden rounded-3xl border border-border/60 bg-card/20 py-2 backdrop-blur-sm">
           <div
@@ -70,21 +72,21 @@ export default function Writing() {
                   {blog.tag}
                 </span>
 
-                <h4 className="mt-4 text-lg font-semibold leading-snug">
+                <h4 className="mt-4 text-lg font-semibold leading-snug text-foreground">
                   {blog.title}
                 </h4>
 
-                <p className="mt-3 text-sm text-muted-foreground">
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {blog.description}
                 </p>
 
                 <Link
                   href={blog.link}
                   target="_blank"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary transition hover:gap-3"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary transition-all duration-200 hover:gap-2.5"
                 >
                   Read insight
-                  <span aria-hidden>→</span>
+                  <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </article>
             ))}

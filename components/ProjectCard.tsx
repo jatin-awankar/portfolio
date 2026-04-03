@@ -60,15 +60,15 @@ export default function ProjectCard({
           type="button"
           onClick={() => setOpen(true)}
           className={cn(
-            "group relative w-full overflow-hidden rounded-3xl border border-white/10 bg-card/20 text-left shadow-[0_18px_55px_rgba(0,0,0,0.35)] backdrop-blur-xl transition",
-            "hover:-translate-y-1 hover:border-white/15 hover:bg-card/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "group relative w-full overflow-hidden rounded-3xl border border-border/75 bg-card/45 text-left shadow-[0_14px_36px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 dark:shadow-[0_18px_55px_rgba(0,0,0,0.35)]",
+            "hover:-translate-y-1 hover:border-border hover:bg-card/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           )}
           aria-label={`Open ${title} case study`}
         >
           <div className="relative">
             <div className="pointer-events-none absolute inset-0">
-              <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(520px_circle_at_25%_10%,rgba(59,130,246,0.22),transparent_55%)]" />
-              <div className="absolute inset-0 opacity-80 mask-[linear-gradient(to_bottom,black,transparent_70%)] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_0)] bg-size-[22px_22px]" />
+              <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(520px_circle_at_25%_10%,rgba(99,133,191,0.22),transparent_55%)]" />
+              <div className="absolute inset-0 opacity-55 mask-[linear-gradient(to_bottom,black,transparent_72%)] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-size-[22px_22px] dark:opacity-80" />
             </div>
 
             {image ? (
@@ -77,26 +77,26 @@ export default function ProjectCard({
                   src={image}
                   alt={title}
                   fill
-                  className="object-cover opacity-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+                  className="object-cover opacity-92 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/25 to-black/70" />
+                <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/30 to-black/75" />
               </div>
             ) : (
-              <div className="h-[220px] bg-white/5" />
+              <div className="h-[220px] bg-background/60" />
             )}
 
             <div className="absolute inset-x-0 bottom-0 p-6">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <h4 className="truncate text-xl font-semibold leading-tight text-foreground">
+                  <h4 className="truncate text-xl p-2 rounded-2xl font-semibold leading-tight text-foreground bg-linear-to-r from-background/50 to-transparent">
                     {title}
                   </h4>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/70">
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/80">
                     {description}
                   </p>
                 </div>
 
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/90 transition group-hover:bg-white/10">
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white transition-colors group-hover:bg-white/15">
                   <ArrowUpRight className="h-4 w-4" />
                 </span>
               </div>
@@ -108,13 +108,13 @@ export default function ProjectCard({
               {primaryStack.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground transition group-hover:bg-white/10"
+                  className="rounded-2xl border border-border/70 bg-background/55 px-3 py-1 text-xs text-muted-foreground transition-colors group-hover:bg-accent/30"
                 >
                   {tech}
                 </span>
               ))}
               {extraStackCount > 0 && (
-                <span className="rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
+                <span className="rounded-2xl border border-border/70 bg-background/55 px-3 py-1 text-xs text-muted-foreground">
                   +{extraStackCount}
                 </span>
               )}
@@ -146,7 +146,7 @@ export default function ProjectCard({
                 <Button
                   asChild
                   variant="outline"
-                  className="rounded-xl border-white/10 bg-white/5 hover:bg-white/10"
+                  className="rounded-xl border-border/75 bg-background/55 hover:bg-accent/30"
                 >
                   <Link
                     href={github}
@@ -160,7 +160,7 @@ export default function ProjectCard({
               )}
 
               {demo && (
-                <span className="ml-auto inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-muted-foreground">
+                <span className="ml-auto inline-flex items-center gap-2 rounded-xl border border-border/75 bg-background/55 px-3 py-2 text-xs text-muted-foreground">
                   <Lock className="h-3.5 w-3.5 text-primary/90" />
                   Demo creds inside
                 </span>
@@ -209,13 +209,13 @@ export default function ProjectCard({
                     : { opacity: 0, y: 12, scale: 0.99 }
                 }
                 transition={{ duration: 0.28, ease: "easeOut" }}
-                className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-background/80 shadow-[0_30px_120px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+                className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-3xl border border-border/75 bg-background/86 shadow-[0_25px_90px_rgba(0,0,0,0.42)] backdrop-blur-xl"
               >
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_20%_5%,rgba(59,130,246,0.22),transparent_55%)]" />
 
                 <div className="relative flex items-start justify-between gap-3 p-5 sm:p-6">
                   <div className="min-w-0">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-border/75 bg-background/60 px-3 py-1 text-xs text-muted-foreground">
                       Case study
                     </div>
                     <h4 className="mt-3 truncate text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -230,7 +230,7 @@ export default function ProjectCard({
                     type="button"
                     size="icon"
                     variant="outline"
-                    className="rounded-xl border-white/10 bg-white/5 hover:bg-white/10"
+                    className="rounded-xl border-border/75 bg-background/55 hover:bg-accent/30"
                     onClick={() => setOpen(false)}
                     aria-label="Close"
                   >
@@ -239,7 +239,7 @@ export default function ProjectCard({
                 </div>
 
                 {image && (
-                  <div className="relative mx-5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:mx-6">
+                  <div className="relative mx-5 overflow-hidden rounded-2xl border border-border/75 bg-background/55 sm:mx-6">
                     <div className="relative h-[220px] sm:h-[320px]">
                       <Image
                         src={image}
@@ -254,7 +254,7 @@ export default function ProjectCard({
 
                 <div className="relative grid gap-6 p-5 sm:p-6">
                   {demo && (
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="rounded-2xl border border-border/75 bg-background/55 p-4">
                       <div className="flex items-center justify-between gap-3">
                         <p className="text-sm font-semibold">Demo login</p>
                         <span className="text-xs text-muted-foreground">
@@ -262,7 +262,7 @@ export default function ProjectCard({
                         </span>
                       </div>
                       <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                        <div className="flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-background/40 px-3 py-2">
+                        <div className="flex items-center justify-between gap-2 rounded-xl border border-border/75 bg-background/40 px-3 py-2">
                           <div className="min-w-0">
                             <p className="text-[11px] text-muted-foreground">
                               Email
@@ -275,7 +275,7 @@ export default function ProjectCard({
                                 type="button"
                                 size="icon-sm"
                                 variant="outline"
-                                className="rounded-lg border-white/10 bg-white/5 hover:bg-white/10"
+                                className="rounded-lg border-border/75 bg-background/55 hover:bg-accent/30"
                                 onClick={() => copy(demo.email, "email")}
                               >
                                 {copiedField === "email" ? (
@@ -291,7 +291,7 @@ export default function ProjectCard({
                           </Tooltip>
                         </div>
 
-                        <div className="flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-background/40 px-3 py-2">
+                        <div className="flex items-center justify-between gap-2 rounded-xl border border-border/75 bg-background/40 px-3 py-2">
                           <div className="min-w-0">
                             <p className="text-[11px] text-muted-foreground">
                               Password
@@ -304,7 +304,7 @@ export default function ProjectCard({
                                 type="button"
                                 size="icon-sm"
                                 variant="outline"
-                                className="rounded-lg border-white/10 bg-white/5 hover:bg-white/10"
+                                className="rounded-lg border-border/75 bg-background/55 hover:bg-accent/30"
                                 onClick={() => copy(demo.password, "password")}
                               >
                                 {copiedField === "password" ? (
@@ -324,7 +324,7 @@ export default function ProjectCard({
                   )}
 
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="rounded-2xl border border-border/75 bg-background/55 p-4">
                       <p className="text-sm font-semibold">Highlights</p>
                       <div className="mt-3 grid gap-2 text-sm text-muted-foreground">
                         {highlights.map((h) => (
@@ -336,13 +336,13 @@ export default function ProjectCard({
                       </div>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="rounded-2xl border border-border/75 bg-background/55 p-4">
                       <p className="text-sm font-semibold">Stack</p>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {stack.map((tech) => (
                           <span
                             key={tech}
-                            className="rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground"
+                            className="rounded-2xl border border-border/75 bg-background/50 px-3 py-1 text-xs text-muted-foreground"
                           >
                             {tech}
                           </span>
@@ -368,7 +368,7 @@ export default function ProjectCard({
                       <Button
                         asChild
                         variant="outline"
-                        className="rounded-xl border-white/10 bg-white/5 hover:bg-white/10"
+                        className="rounded-xl border-border/75 bg-background/55 hover:bg-accent/30"
                       >
                         <Link href={github} target="_blank">
                           <Github className="h-4 w-4" />
@@ -379,7 +379,7 @@ export default function ProjectCard({
                     <Button
                       type="button"
                       variant="outline"
-                      className="ml-auto rounded-xl border-white/10 bg-white/5 hover:bg-white/10"
+                      className="ml-auto rounded-xl border-border/75 bg-background/55 hover:bg-accent/30"
                       onClick={() => setOpen(false)}
                     >
                       Close
