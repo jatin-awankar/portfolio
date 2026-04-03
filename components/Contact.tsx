@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border/70 pt-12 pb-8">
+    <footer className="pb-8">
       <div className="mx-auto text-left">
         <div className="mb-10 rounded-3xl border border-border/80 bg-card/34 p-8 shadow-[0_8px_30px_rgba(0,0,0,0.07)] backdrop-blur-sm dark:shadow-[0_8px_30px_rgba(0,0,0,0.24)] sm:p-10">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary/90">
@@ -53,7 +53,10 @@ export default function Footer() {
           </p>
 
           <div className="flex gap-4 text-sm text-muted-foreground">
-            <Link className="transition hover:text-foreground" href="mailto:jatinawankar02@gmail.com">
+            <Link
+              className="transition hover:text-foreground"
+              href="mailto:jatinawankar02@gmail.com"
+            >
               Email
             </Link>
             <Link
