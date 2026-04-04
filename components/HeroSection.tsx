@@ -39,7 +39,7 @@ export default function HeroSection() {
           variants={itemVariants}
           className="inline-flex w-fit items-center rounded-full border border-border/75 bg-card/40 px-3 py-1.5 text-xs font-medium tracking-wide text-muted-foreground"
         >
-          Full-Stack SaaS Developer
+          Software Engineering
         </motion.div>
 
         <motion.h1
@@ -87,7 +87,7 @@ export default function HeroSection() {
       <motion.aside variants={itemVariants} className="order-1 lg:order-2">
         <div className="rounded-3xl border border-border/80 bg-card/38 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.07)] backdrop-blur-sm dark:shadow-[0_8px_30px_rgba(0,0,0,0.24)] sm:p-6">
           <div className="flex items-center gap-4">
-            <div className="rounded-2xl border border-border/75 bg-background/70 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <div className="rounded-3xl border border-border/85 bg-background/70 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
               <Image
                 src="/my-profile.jpg"
                 alt="Jatin Awankar"
