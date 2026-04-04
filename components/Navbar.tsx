@@ -182,7 +182,7 @@ export default function Navbar() {
                     })}
                     <div className="mt-2 flex w-full items-center justify-center rounded-lg border border-border/80 px-3 py-2">
                       <AnimatedThemeToggler
-                        className="inline-flex items-center justify-center text-sm font-medium text-foreground"
+                        className="inline-flex w-full items-center justify-center text-sm font-medium text-foreground"
                         aria-label="Toggle theme"
                       />
                     </div>

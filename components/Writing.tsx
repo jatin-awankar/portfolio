@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { Marquee } from "./ui/marquee";
 
 const carouselBlogs = [
   {
@@ -35,7 +35,6 @@ const carouselBlogs = [
 ] as const;
 
 export default function Writing() {
-  const [isPaused, setIsPaused] = useState(false);
   return (
     <section className="mx-auto text-left">
       <div className="max-w-2xl">
@@ -57,39 +56,36 @@ export default function Writing() {
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 rounded-2xl bg-linear-to-l from-background via-background/80 to-transparent" />
 
         <div className="overflow-hidden rounded-3xl border border-border/60 bg-card/20 py-2 backdrop-blur-sm">
-          <div
-            className="writing-marquee flex w-max gap-5 px-5"
-            style={{ animationPlayState: isPaused ? "paused" : "running" }}
-          >
-            {carouselBlogs.map((blog, index) => (
-              <article
-                key={`${blog.title}-${index}`}
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-                className="w-[300px] shrink-0 rounded-2xl border border-border/60 bg-card/50 p-6 transition-transform duration-300 hover:-translate-y-1 hover:bg-card/80 sm:w-[340px]"
-              >
-                <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary">
-                  {blog.tag}
-                </span>
-
-                <h4 className="mt-4 text-lg font-semibold leading-snug text-foreground">
-                  {blog.title}
-                </h4>
-
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {blog.description}
-                </p>
-
-                <Link
-                  href={blog.link}
-                  target="_blank"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary transition-all duration-200 hover:gap-2.5"
+          <div className="flex w-max gap-5 px-5">
+            <Marquee pauseOnHover={true}>
+              {carouselBlogs.map((blog, index) => (
+                <article
+                  key={`${blog.title}-${index}`}
+                  className="w-[300px] shrink-0 rounded-2xl border border-border/60 bg-card/50 p-6 hover:bg-card/80 sm:w-[340px]"
                 >
-                  Read insight
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </article>
-            ))}
+                  <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary">
+                    {blog.tag}
+                  </span>
+
+                  <h4 className="mt-4 text-lg font-semibold leading-snug text-foreground">
+                    {blog.title}
+                  </h4>
+
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {blog.description}
+                  </p>
+
+                  <Link
+                    href={blog.link}
+                    target="_blank"
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary transition-all duration-200 hover:gap-2.5"
+                  >
+                    Read insight
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </article>
+              ))}
+            </Marquee>
           </div>
         </div>
       </div>

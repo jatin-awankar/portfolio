@@ -19,7 +19,7 @@ type DocumentWithTransition = Document & {
 
 export const AnimatedThemeToggler = ({
   className,
-  duration = 400,
+  duration = 700,
   ...props
 }: AnimatedThemeTogglerProps) => {
   const [isDark, setIsDark] = useState(false);
