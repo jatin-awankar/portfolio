@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Marquee } from "./ui/marquee";
+import { Marquee } from "../ui/marquee";
 
 const carouselBlogs = [
   {

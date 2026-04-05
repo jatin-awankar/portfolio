@@ -13,7 +13,7 @@ import {
   Lock,
   X,
 } from "lucide-react";
-import { ProjectCardProps } from "./FeaturedProjects";
+import { ProjectCardProps } from "./sections/FeaturedProjects";
 
 import { Button } from "@/components/ui/button";
 import {

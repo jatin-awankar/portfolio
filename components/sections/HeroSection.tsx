@@ -4,11 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { ArrowUpRight, Github, Linkedin } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { Button } from "./ui/button";
+import { ArrowUpRight, FlipHorizontal, Github, Linkedin } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { Button } from "../ui/button";
 import useSound from "use-sound";
-import { DottedMap } from "./ui/dotted-map";
+import MemoizedMap from "../MemoizedMap";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -169,9 +169,9 @@ export default function HeroSection() {
                 </div>
                 <button
                   onClick={handleFlip}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 transition-colors"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 text-muted-foreground transition-colors"
                 >
-                  @
+                  <FlipHorizontal size={16} />
                 </button>
               </div>
             </div>
@@ -184,30 +184,9 @@ export default function HeroSection() {
               }}
               className="absolute inset-0 h-full w-full rounded-3xl overflow-hidden"
             >
-              <div className="relative h-full w-full">
-                {isFlipped && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.4 }}
-                    transition={{ delay: 0.5 }}
-                    className="absolute inset-0 p-2"
-                  >
-                    <DottedMap
-                      dotRadius={0.2}
-                      markers={[
-                        {
-                          lat: 21,
-                          lng: 78,
-                          pulse: true,
-                          dotColor: "white",
-                          size: 1.8,
-                        },
-                      ]}
-                    />
-                  </motion.div>
-                )}
+              <div className="relative h-full w-full p-2">
+                <MemoizedMap />
 
-                {/* Content Overlay */}
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center">
                   <p className="text-xs font-medium uppercase tracking-widest">
                     Available for Remote Work
@@ -221,9 +200,9 @@ export default function HeroSection() {
                       e.stopPropagation(); // Prevents accidental double-triggers
                       handleFlip();
                     }}
-                    className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 transition-colors"
+                    className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 text-muted-foreground  transition-colors"
                   >
-                    @
+                    <FlipHorizontal size={16} />
                   </Button>
                 </div>
               </div>

@@ -1,14 +1,12 @@
-import About from "@/components/About";
-import Contact from "@/components/Contact";
-// import EngineeringMindset from "@/components/EngineeringMindset";
-// import Experience from "@/components/Experience";
-import FeaturedProjects from "@/components/FeaturedProjects";
-import HeroSection from "@/components/HeroSection";
+import About from "@/components/sections/About";
+import Contact from "@/components/sections/Contact";
+import FeaturedProjects from "@/components/sections/FeaturedProjects";
+import HeroSection from "@/components/sections/HeroSection";
 import Section from "@/components/MotionSectionWrapper";
-import ProofBar from "@/components/ProofBar";
-import Services from "@/components/Services";
-import Skills from "@/components/Skills";
-import Writing from "@/components/Writing";
+import ProofBar from "@/components/sections/ProofBar";
+import Services from "@/components/sections/Services";
+import Skills from "@/components/sections/Skills";
+import Writing from "@/components/sections/Writing";
 
 export default function Home() {
   return (
@@ -33,12 +31,6 @@ export default function Home() {
       <Section id="about" className="editorial-block editorial-block-main">
         <About />
       </Section>
-      {/* <Section>
-        <EngineeringMindset />
-      </Section> */}
-      {/* <Section>
-        <Experience />
-      </Section> */}
       <div className="editorial-separator" aria-hidden="true" />
       <Section id="writing" className="editorial-block editorial-block-main">
         <Writing />
