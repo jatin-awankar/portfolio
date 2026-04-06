@@ -65,7 +65,7 @@ export default function ProjectCard({
           )}
           aria-label={`Open ${title} case study`}
         >
-          <div className="relative">
+          <div className="relative hover:cursor-pointer">
             <div className="pointer-events-none absolute inset-0">
               <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(520px_circle_at_25%_10%,rgba(99,133,191,0.22),transparent_55%)]" />
               <div className="absolute inset-0 opacity-55 mask-[linear-gradient(to_bottom,black,transparent_72%)] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-size-[22px_22px] dark:opacity-80" />
