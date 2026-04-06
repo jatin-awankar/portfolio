@@ -169,7 +169,7 @@ export default function HeroSection() {
                 </div>
                 <button
                   onClick={handleFlip}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 text-muted-foreground transition-colors"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 text-muted-foreground transition-colors hover:cursor-pointer"
                 >
                   <FlipHorizontal size={16} />
                 </button>
@@ -193,17 +193,15 @@ export default function HeroSection() {
                   </p>
                   <p className="mt-1 text-[10px]">Based in India</p>
 
-                  <Button
-                    variant="outline"
-                    size="sm"
+                  <button
                     onClick={(e) => {
                       e.stopPropagation(); // Prevents accidental double-triggers
                       handleFlip();
                     }}
-                    className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 text-muted-foreground  transition-colors"
+                    className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/55 hover:bg-accent/55 text-muted-foreground transition-colors hover:cursor-pointer"
                   >
                     <FlipHorizontal size={16} />
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>

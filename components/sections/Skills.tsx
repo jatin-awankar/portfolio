@@ -83,7 +83,7 @@ export default function Skills() {
                   transition: { duration: 0.4, ease: "easeOut" },
                 },
               }}
-              className="group rounded-2xl border border-border/75 bg-background/55 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent/28"
+              className="group rounded-2xl border border-border/75 bg-background/55 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent/28 shadow-[0_8px_30px_rgba(0,0,0,0.07)] backdrop-blur-sm dark:shadow-[0_8px_30px_rgba(0,0,0,0.24)]"
             >
               <h4 className="text-sm font-semibold tracking-[0.03em] text-foreground sm:text-base">
                 {group.title}

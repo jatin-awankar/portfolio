@@ -51,8 +51,8 @@ export default function Services() {
         <h3 className="text-2xl font-semibold sm:text-3xl">Services</h3>
 
         <p className="mt-3 text-muted-foreground leading-relaxed">
-          Built for founders and early teams who need progress, not overhead.
-          I focus on outcomes: shipping fast and setting strong foundations.
+          Built for founders and early teams who need progress, not overhead. I
+          focus on outcomes: shipping fast and setting strong foundations.
         </p>
       </div>
 
@@ -97,7 +97,7 @@ export default function Services() {
         </Accordion>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-border/70 bg-card/30 p-6">
+      <div className="mt-8 rounded-2xl border border-border/70 bg-card/30 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.07)] backdrop-blur-sm dark:shadow-[0_8px_30px_rgba(0,0,0,0.24)]">
         <p className="text-sm text-muted-foreground">
           Not sure which package fits? I will suggest the smallest path to value
           first.

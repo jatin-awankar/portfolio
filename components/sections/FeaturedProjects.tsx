@@ -83,7 +83,7 @@ export const projects = [
       "Category-based issue tracking",
       "REST API backend",
     ],
-    stack: ["React", "Node.js", "Express", "TypeScript", "MongoDB", "Mapbox"],
+    stack: ["React", "Node.js", "Express", "MongoDB", "Mapbox"],
     github: "https://github.com/jatin-awankar/Civic-Issue-Reporter",
     live: "https://civic-issue-reporter-application.vercel.app",
   },
