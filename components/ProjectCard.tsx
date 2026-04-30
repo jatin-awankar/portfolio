@@ -88,7 +88,7 @@ export default function ProjectCard({
             <div className="absolute inset-x-0 bottom-0 p-6">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <h4 className="truncate text-xl p-2 rounded-2xl font-semibold leading-tight text-foreground bg-linear-to-r from-background/50 to-transparent">
+                  <h4 className="truncate text-xl p-2 rounded-2xl font-semibold leading-tight text-white bg-linear-to-r from-slate-800/40 to-transparent">
                     {title}
                   </h4>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/80">
