@@ -1,49 +1,38 @@
-import About from "@/components/sections/About";
-import Contact from "@/components/sections/Contact";
-import FeaturedProjects from "@/components/sections/FeaturedProjects";
-import OpenSource from "@/components/open-source";
-import HeroSection from "@/components/sections/HeroSection";
-import Section from "@/components/MotionSectionWrapper";
-import ProofBar from "@/components/sections/ProofBar";
-import Services from "@/components/sections/Services";
-import Skills from "@/components/sections/Skills";
-import Writing from "@/components/sections/Writing";
+import { FocusedPane } from "@/components/portfolio/FocusedPane";
+import { Pane } from "@/components/portfolio/Pane";
+import { StatsStrip } from "@/components/portfolio/StatsStrip";
+import { TerminalPane } from "@/components/portfolio/TerminalPane";
+import { CapabilitiesPane } from "@/components/portfolio/home/CapabilitiesPane";
+import { ContactPane } from "@/components/portfolio/home/ContactPane";
+import { HomePane } from "@/components/portfolio/home/HomePane";
+import { OpenSourcePane } from "@/components/portfolio/home/OpenSourcePane";
+import { ProjectsPane } from "@/components/portfolio/home/ProjectsPane";
 
 export default function Home() {
   return (
-    <div className="editorial-page">
-      <section id="home" className="editorial-block-hero">
-        <HeroSection />
-        <ProofBar />
-      </section>
-      <div className="editorial-separator" aria-hidden="true" />
-      <Section id="services" className="editorial-block editorial-block-main">
-        <Services />
-      </Section>
-      <div className="editorial-separator" aria-hidden="true" />
-      <Section id="projects" className="editorial-block editorial-block-main">
-        <FeaturedProjects />
-      </Section>
-      <div className="editorial-separator" aria-hidden="true" />
-      <Section id="open-source" className="editorial-block editorial-block-main">
-        <OpenSource />
-      </Section>
-      <div className="editorial-separator" aria-hidden="true" />
-      <Section id="skills" className="editorial-block editorial-block-main">
-        <Skills />
-      </Section>
-      <div className="editorial-separator" aria-hidden="true" />
-      <Section id="about" className="editorial-block editorial-block-main">
-        <About />
-      </Section>
-      <div className="editorial-separator" aria-hidden="true" />
-      <Section id="writing" className="editorial-block editorial-block-main">
-        <Writing />
-      </Section>
-      <div className="editorial-separator" aria-hidden="true" />
-      <Section id="contact" className="editorial-block editorial-block-end">
-        <Contact />
-      </Section>
-    </div>
+    <>
+      <FocusedPane title="~/home/hero.tsx">
+        <HomePane />
+      </FocusedPane>
+
+      <StatsStrip />
+
+      <Pane title="~/home/projects.tsx">
+        <ProjectsPane />
+      </Pane>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Pane title="~/home/capabilities.tsx">
+          <CapabilitiesPane />
+        </Pane>
+        <Pane title="~/home/open-source.tsx">
+          <OpenSourcePane />
+        </Pane>
+      </div>
+
+      <TerminalPane title="jatin@portfolio: ~/contact">
+        <ContactPane />
+      </TerminalPane>
+    </>
   );
 }
