@@ -1,6 +1,7 @@
 import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
+import OpenSource from "@/components/open-source";
 import HeroSection from "@/components/sections/HeroSection";
 import Section from "@/components/MotionSectionWrapper";
 import ProofBar from "@/components/sections/ProofBar";
@@ -22,6 +23,10 @@ export default function Home() {
       <div className="editorial-separator" aria-hidden="true" />
       <Section id="projects" className="editorial-block editorial-block-main">
         <FeaturedProjects />
+      </Section>
+      <div className="editorial-separator" aria-hidden="true" />
+      <Section id="open-source" className="editorial-block editorial-block-main">
+        <OpenSource />
       </Section>
       <div className="editorial-separator" aria-hidden="true" />
       <Section id="skills" className="editorial-block editorial-block-main">
