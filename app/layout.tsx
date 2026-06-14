@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Poppins } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { Analytics } from "@vercel/analytics/next";
-import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/components/theme-provider";
+import { FloatingTerminal } from "@/components/portfolio/FloatingTerminal";
+import { StatusBar } from "@/components/portfolio/StatusBar";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
-  weight: ["300", "400", "500", "600"],
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -81,15 +79,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.className} ${geistMono.variable} editorial-body antialiased`}
+        className={`${inter.className} ${inter.variable} ${jetBrainsMono.variable} min-h-screen bg-zinc-950 text-zinc-200 antialiased`}
       >
-        <ThemeProvider>
-          <BackgroundWrapper>
-            <Navbar />
+        <div className="min-h-screen bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px]">
+          <StatusBar />
+          <main className="mx-auto max-w-6xl space-y-6 px-4 py-10">
             {children}
-            <Analytics />
-          </BackgroundWrapper>
-        </ThemeProvider>
+          </main>
+          <FloatingTerminal />
+          <Analytics />
+        </div>
       </body>
     </html>
   );
