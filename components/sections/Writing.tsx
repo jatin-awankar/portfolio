@@ -57,7 +57,7 @@ export default function Writing() {
 
         <div className="overflow-hidden rounded-3xl border border-border/60 bg-card/20 py-2 backdrop-blur-sm">
           <div className="flex w-max gap-5 px-5">
-            <Marquee pauseOnHover={true}>
+            <Marquee pauseOnHover={true} repeat={2}>
               {carouselBlogs.map((blog, index) => (
                 <article
                   key={`${blog.title}-${index}`}
