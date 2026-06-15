@@ -10,6 +10,8 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { Terminal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTerminalData } from "@/components/portfolio/TerminalDataProvider";
+import { DEFAULT_POSTS } from "@/components/portfolio/writings/default-posts";
 import { portfolioPages } from "@/lib/portfolio-data";
 import { projects } from "@/lib/data/projects";
 
@@ -57,6 +59,8 @@ const ascii = [
 export function FloatingTerminal() {
   const router = useRouter();
   const pathname = usePathname();
+  const { posts } = useTerminalData();
+  const blogPosts = posts?.length ? posts : DEFAULT_POSTS;
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState<Position>({ x: 0, y: 0 });
   const [history, setHistory] = useState<TerminalLine[]>([
@@ -118,6 +122,7 @@ export function FloatingTerminal() {
           "  cat about.md    short bio",
           "  cat resume      open resume",
           "  github          github stats",
+          "  blog            list writings",
           "  projects        list project case studies",
           "  contact         get in touch",
           "  clear           clear the terminal",
@@ -139,6 +144,11 @@ export function FloatingTerminal() {
           "  starred    : 11",
           "  badges     : YOLO, Pull Shark x2, Quickdraw",
         ];
+        break;
+      case "blog":
+        out = blogPosts.map(
+          (post) => `  ${post.date.padEnd(12)} ${post.title}`,
+        );
         break;
       case "ls":
         out = projects.map((project) => `  ${project.slug}/`);

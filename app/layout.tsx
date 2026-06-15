@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { FloatingTerminal } from "@/components/portfolio/FloatingTerminal";
 import { StatusBar } from "@/components/portfolio/StatusBar";
+import { TerminalDataProvider } from "@/components/portfolio/TerminalDataProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -81,14 +82,16 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${inter.variable} ${jetBrainsMono.variable} min-h-screen bg-zinc-950 text-zinc-200 antialiased`}
       >
-        <div className="min-h-screen bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px]">
-          <StatusBar />
-          <main className="mx-auto max-w-6xl space-y-6 px-4 py-10">
-            {children}
-          </main>
-          <FloatingTerminal />
-          <Analytics />
-        </div>
+        <TerminalDataProvider>
+          <div className="min-h-screen bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px]">
+            <StatusBar />
+            <main className="mx-auto max-w-6xl space-y-6 px-4 py-10">
+              {children}
+            </main>
+            <FloatingTerminal />
+            <Analytics />
+          </div>
+        </TerminalDataProvider>
       </body>
     </html>
   );
