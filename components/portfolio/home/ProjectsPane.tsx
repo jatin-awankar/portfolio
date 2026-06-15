@@ -1,52 +1,70 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { projects, type Project } from "@/lib/portfolio-data";
+import { projects, type Project } from "@/lib/data/projects";
 
 type ProjectTileProps = {
   project: Project;
   big?: boolean;
 };
 
+const featuredProjectSlugs = ["fortify", "usageflow", "petrol-partner"];
+
 function ProjectTile({ project, big = false }: ProjectTileProps) {
-  const href = project.live ?? project.github ?? "/projects";
+  const tags = project.tags ?? [];
 
   return (
     <Link
-      href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
-      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className={`group rounded-md border border-zinc-800/60 bg-zinc-950/30 p-5 transition-colors hover:border-orange-400/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none ${
+      href={`/projects#${project.slug}`}
+      className={`group overflow-hidden rounded-md border border-zinc-800/60 bg-zinc-950/30 transition-colors hover:border-orange-400/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none ${
         big ? "sm:col-span-2" : ""
       }`}
     >
-      <div className="mb-2 flex items-center justify-between gap-3">
-        <h3 className="font-display text-sm font-medium text-zinc-100">
-          {project.title}
-        </h3>
-        <ArrowUpRight className="h-4 w-4 shrink-0 text-zinc-500 transition-colors group-hover:text-orange-400 motion-reduce:transition-none" />
-      </div>
-      <p className="mb-3 text-sm leading-relaxed text-zinc-400">
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-1.5">
-        {project.stack.slice(0, 5).map((tag) => (
-          <span
-            key={tag}
-            className="rounded border border-zinc-800 px-2 py-0.5 font-display text-xs text-zinc-500"
-          >
-            {tag}
-          </span>
-        ))}
+      {project.image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={project.image}
+          alt={`${project.name} preview`}
+          className="aspect-video w-full border-b border-zinc-800/60 object-cover"
+        />
+      ) : null}
+      <div className="p-5">
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <h3 className="font-display text-sm font-medium text-zinc-100">
+            {project.name}
+          </h3>
+          <ArrowUpRight className="h-4 w-4 shrink-0 text-zinc-500 transition-colors group-hover:text-orange-400 motion-reduce:transition-none" />
+        </div>
+        <p className="mb-3 text-sm leading-relaxed text-zinc-400">
+          {project.tagline}
+        </p>
+        {tags.length > 0 ? (
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded border border-zinc-800 px-2 py-0.5 font-display text-xs text-zinc-500"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </div>
     </Link>
   );
 }
 
 export function ProjectsPane() {
+  const featuredProjects = featuredProjectSlugs
+    .map((slug) => projects.find((project) => project.slug === slug))
+    .filter((project): project is Project => Boolean(project));
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between gap-4">
-        <p className="font-display text-xs text-zinc-500">// 02 - featured work</p>
+        <p className="font-display text-xs text-zinc-500">
+          {"// 02 - featured work"}
+        </p>
         <Link
           href="/projects"
           className="rounded-sm font-display text-xs text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
@@ -55,8 +73,8 @@ export function ProjectsPane() {
         </Link>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        {projects.slice(0, 3).map((project, index) => (
-          <ProjectTile key={project.id} project={project} big={index === 0} />
+        {featuredProjects.map((project, index) => (
+          <ProjectTile key={project.slug} project={project} big={index === 0} />
         ))}
       </div>
     </div>

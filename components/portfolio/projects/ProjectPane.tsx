@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Github } from "lucide-react";
 import { Pane } from "@/components/portfolio/Pane";
 import type { Project } from "@/lib/data/projects";
@@ -23,9 +24,24 @@ export function ProjectPane({ project }: ProjectPaneProps) {
   return (
     <Pane id={project.slug} title={`~/projects/${project.slug}.tsx`}>
       <div className="space-y-6 scroll-mt-28">
-        <div className="relative flex aspect-video items-center justify-center rounded-md border border-zinc-800 bg-gradient-to-br from-zinc-900 to-zinc-950">
-          <span className="font-display text-xs text-zinc-600">preview.png</span>
-        </div>
+        {project.image ? (
+          <div className="relative aspect-video overflow-hidden rounded-md border border-zinc-800">
+            <Image
+              src={project.image}
+              alt={`${project.name} preview`}
+              fill
+              unoptimized={project.image.endsWith(".gif")}
+              className="object-cover"
+              sizes="(min-width: 1024px) 1024px, calc(100vw - 2rem)"
+            />
+          </div>
+        ) : (
+          <div className="relative flex aspect-video items-center justify-center rounded-md border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950">
+            <span className="font-display text-xs text-zinc-600">
+              preview.png
+            </span>
+          </div>
+        )}
 
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

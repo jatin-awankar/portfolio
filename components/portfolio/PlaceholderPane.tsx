@@ -8,12 +8,12 @@ export function PlaceholderPane({ path }: PlaceholderPaneProps) {
   return (
     <div className="flex flex-col items-start gap-3 text-zinc-500">
       <p className="font-display text-xs text-zinc-600">
-        // {path} - coming up next
+        {"// "} {path} {" - coming up next"}
       </p>
       <p className="max-w-md text-sm leading-relaxed">
         TODO: replace this temporary scaffold with the real {path} page content.
-        The routed shell, status bar, pane chrome, and terminal navigation are in
-        place.
+        The routed shell, status bar, pane chrome, and terminal navigation are
+        in place.
       </p>
       <Link
         href="/"

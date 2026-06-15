@@ -130,7 +130,9 @@ export function FloatingTerminal() {
         ];
         break;
       case "whoami":
-        out = ["jatin-awankar -- full-stack SaaS & MVP developer, based in India."];
+        out = [
+          "jatin-awankar -- full-stack SaaS & MVP developer, based in India.",
+        ];
         break;
       case "neofetch":
       case "banner":
@@ -197,7 +199,11 @@ export function FloatingTerminal() {
             "understanding internals rather than just using abstractions.",
           ];
         } else if (args[0] === "resume" || args[0] === "resume.pdf") {
-          window.open("/Jatin_Awankar_Resume.pdf", "_blank", "noopener,noreferrer");
+          window.open(
+            "/Jatin_Awankar_Resume.pdf",
+            "_blank",
+            "noopener,noreferrer",
+          );
           out = ["opening Jatin_Awankar_Resume.pdf in a new tab..."];
         } else {
           out = [`cat: ${args[0] ?? ""}: No such file`];
@@ -219,7 +225,9 @@ export function FloatingTerminal() {
         setHistory([]);
         return;
       case "sudo":
-        out = ["Permission denied: this shell only accepts user-level commands."];
+        out = [
+          "Permission denied: this shell only accepts user-level commands.",
+        ];
         break;
       default:
         out = [`command not found: ${name} -- type 'help' for a list`];
@@ -276,14 +284,17 @@ export function FloatingTerminal() {
         </button>
       </div>
 
-      <div ref={bodyRef} className="h-64 overflow-y-auto px-3 py-2 text-zinc-400">
+      <div
+        ref={bodyRef}
+        className="h-64 overflow-y-auto overflow-x-hidden px-3 py-2 text-zinc-400"
+      >
         {history.map((line, index) => (
           <div
             key={`${line.type}-${line.text}-${index}`}
             className={cn(
               line.type === "in"
-                ? "text-zinc-100"
-                : "whitespace-pre text-zinc-500",
+                ? "break-words text-zinc-100"
+                : "whitespace-pre-wrap break-words text-zinc-500",
             )}
           >
             {line.type === "in" ? `$ ${line.text}` : line.text}

@@ -8,7 +8,9 @@ export function HomePane() {
   return (
     <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
       <div className="max-w-xl">
-        <p className="mb-4 font-display text-xs text-zinc-500">// 01 - intro</p>
+        <p className="mb-4 font-display text-xs text-zinc-500">
+          {"// 01 - intro"}
+        </p>
         <h1 className="mb-6 font-display text-3xl font-bold leading-tight tracking-normal text-zinc-100 lg:text-5xl">
           I build scalable MVPs & SaaS products for startups
         </h1>
@@ -20,13 +22,13 @@ export function HomePane() {
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="mailto:jatinawankar02@gmail.com"
-            className="rounded-md bg-orange-400 px-5 py-2.5 font-display text-sm font-medium text-zinc-950 transition-colors hover:bg-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+            className="rounded-sm bg-orange-400 px-5 py-2.5 font-display text-sm font-medium text-zinc-950 transition-colors hover:bg-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
           >
             Start a project
           </Link>
           <Link
             href="/projects"
-            className="rounded-md border border-zinc-700 px-5 py-2.5 font-display text-sm text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+            className="rounded-sm border border-zinc-700 px-5 py-2.5 font-display text-sm text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
           >
             View work
           </Link>

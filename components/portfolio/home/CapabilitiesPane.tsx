@@ -26,7 +26,7 @@ export function CapabilitiesPane() {
     <div>
       <div className="mb-6 flex items-center justify-between gap-4">
         <p className="font-display text-xs text-zinc-500">
-          // 03 - what I work with
+          {"// 03 - what I work with"}
         </p>
         <Link
           href="/services"

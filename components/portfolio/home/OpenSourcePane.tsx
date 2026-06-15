@@ -1,21 +1,21 @@
 import Link from "next/link";
 import { PRCard } from "@/components/portfolio/PRCard";
-import { openSourceProjects, type ContributionStatus } from "@/lib/portfolio-data";
+import { getOpenSourcePRs } from "@/lib/github";
 
-const statusLabels: Record<ContributionStatus, "Merged" | "In review"> = {
-  merged: "Merged",
-  "in-review": "In review",
-};
-
-export function OpenSourcePane() {
-  const contributions = openSourceProjects.flatMap(
-    (project) => project.contributions,
-  );
+export async function OpenSourcePane() {
+  const totalContributions = await getOpenSourcePRs()
+    .then((prs) => prs.length)
+    .catch(() => 0);
+  const contributions = await getOpenSourcePRs()
+    .then((prs) => prs.slice(0, 3))
+    .catch(() => []);
 
   return (
     <div>
       <div className="mb-6 flex items-center justify-between gap-4">
-        <p className="font-display text-xs text-zinc-500">// 04 - open source</p>
+        <p className="font-display text-xs text-zinc-500">
+          {"// 04 - open source (" + totalContributions + " PRs)"}
+        </p>
         <Link
           href="/about"
           className="rounded-sm font-display text-xs text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
@@ -26,12 +26,11 @@ export function OpenSourcePane() {
       <div className="grid gap-3">
         {contributions.map((contribution) => (
           <PRCard
-            key={contribution.pr}
-            repo={`openstatusHQ/openstatus ${contribution.prNumber}`}
+            key={contribution.url}
+            repo={contribution.repo}
             title={contribution.title}
-            status={statusLabels[contribution.status]}
-            href={contribution.pr}
-            description={contribution.description}
+            status={contribution.status}
+            href={contribution.url}
           />
         ))}
       </div>

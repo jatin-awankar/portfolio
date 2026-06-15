@@ -18,7 +18,7 @@ export function BioPane() {
     <div className="space-y-6">
       <div>
         <p className="mb-2 font-display text-xs text-zinc-500">
-          // 01 - about.md
+          {"// 01 - about.md"}
         </p>
         <p className="max-w-2xl text-sm leading-relaxed text-zinc-300">
           I design and build production-grade web applications from scratch --
