@@ -50,7 +50,7 @@ const ascii = [
   "  os      : Next.js 16",
   "  shell   : TypeScript + Tailwind",
   "  stack   : Postgres, Redis, BullMQ",
-  "  uptime  : 3+ yrs shipping products",
+  "  repos   : 36, followers: 3",
   "  status  : available for work",
 ];
 
@@ -117,6 +117,7 @@ export function FloatingTerminal() {
           "  open <project>  open a project case study",
           "  cat about.md    short bio",
           "  cat resume      open resume",
+          "  github          github stats",
           "  projects        list project case studies",
           "  contact         get in touch",
           "  clear           clear the terminal",
@@ -129,6 +130,15 @@ export function FloatingTerminal() {
       case "neofetch":
       case "banner":
         out = [...ascii];
+        break;
+      case "github":
+        out = [
+          "jatin-awankar",
+          "  repos      : 36",
+          "  followers  : 3",
+          "  starred    : 11",
+          "  badges     : YOLO, Pull Shark x2, Quickdraw",
+        ];
         break;
       case "ls":
         out = projects.map((project) => `  ${project.slug}/`);
@@ -172,9 +182,9 @@ export function FloatingTerminal() {
       case "cat":
         if (args[0] === "about.md") {
           out = [
-            "I'm a full-stack developer focused on SaaS products and backend",
-            "systems that hold up in real-world use: retries, race conditions,",
-            "duplicate events, and partial failures included.",
+            "I design and build production-grade web applications from",
+            "scratch -- focused on system design, performance, and",
+            "understanding internals rather than just using abstractions.",
           ];
         } else if (args[0] === "resume" || args[0] === "resume.pdf") {
           window.open("/Jatin_Awankar_Resume.pdf", "_blank", "noopener,noreferrer");
