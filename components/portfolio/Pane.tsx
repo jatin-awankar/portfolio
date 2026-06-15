@@ -5,13 +5,15 @@ export type PaneProps = {
   title: string;
   children: ReactNode;
   className?: string;
+  id?: string;
 };
 
-export function Pane({ title, children, className }: PaneProps) {
+export function Pane({ title, children, className, id }: PaneProps) {
   return (
     <section
+      id={id}
       className={cn(
-        "overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-900/40 backdrop-blur-sm",
+        "scroll-mt-28 overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-900/40 backdrop-blur-sm",
         className,
       )}
     >

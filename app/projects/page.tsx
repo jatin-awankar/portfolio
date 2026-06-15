@@ -1,11 +1,14 @@
-import { Pane } from "@/components/portfolio/Pane";
-import { PlaceholderPane } from "@/components/portfolio/PlaceholderPane";
+import { PageIntro } from "@/components/portfolio/projects/PageIntro";
+import { ProjectPane } from "@/components/portfolio/projects/ProjectPane";
+import { projects } from "@/lib/data/projects";
 
-// TODO: Replace this scaffold with the full projects page.
 export default function ProjectsPage() {
   return (
-    <Pane title="~/projects.tsx">
-      <PlaceholderPane path="projects" />
-    </Pane>
+    <>
+      <PageIntro />
+      {projects.map((project) => (
+        <ProjectPane key={project.slug} project={project} />
+      ))}
+    </>
   );
 }

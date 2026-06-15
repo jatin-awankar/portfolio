@@ -1,10 +1,17 @@
 "use client";
 
-import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from "react";
+import {
+  FormEvent,
+  MouseEvent as ReactMouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Terminal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { portfolioPages } from "@/lib/portfolio-data";
+import { projects } from "@/lib/data/projects";
 
 type TerminalLine = {
   type: "in" | "out";
@@ -28,6 +35,12 @@ function pageHref(input: string): string | undefined {
   const normalized = input.replace(/^\//, "").replace(/\/$/, "");
   const target = portfolioPages.find((page) => page.key === normalized);
   return target?.href;
+}
+
+function projectSlug(input: string): string | undefined {
+  const normalized = input.replace(/^\//, "").replace(/\/$/, "");
+  const target = projects.find((project) => project.slug === normalized);
+  return target?.slug;
 }
 
 const ascii = [
@@ -99,8 +112,9 @@ export function FloatingTerminal() {
           "  help            this list",
           "  whoami          who am I?",
           "  neofetch        system info",
-          "  ls              list pages",
+          "  ls              list project slugs",
           "  cd <page>       navigate",
+          "  open <project>  open a project case study",
           "  cat about.md    short bio",
           "  cat resume      open resume",
           "  projects        list project case studies",
@@ -117,8 +131,31 @@ export function FloatingTerminal() {
         out = [...ascii];
         break;
       case "ls":
-        out = portfolioPages.map((page) => `  ${page.label}/`);
+        out = projects.map((project) => `  ${project.slug}/`);
         break;
+      case "open": {
+        const slug = projectSlug(args[0] ?? "");
+        if (!slug) {
+          out = [
+            `open: no such project: ${args[0] ?? ""}`,
+            `try: ${projects.map((project) => project.slug).join(", ")}`,
+          ];
+          break;
+        }
+
+        if (pathname === "/projects") {
+          document.getElementById(slug)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+          window.history.replaceState(null, "", `/projects#${slug}`);
+        } else {
+          router.push(`/projects#${slug}`);
+        }
+
+        out = [`opening ~/projects/${slug}.tsx`];
+        break;
+      }
       case "cd": {
         const href = pageHref(args[0] ?? "");
         if (href) {
@@ -147,12 +184,9 @@ export function FloatingTerminal() {
         }
         break;
       case "projects":
-        out = [
-          "UsageFlow            -- SaaS billing & usage tracking",
-          "Petrol Partner       -- real-time ride booking, concurrency-safe",
-          "STEM Video App       -- low-latency video collaboration",
-          "Civic Issue Reporter -- map-based civic reporting",
-        ];
+        out = projects.map(
+          (project) => `${project.name.padEnd(21)} -- ${project.tagline}`,
+        );
         break;
       case "contact":
         out = [
