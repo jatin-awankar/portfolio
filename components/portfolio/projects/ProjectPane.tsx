@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { ArrowUpRight, File, Github } from "lucide-react";
 import { Pane } from "@/components/portfolio/Pane";
 import type { Project } from "@/lib/data/projects";
+import { DemoDialog } from "./DemoDialog";
 import { LogEntry } from "./LogEntry";
 
 export type ProjectPaneProps = {
@@ -19,6 +23,7 @@ function formatStack(stack: Project["stack"]): string {
 }
 
 export function ProjectPane({ project }: ProjectPaneProps) {
+  const [demoOpen, setDemoOpen] = useState(false);
   const stack = formatStack(project.stack);
 
   return (
@@ -53,6 +58,16 @@ export function ProjectPane({ project }: ProjectPaneProps) {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
+            {project.demo ? (
+              <button
+                type="button"
+                onClick={() => setDemoOpen(true)}
+                className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+              >
+                <ArrowUpRight className="h-3.5 w-3.5" />
+                open --demo
+              </button>
+            ) : null}
             <Link
               href={project.live}
               className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
@@ -67,7 +82,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
               <Github className="h-3.5 w-3.5" />
               open --source
             </Link>
-            {project.name === "UsageFlow" && (
+            {project.name === "UsageFlow" ? (
               <Link
                 href="https://usageflow.vercel.app/docs"
                 className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
@@ -75,9 +90,17 @@ export function ProjectPane({ project }: ProjectPaneProps) {
                 <File className="h-3.5 w-3.5" />
                 docs
               </Link>
-            )}
+            ) : null}
           </div>
         </div>
+
+        {demoOpen && project.demo ? (
+          <DemoDialog
+            demo={project.demo}
+            projectName={project.name}
+            onClose={() => setDemoOpen(false)}
+          />
+        ) : null}
 
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
