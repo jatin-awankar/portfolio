@@ -7,7 +7,9 @@ const iconLinkClass =
 export function ContactPane() {
   return (
     <div>
-      <p className="mb-3 font-display text-xs text-zinc-500">$ contact --open</p>
+      <p className="mb-3 font-display text-xs text-zinc-500">
+        $ contact --open
+      </p>
       <h2 className="mb-6 max-w-xl font-display text-2xl font-bold tracking-normal text-zinc-100 lg:text-3xl">
         Ready to build your next product with confidence?
       </h2>
@@ -18,7 +20,7 @@ export function ContactPane() {
       <div className="flex flex-wrap items-center gap-4">
         <Link
           href="mailto:jatinawankar02@gmail.com"
-          className="rounded-md bg-orange-400 px-5 py-2.5 font-display text-sm font-medium text-zinc-950 transition-colors hover:bg-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 motion-reduce:transition-none"
+          className="rounded-sm bg-orange-400 px-5 py-2.5 font-display text-sm font-medium text-zinc-950 transition-colors hover:bg-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 motion-reduce:transition-none"
         >
           contact --email
         </Link>

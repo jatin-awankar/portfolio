@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight, Github } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, File, Github } from "lucide-react";
 import { Pane } from "@/components/portfolio/Pane";
 import type { Project } from "@/lib/data/projects";
 import { LogEntry } from "./LogEntry";
@@ -23,9 +24,24 @@ export function ProjectPane({ project }: ProjectPaneProps) {
   return (
     <Pane id={project.slug} title={`~/projects/${project.slug}.tsx`}>
       <div className="space-y-6 scroll-mt-28">
-        <div className="relative flex aspect-video items-center justify-center rounded-md border border-zinc-800 bg-gradient-to-br from-zinc-900 to-zinc-950">
-          <span className="font-display text-xs text-zinc-600">preview.png</span>
-        </div>
+        {project.image ? (
+          <div className="relative h-56 max-h-56 w-full overflow-hidden rounded-md border border-zinc-800">
+            <Image
+              src={project.image}
+              alt={`${project.name} preview`}
+              fill
+              unoptimized={project.image.endsWith(".gif")}
+              className="object-cover object-top"
+              sizes="(min-width: 1024px) 1024px, calc(100vw - 2rem)"
+            />
+          </div>
+        ) : (
+          <div className="relative flex h-56 max-h-56 w-full items-center justify-center rounded-md border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950">
+            <span className="font-display text-xs text-zinc-600">
+              preview.png
+            </span>
+          </div>
+        )}
 
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -42,7 +58,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
               className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
             >
               <ArrowUpRight className="h-3.5 w-3.5" />
-              open --live
+              {project.name === "Fortify" ? "view on npm" : "open --live"}
             </Link>
             <Link
               href={project.source}
@@ -51,6 +67,15 @@ export function ProjectPane({ project }: ProjectPaneProps) {
               <Github className="h-3.5 w-3.5" />
               open --source
             </Link>
+            {project.name === "UsageFlow" && (
+              <Link
+                href="https://usageflow.vercel.app/docs"
+                className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+              >
+                <File className="h-3.5 w-3.5" />
+                docs
+              </Link>
+            )}
           </div>
         </div>
 

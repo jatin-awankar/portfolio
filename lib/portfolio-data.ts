@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { Activity, Cpu, Database, Workflow } from "lucide-react";
 
 export type PortfolioPage = {
-  key: "home" | "projects" | "about" | "services" | "writings" | "open-source";
+  key: "home" | "projects" | "about" | "writings";
   label: string;
   href: string;
 };
@@ -11,9 +11,7 @@ export const portfolioPages: PortfolioPage[] = [
   { key: "home", label: "home", href: "/" },
   { key: "projects", label: "projects", href: "/projects" },
   { key: "about", label: "about", href: "/about" },
-  { key: "services", label: "services", href: "/services" },
   { key: "writings", label: "writings", href: "/writings" },
-  { key: "open-source", label: "open-source", href: "/open-source" },
 ];
 
 export type Project = {

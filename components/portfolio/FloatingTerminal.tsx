@@ -10,8 +10,11 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { Terminal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTerminalData } from "@/components/portfolio/TerminalDataProvider";
+import { DEFAULT_POSTS } from "@/components/portfolio/writings/default-posts";
 import { portfolioPages } from "@/lib/portfolio-data";
 import { projects } from "@/lib/data/projects";
+import { playCommandExecute, playKeyClick } from "@/lib/sounds";
 
 type TerminalLine = {
   type: "in" | "out";
@@ -50,13 +53,15 @@ const ascii = [
   "  os      : Next.js 16",
   "  shell   : TypeScript + Tailwind",
   "  stack   : Postgres, Redis, BullMQ",
-  "  uptime  : 3+ yrs shipping products",
+  "  repos   : 36, followers: 3",
   "  status  : available for work",
 ];
 
 export function FloatingTerminal() {
   const router = useRouter();
   const pathname = usePathname();
+  const { posts } = useTerminalData();
+  const blogPosts = posts?.length ? posts : DEFAULT_POSTS;
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState<Position>({ x: 0, y: 0 });
   const [history, setHistory] = useState<TerminalLine[]>([
@@ -96,6 +101,9 @@ export function FloatingTerminal() {
     window.addEventListener("mouseup", onUp);
   };
 
+  const canPlaySound = () =>
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const run = (raw: string) => {
     const cmd = raw.trim();
     if (!cmd) {
@@ -112,11 +120,13 @@ export function FloatingTerminal() {
           "  help            this list",
           "  whoami          who am I?",
           "  neofetch        system info",
-          "  ls              list project slugs",
+          "  ls              list current directory",
           "  cd <page>       navigate",
           "  open <project>  open a project case study",
           "  cat about.md    short bio",
           "  cat resume      open resume",
+          "  github          github stats",
+          "  blog            list writings",
           "  projects        list project case studies",
           "  contact         get in touch",
           "  clear           clear the terminal",
@@ -124,14 +134,34 @@ export function FloatingTerminal() {
         ];
         break;
       case "whoami":
-        out = ["jatin-awankar -- full-stack SaaS & MVP developer, based in India."];
+        out = [
+          "jatin-awankar -- full-stack SaaS & MVP developer, based in India.",
+        ];
         break;
       case "neofetch":
       case "banner":
         out = [...ascii];
         break;
+      case "github":
+        out = [
+          "jatin-awankar",
+          "  repos      : 36",
+          "  followers  : 3",
+          "  starred    : 11",
+          "  badges     : YOLO, Pull Shark x2, Quickdraw",
+        ];
+        break;
+      case "blog":
+        out = blogPosts.map(
+          (post) => `  ${post.date.padEnd(12)} ${post.title}`,
+        );
+        break;
       case "ls":
-        out = projects.map((project) => `  ${project.slug}/`);
+        if (pathname === "/projects") {
+          out = projects.map((project) => `  ${project.slug}/`);
+        } else {
+          out = portfolioPages.map((page) => `  ${page.key}/`);
+        }
         break;
       case "open": {
         const slug = projectSlug(args[0] ?? "");
@@ -172,12 +202,16 @@ export function FloatingTerminal() {
       case "cat":
         if (args[0] === "about.md") {
           out = [
-            "I'm a full-stack developer focused on SaaS products and backend",
-            "systems that hold up in real-world use: retries, race conditions,",
-            "duplicate events, and partial failures included.",
+            "I design and build production-grade web applications from",
+            "scratch -- focused on system design, performance, and",
+            "understanding internals rather than just using abstractions.",
           ];
         } else if (args[0] === "resume" || args[0] === "resume.pdf") {
-          window.open("/Jatin_Awankar_Resume.pdf", "_blank", "noopener,noreferrer");
+          window.open(
+            "/Jatin_Awankar_Resume.pdf",
+            "_blank",
+            "noopener,noreferrer",
+          );
           out = ["opening Jatin_Awankar_Resume.pdf in a new tab..."];
         } else {
           out = [`cat: ${args[0] ?? ""}: No such file`];
@@ -199,7 +233,9 @@ export function FloatingTerminal() {
         setHistory([]);
         return;
       case "sudo":
-        out = ["Permission denied: this shell only accepts user-level commands."];
+        out = [
+          "Permission denied: this shell only accepts user-level commands.",
+        ];
         break;
       default:
         out = [`command not found: ${name} -- type 'help' for a list`];
@@ -215,6 +251,7 @@ export function FloatingTerminal() {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     run(input);
+    if (canPlaySound()) playCommandExecute();
     setInput("");
   };
 
@@ -256,14 +293,17 @@ export function FloatingTerminal() {
         </button>
       </div>
 
-      <div ref={bodyRef} className="h-64 overflow-y-auto px-3 py-2 text-zinc-400">
+      <div
+        ref={bodyRef}
+        className="h-64 overflow-y-auto overflow-x-hidden px-3 py-2 text-zinc-400"
+      >
         {history.map((line, index) => (
           <div
             key={`${line.type}-${line.text}-${index}`}
             className={cn(
               line.type === "in"
-                ? "text-zinc-100"
-                : "whitespace-pre text-zinc-500",
+                ? "wrap-break-word text-zinc-100"
+                : "whitespace-pre-wrap wrap-break-word text-zinc-500",
             )}
           >
             {line.type === "in" ? `$ ${line.text}` : line.text}
@@ -278,7 +318,10 @@ export function FloatingTerminal() {
         <span className="text-orange-400">$</span>
         <input
           value={input}
-          onChange={(event) => setInput(event.target.value)}
+          onChange={(event) => {
+            setInput(event.target.value);
+            if (canPlaySound()) playKeyClick();
+          }}
           className="flex-1 rounded-sm bg-transparent text-zinc-100 outline-none placeholder:text-zinc-600 focus-visible:ring-2 focus-visible:ring-orange-400"
           placeholder="type a command..."
           autoFocus

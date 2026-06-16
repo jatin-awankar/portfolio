@@ -1,12 +1,25 @@
+import { getOpenSourcePRs } from "@/lib/github";
+
 type Stat = {
   label: string;
   value: string;
 };
 
+const mergedContributions = await getOpenSourcePRs()
+  .then((prs) => prs.filter((pr) => pr.status === "Merged").length)
+  .catch(() => 0);
+
+const activeContributions = await getOpenSourcePRs()
+  .then((prs) => prs.filter((pr) => pr.status === "In review").length)
+  .catch(() => 0);
+
 const stats: Stat[] = [
-  { label: "experience", value: "3+ yrs" },
+  { label: "experience", value: "1+ yrs" },
   { label: "shipped", value: "4 products" },
-  { label: "open source", value: "2 PRs active" },
+  {
+    label: "open source",
+    value: `${activeContributions} ${activeContributions < 2 ? "PR" : "PRs"} active · ${mergedContributions} merged`,
+  },
   { label: "status", value: "available" },
 ];
 
