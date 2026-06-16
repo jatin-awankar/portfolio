@@ -188,8 +188,8 @@ export function ContextMenu() {
       ref={menuRef}
       role="menu"
       aria-label="Site context menu"
-      style={{ top: pos.y, left: pos.x }}
-      className="fixed z-9999 w-[260px] overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-950/95 font-display text-xs shadow-2xl shadow-black/60 backdrop-blur-md"
+      style={{ top: pos.y, left: pos.x, zIndex: 9999 }}
+      className="fixed w-[260px] overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-950/95 font-display text-xs shadow-2xl shadow-black/60 backdrop-blur-md"
     >
       {/* header */}
       <div className="flex items-center justify-between border-b border-zinc-800/60 bg-zinc-900/40 px-3 py-2 text-zinc-500">
