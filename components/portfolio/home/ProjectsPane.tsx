@@ -27,7 +27,7 @@ function ProjectTile({ project, big = false }: ProjectTileProps) {
             alt={`${project.name} preview`}
             fill
             unoptimized={project.image.endsWith(".gif")}
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(min-width: 1024px) 512px, calc(100vw - 2rem)"
           />
         </div>

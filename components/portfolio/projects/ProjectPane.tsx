@@ -31,7 +31,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
               alt={`${project.name} preview`}
               fill
               unoptimized={project.image.endsWith(".gif")}
-              className="object-cover"
+              className="object-cover object-top"
               sizes="(min-width: 1024px) 1024px, calc(100vw - 2rem)"
             />
           </div>
