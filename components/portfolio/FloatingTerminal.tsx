@@ -14,6 +14,7 @@ import { useTerminalData } from "@/components/portfolio/TerminalDataProvider";
 import { DEFAULT_POSTS } from "@/components/portfolio/writings/default-posts";
 import { portfolioPages } from "@/lib/portfolio-data";
 import { projects } from "@/lib/data/projects";
+import { playCommandExecute, playKeyClick } from "@/lib/sounds";
 
 type TerminalLine = {
   type: "in" | "out";
@@ -100,6 +101,9 @@ export function FloatingTerminal() {
     window.addEventListener("mouseup", onUp);
   };
 
+  const canPlaySound = () =>
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const run = (raw: string) => {
     const cmd = raw.trim();
     if (!cmd) {
@@ -116,7 +120,7 @@ export function FloatingTerminal() {
           "  help            this list",
           "  whoami          who am I?",
           "  neofetch        system info",
-          "  ls              list project slugs",
+          "  ls              list current directory",
           "  cd <page>       navigate",
           "  open <project>  open a project case study",
           "  cat about.md    short bio",
@@ -153,7 +157,11 @@ export function FloatingTerminal() {
         );
         break;
       case "ls":
-        out = projects.map((project) => `  ${project.slug}/`);
+        if (pathname === "/projects") {
+          out = projects.map((project) => `  ${project.slug}/`);
+        } else {
+          out = portfolioPages.map((page) => `  ${page.key}/`);
+        }
         break;
       case "open": {
         const slug = projectSlug(args[0] ?? "");
@@ -243,6 +251,7 @@ export function FloatingTerminal() {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     run(input);
+    if (canPlaySound()) playCommandExecute();
     setInput("");
   };
 
@@ -293,8 +302,8 @@ export function FloatingTerminal() {
             key={`${line.type}-${line.text}-${index}`}
             className={cn(
               line.type === "in"
-                ? "break-words text-zinc-100"
-                : "whitespace-pre-wrap break-words text-zinc-500",
+                ? "wrap-break-word text-zinc-100"
+                : "whitespace-pre-wrap wrap-break-word text-zinc-500",
             )}
           >
             {line.type === "in" ? `$ ${line.text}` : line.text}
@@ -309,7 +318,10 @@ export function FloatingTerminal() {
         <span className="text-orange-400">$</span>
         <input
           value={input}
-          onChange={(event) => setInput(event.target.value)}
+          onChange={(event) => {
+            setInput(event.target.value);
+            if (canPlaySound()) playKeyClick();
+          }}
           className="flex-1 rounded-sm bg-transparent text-zinc-100 outline-none placeholder:text-zinc-600 focus-visible:ring-2 focus-visible:ring-orange-400"
           placeholder="type a command..."
           autoFocus
