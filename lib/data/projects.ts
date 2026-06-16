@@ -1,8 +1,14 @@
 export type ProjectLogEntry = {
   hash: string;
-  type: "feat" | "fix" | "perf" | "refactor";
+  type: "feat" | "fix" | "perf" | "refactor" | "release";
   desc: string;
 };
+
+export interface DemoAccess {
+  url: string;
+  email: string;
+  password: string;
+}
 
 export interface Project {
   slug: string;
@@ -12,6 +18,7 @@ export interface Project {
   overview: string;
   live: string;
   source: string;
+  demo?: DemoAccess;
   tags?: string[];
   stack: Record<string, string>;
   log: ProjectLogEntry[];
@@ -38,24 +45,24 @@ export const projects: Project[] = [
     },
     log: [
       {
-        hash: "1f4a7c2",
-        type: "feat",
-        desc: "interactive chat mode with streaming responses via the OpenAI Responses API",
+        hash: "6410bea",
+        type: "release",
+        desc: "update version to 0.2.2",
       },
       {
-        hash: "8e2d910",
+        hash: "c9b11a9",
         type: "feat",
-        desc: "git-aware commit message generation -- conventional commit style",
+        desc: "enhance chat history management with session inspection and improved cancellation handling",
       },
       {
-        hash: "c6b3f04",
+        hash: "c2f0145",
         type: "feat",
-        desc: "explain command -- turns error logs and stack traces into plain English",
+        desc: "Integrate history management into chat service and command service, enabling session persistence and retrieval",
       },
       {
-        hash: "5a91e73",
+        hash: "6d18ade",
         type: "feat",
-        desc: "summarize command -- codebase and folder overviews from the terminal",
+        desc: "alias for CLI command, enhance command options, and update model version",
       },
     ],
   },
@@ -69,6 +76,11 @@ export const projects: Project[] = [
       "UsageFlow lets SaaS teams meter usage, apply pricing rules, and generate accurate invoices -- without building billing infrastructure from scratch. It's built for products where usage spikes, retries, and partial failures are the norm, and handles each one without double-charging or losing data.",
     live: "https://usageflow.vercel.app",
     source: "https://github.com/jatin-awankar/UsageFlow",
+    demo: {
+      url: "https://usageflow.vercel.app",
+      email: "demo@usageflow.com",
+      password: "Test@1234",
+    },
     tags: ["Next.js", "Postgres", "Redis", "BullMQ", "RBAC"],
     stack: {
       framework: "next@15",
@@ -109,6 +121,11 @@ export const projects: Project[] = [
       "Petrol Partner connects drivers and riders for shared trips, with live location tracking and a booking flow that stays correct even when multiple riders try to claim the same seat at once.",
     live: "https://petrol-partner.vercel.app",
     source: "https://github.com/jatin-awankar/Petrol-Partner",
+    demo: {
+      url: "https://petrol-partner.vercel.app/",
+      email: "demo@petrolpartner.com",
+      password: "Test@1234",
+    },
     tags: ["Supabase", "Mapbox", "Razorpay", "Realtime", "Node.js"],
     stack: {
       framework: "next@14",
@@ -125,9 +142,9 @@ export const projects: Project[] = [
         desc: "row-level locking prevents double-booking the same seat",
       },
       {
-        hash: "c204e17",
+        hash: "23ee613",
         type: "feat",
-        desc: "live driver location via Supabase Realtime channels",
+        desc: "implement automatic retry for pending payment reconciliations and enhance state handling",
       },
       {
         hash: "99ab1f0",
@@ -145,12 +162,17 @@ export const projects: Project[] = [
       "A video platform built for live STEM classes -- role-based rooms for teachers and students, screen sharing, and session recording, designed to stay usable on unreliable connections.",
     live: "https://stem-connecting-people.vercel.app",
     source: "https://github.com/jatin-awankar/STEM-video-conference-app",
+    demo: {
+      url: "https://stem-connecting-people.vercel.app/",
+      email: "sign-in-with-your-email",
+      password: "otp-based",
+    },
     stack: {
       framework: "next@14",
       auth: "clerk",
       video: "getstream",
       realtime: "websockets",
-      ui: "tailwind css"
+      ui: "tailwind css",
     },
     log: [
       {
@@ -179,6 +201,11 @@ export const projects: Project[] = [
       "Lets residents report civic issues -- potholes, broken streetlights, garbage -- by pinning a location on a map and attaching a photo, then tracks each report through a status pipeline municipal staff can act on.",
     live: "https://civic-issue-reporter-application.vercel.app",
     source: "https://github.com/jatin-awankar/civic-issue-reporter",
+    demo: {
+      url: "https://civic-issue-reporter-application.vercel.app/",
+      email: "demo@civic.com",
+      password: "Demo@1234",
+    },
     stack: {
       framework: "react",
       backend: "node + express",

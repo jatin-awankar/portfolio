@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { FloatingTerminal } from "@/components/portfolio/FloatingTerminal";
 import { StatusBar } from "@/components/portfolio/StatusBar";
 import { TerminalDataProvider } from "@/components/portfolio/TerminalDataProvider";
+import { ContextMenu } from "@/components/portfolio/ContextMenu";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -89,6 +90,7 @@ export default function RootLayout({
               {children}
             </main>
             <FloatingTerminal />
+            <ContextMenu />
             <Analytics />
           </div>
         </TerminalDataProvider>
