@@ -18,7 +18,7 @@ const stats: Stat[] = [
   { label: "shipped", value: "4 products" },
   {
     label: "open source",
-    value: `${activeContributions} ${activeContributions < 2 ? "PR" : "PRs"} active · ${mergedContributions} merged`,
+    value: `${activeContributions} PR${activeContributions < 1 ? "" : "s"} active · ${mergedContributions} PR${mergedContributions === 1 ? "" : "s"} merged`,
   },
   { label: "status", value: "available" },
 ];

@@ -7,7 +7,6 @@
 // components/portfolio/about/GitHubActivityPane.tsx).
 
 const GITHUB_USERNAME = "jatin-awankar";
-const EXCLUDED_PR_REPO_MATCHES = ["firstcontributions"];
 
 export interface ContributionDay {
   date: string;
@@ -98,57 +97,74 @@ export interface PullRequest {
 }
 
 export async function getOpenSourcePRs(): Promise<PullRequest[]> {
-  const res = await fetch(
-    `https://api.github.com/search/issues?q=type:pr+author:${GITHUB_USERNAME}+is:public&sort=updated&order=desc&per_page=10`,
-    {
-      // Works without a token (60 req/hr); token bumps this to 5000/hr.
-      headers: process.env.GITHUB_TOKEN
-        ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
-        : {},
-      next: { revalidate: 3600 },
-    },
-  );
+  const headers: HeadersInit = process.env.GITHUB_TOKEN
+    ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+    : {};
 
-  if (!res.ok) {
-    throw new Error(`GitHub search error: ${res.status}`);
+  const [mergedRes, openRes] = await Promise.all([
+    fetch(
+      `https://api.github.com/search/issues?q=type:pr+author:${GITHUB_USERNAME}+is:merged+is:public&sort=updated&order=desc&per_page=10`,
+      { headers, next: { revalidate: 3600 } },
+    ),
+    fetch(
+      `https://api.github.com/search/issues?q=type:pr+author:${GITHUB_USERNAME}+is:open+is:public&sort=updated&order=desc&per_page=10`,
+      { headers, next: { revalidate: 3600 } },
+    ),
+  ]);
+
+  if (!mergedRes.ok || !openRes.ok) {
+    throw new Error(
+      `GitHub search error: ${mergedRes.status} / ${openRes.status}`,
+    );
   }
 
-  const json = await res.json();
+  const [mergedJson, openJson] = await Promise.all([
+    mergedRes.json(),
+    openRes.json(),
+  ]);
 
-  return json.items
+  const merged = (mergedJson.items ?? [])
     .filter(
-      (item: {
-        repository_url: string;
-        state: string;
-        pull_request?: { merged_at: string | null };
-      }) => {
-        const repo = item.repository_url
-          .replace("https://api.github.com/repos/", "")
-          .toLowerCase();
-        const isMerged = Boolean(item.pull_request?.merged_at);
-        const isOpen = item.state === "open";
-
-        return (
-          !repo.startsWith(`${GITHUB_USERNAME}/`) &&
-          !EXCLUDED_PR_REPO_MATCHES.some((excluded) =>
-            repo.includes(excluded),
-          ) &&
-          (isMerged || isOpen)
-        );
-      },
+      (item: { repository_url: string }) =>
+        !item.repository_url.includes(`/repos/${GITHUB_USERNAME}/`) &&
+        !item.repository_url.includes('/repos/firstcontributions/')
     )
     .map(
       (item: {
         repository_url: string;
         title: string;
-        state: string;
-        pull_request?: { merged_at: string | null };
         html_url: string;
       }) => ({
         repo: item.repository_url.replace("https://api.github.com/repos/", ""),
         title: item.title,
-        status: item.pull_request?.merged_at ? "Merged" : "In review",
+        status: "Merged" as const,
         url: item.html_url,
       }),
-    ) as PullRequest[];
+    );
+
+  const open = (openJson.items ?? [])
+    .filter(
+      (item: { repository_url: string }) =>
+        !item.repository_url.includes(`/repos/${GITHUB_USERNAME}/`) &&
+        !item.repository_url.includes('/repos/firstcontributions/')
+    )
+    .map(
+      (item: {
+        repository_url: string;
+        title: string;
+        html_url: string;
+      }) => ({
+        repo: item.repository_url.replace("https://api.github.com/repos/", ""),
+        title: item.title,
+        status: "In review" as const,
+        url: item.html_url,
+      }),
+    );
+
+  const seen = new Set<string>();
+  return [...merged, ...open].filter(({ url }) => {
+    if (seen.has(url)) return false;
+    seen.add(url);
+    return true;
+  });
 }
