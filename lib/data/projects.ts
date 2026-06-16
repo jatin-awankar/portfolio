@@ -79,7 +79,7 @@ export const projects: Project[] = [
     demo: {
       url: "https://usageflow.vercel.app",
       email: "demo@usageflow.com",
-      password: "Test@1234",
+      password: "request-access",
     },
     tags: ["Next.js", "Postgres", "Redis", "BullMQ", "RBAC"],
     stack: {
@@ -124,7 +124,7 @@ export const projects: Project[] = [
     demo: {
       url: "https://petrol-partner.vercel.app/",
       email: "demo@petrolpartner.com",
-      password: "Test@1234",
+      password: "request-access",
     },
     tags: ["Supabase", "Mapbox", "Razorpay", "Realtime", "Node.js"],
     stack: {
@@ -204,7 +204,7 @@ export const projects: Project[] = [
     demo: {
       url: "https://civic-issue-reporter-application.vercel.app/",
       email: "demo@civic.com",
-      password: "Demo@1234",
+      password: "request-access",
     },
     stack: {
       framework: "react",
