@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, File, Github } from "lucide-react";
 import { Pane } from "@/components/portfolio/Pane";
 import type { Project } from "@/lib/data/projects";
 import { LogEntry } from "./LogEntry";
@@ -67,6 +67,15 @@ export function ProjectPane({ project }: ProjectPaneProps) {
               <Github className="h-3.5 w-3.5" />
               open --source
             </Link>
+            {project.name === "UsageFlow" && (
+              <Link
+                href="https://usageflow.vercel.app/docs"
+                className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+              >
+                <File className="h-3.5 w-3.5" />
+                docs
+              </Link>
+            )}
           </div>
         </div>
 
