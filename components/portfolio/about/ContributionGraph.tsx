@@ -44,14 +44,14 @@ function toDateKey(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
-function addDays(date: Date, amount: number): Date {
+function addDaysUTC(date: Date, amount: number): Date {
   const next = new Date(date);
-  next.setDate(next.getDate() + amount);
+  next.setUTCDate(next.getUTCDate() + amount);
   return next;
 }
 
-function startOfWeek(date: Date): Date {
-  return addDays(date, -date.getDay());
+function startOfWeekUTC(date: Date): Date {
+  return addDaysUTC(date, -date.getUTCDay());
 }
 
 function formatDayLabel(dateKey: string): string {
@@ -72,10 +72,10 @@ function pluralizeContributions(count: number): string {
 }
 
 function makePlaceholderDays(): GraphDay[] {
-  const start = new Date("2024-07-01");
+  const start = new Date(Date.UTC(2024, 6, 1));
 
   return Array.from({ length: 364 }, (_, index) => {
-    const date = addDays(start, index);
+    const date = addDaysUTC(start, index);
     const level = contributionLevel(index);
     const count = level === 0 ? 0 : level + ((index * 3) % 4);
 
@@ -108,17 +108,17 @@ function buildWeeks(cells: GraphDay[]): GraphWeek[] {
 
   const sorted = [...cells].sort((a, b) => a.date.localeCompare(b.date));
   const byDate = new Map(sorted.map((cell) => [cell.date, cell]));
-  const first = startOfWeek(new Date(`${sorted[0].date}T00:00:00Z`));
+  const first = startOfWeekUTC(new Date(`${sorted[0].date}T00:00:00Z`));
   const last = new Date(`${sorted[sorted.length - 1].date}T00:00:00Z`);
   const weeks: GraphWeek[] = [];
 
   for (
     let weekStart = first;
     weekStart <= last;
-    weekStart = addDays(weekStart, 7)
+    weekStart = addDaysUTC(weekStart, 7)
   ) {
     const weekDays = Array.from({ length: 7 }, (_, day) => {
-      const date = addDays(weekStart, day);
+      const date = addDaysUTC(weekStart, day);
       return byDate.get(toDateKey(date));
     });
 

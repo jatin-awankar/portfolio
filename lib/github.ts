@@ -7,6 +7,7 @@
 // components/portfolio/about/GitHubActivityPane.tsx).
 
 const GITHUB_USERNAME = "jatin-awankar";
+const FETCH_TIMEOUT_MS = 10_000;
 
 export interface ContributionDay {
   date: string;
@@ -62,6 +63,7 @@ export async function getContributionGraph(): Promise<ContributionGraphData> {
     body: JSON.stringify({ query, variables: { login: GITHUB_USERNAME } }),
     // ISR: refresh hourly rather than hitting GitHub on every request
     next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
 
   if (!res.ok) {
@@ -104,11 +106,19 @@ export async function getOpenSourcePRs(): Promise<PullRequest[]> {
   const [mergedRes, openRes] = await Promise.all([
     fetch(
       `https://api.github.com/search/issues?q=type:pr+author:${GITHUB_USERNAME}+is:merged+is:public&sort=updated&order=desc&per_page=10`,
-      { headers, next: { revalidate: 3600 } },
+      {
+        headers,
+        next: { revalidate: 3600 },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      },
     ),
     fetch(
       `https://api.github.com/search/issues?q=type:pr+author:${GITHUB_USERNAME}+is:open+is:public&sort=updated&order=desc&per_page=10`,
-      { headers, next: { revalidate: 3600 } },
+      {
+        headers,
+        next: { revalidate: 3600 },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      },
     ),
   ]);
 
