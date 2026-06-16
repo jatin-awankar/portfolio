@@ -6,6 +6,7 @@
 import Parser from "rss-parser";
 
 const MEDIUM_FEED_URL = "https://medium.com/feed/@jatinawankar02";
+const FETCH_TIMEOUT_MS = 10_000;
 const parser = new Parser();
 
 export interface BlogPost {
@@ -24,6 +25,7 @@ export async function getMediumPosts(): Promise<BlogPost[]> {
   const res = await fetch(MEDIUM_FEED_URL, {
     // ISR: refresh hourly rather than hitting Medium on every request
     next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
 
   if (!res.ok) {

@@ -3,12 +3,9 @@ import { PRCard } from "@/components/portfolio/PRCard";
 import { getOpenSourcePRs } from "@/lib/github";
 
 export async function OpenSourcePane() {
-  const totalContributions = await getOpenSourcePRs()
-    .then((prs) => prs.length)
-    .catch(() => 0);
-  const contributions = await getOpenSourcePRs()
-    .then((prs) => prs.slice(0, 3))
-    .catch(() => []);
+  const prs = await getOpenSourcePRs().catch(() => []);
+  const totalContributions = prs.length;
+  const contributions = prs.slice(0, 3);
 
   return (
     <div>

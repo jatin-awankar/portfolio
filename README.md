@@ -3,7 +3,7 @@
 > 
 <img src="public/SS.png" alt="profile" width=100% />
 
-[Live](https://jatinawankar.dev) | [Resume](link-to-pdf)
+[Live](https://jatinawankar.dev) | [Resume](https://jatinawankar.dev/Jatin_Awankar_Resume.pdf)
 
 ---
 📫 **Let's connect!**  
