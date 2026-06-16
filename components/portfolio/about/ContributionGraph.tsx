@@ -1,3 +1,5 @@
+"use client";
+
 import type { ContributionDay } from "@/lib/github";
 
 export type ContributionGraphProps = {
@@ -61,7 +63,8 @@ function formatDayLabel(dateKey: string): string {
     month: "short",
     day: "numeric",
     year: "numeric",
-  }).format(new Date(`${dateKey}T00:00:00`));
+    timeZone: "UTC",
+  }).format(new Date(`${dateKey}T00:00:00Z`));
 }
 
 function pluralizeContributions(count: number): string {
@@ -69,8 +72,7 @@ function pluralizeContributions(count: number): string {
 }
 
 function makePlaceholderDays(): GraphDay[] {
-  const today = new Date();
-  const start = addDays(today, -363);
+  const start = new Date("2024-07-01");
 
   return Array.from({ length: 364 }, (_, index) => {
     const date = addDays(start, index);
@@ -106,8 +108,8 @@ function buildWeeks(cells: GraphDay[]): GraphWeek[] {
 
   const sorted = [...cells].sort((a, b) => a.date.localeCompare(b.date));
   const byDate = new Map(sorted.map((cell) => [cell.date, cell]));
-  const first = startOfWeek(new Date(`${sorted[0].date}T00:00:00`));
-  const last = new Date(`${sorted[sorted.length - 1].date}T00:00:00`);
+  const first = startOfWeek(new Date(`${sorted[0].date}T00:00:00Z`));
+  const last = new Date(`${sorted[sorted.length - 1].date}T00:00:00Z`);
   const weeks: GraphWeek[] = [];
 
   for (
@@ -130,7 +132,10 @@ function buildWeeks(cells: GraphDay[]): GraphWeek[] {
 }
 
 function getMonthLabels(weeks: GraphWeek[]): MonthLabel[] {
-  const formatter = new Intl.DateTimeFormat("en", { month: "short" });
+  const formatter = new Intl.DateTimeFormat("en", {
+    month: "short",
+    timeZone: "UTC",
+  });
   const labels: MonthLabel[] = [];
   let previousMonth = "";
 
@@ -140,7 +145,7 @@ function getMonthLabels(weeks: GraphWeek[]): MonthLabel[] {
       return;
     }
 
-    const date = new Date(`${firstDay.date}T00:00:00`);
+    const date = new Date(`${firstDay.date}T00:00:00Z`);
     const month = formatter.format(date);
 
     if (month !== previousMonth) {
@@ -219,57 +224,55 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
             >
               {weeks.flatMap((week, weekIndex) =>
                 week.days.map((cell, day) => {
-                    const level = cell?.level ?? 0;
-                    const count = cell?.count ?? 0;
-                    const dateLabel = cell?.date
-                      ? formatDayLabel(cell.date)
-                      : "";
-                    const tooltip = cell
-                      ? `${pluralizeContributions(count)} on ${dateLabel}`
-                      : "No data";
-                    const tooltipAlignment =
-                      weekIndex > weeks.length - 6
-                        ? "right-0 translate-x-0"
-                        : weekIndex < 5
-                          ? "left-0 translate-x-0"
-                          : "left-1/2 -translate-x-1/2";
-                    const tooltipArrowAlignment =
-                      weekIndex > weeks.length - 6
-                        ? "right-1"
-                        : weekIndex < 5
-                          ? "left-1"
-                          : "left-1/2 -translate-x-1/2";
-                    const tooltipVertical =
-                      day < 2 ? "top-full mt-2" : "bottom-full mb-2";
-                    const tooltipArrowVertical =
-                      day < 2
-                        ? "bottom-full translate-y-1/2 border-l border-t"
-                        : "top-full -translate-y-1/2 border-b border-r";
+                  const level = cell?.level ?? 0;
+                  const count = cell?.count ?? 0;
+                  const dateLabel = cell?.date ? formatDayLabel(cell.date) : "";
+                  const tooltip = cell
+                    ? `${pluralizeContributions(count)} on ${dateLabel}`
+                    : "No data";
+                  const tooltipAlignment =
+                    weekIndex > weeks.length - 6
+                      ? "right-0 translate-x-0"
+                      : weekIndex < 5
+                        ? "left-0 translate-x-0"
+                        : "left-1/2 -translate-x-1/2";
+                  const tooltipArrowAlignment =
+                    weekIndex > weeks.length - 6
+                      ? "right-1"
+                      : weekIndex < 5
+                        ? "left-1"
+                        : "left-1/2 -translate-x-1/2";
+                  const tooltipVertical =
+                    day < 2 ? "top-full mt-2" : "bottom-full mb-2";
+                  const tooltipArrowVertical =
+                    day < 2
+                      ? "bottom-full translate-y-1/2 border-l border-t"
+                      : "top-full -translate-y-1/2 border-b border-r";
 
-                    return (
-                      <div
-                        key={`${week.key}-${day}`}
-                        role="gridcell"
-                        tabIndex={cell ? 0 : -1}
-                        aria-label={tooltip}
-                        className="group relative aspect-square min-h-2.5 min-w-2.5 rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
-                      >
+                  return (
+                    <div
+                      key={`${week.key}-${day}`}
+                      role="gridcell"
+                      tabIndex={cell ? 0 : -1}
+                      aria-label={tooltip}
+                      className="group relative aspect-square min-h-2.5 min-w-2.5 rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                    >
+                      <span
+                        className={`block h-full w-full rounded-[2px] border transition-transform duration-150 group-hover:scale-125 group-focus-visible:scale-125 motion-reduce:transition-none ${levelStyles[level]}`}
+                      />
+                      {cell ? (
                         <span
-                          className={`block h-full w-full rounded-[2px] border transition-transform duration-150 group-hover:scale-125 group-focus-visible:scale-125 motion-reduce:transition-none ${levelStyles[level]}`}
-                        />
-                        {cell ? (
+                          className={`pointer-events-none absolute z-20 hidden w-max max-w-52 rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1 text-center font-display text-[10px] leading-snug text-zinc-200 shadow-xl shadow-black/40 group-hover:block group-focus-visible:block ${tooltipAlignment} ${tooltipVertical}`}
+                        >
+                          {tooltip}
                           <span
-                            className={`pointer-events-none absolute z-20 hidden w-max max-w-52 rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1 text-center font-display text-[10px] leading-snug text-zinc-200 shadow-xl shadow-black/40 group-hover:block group-focus-visible:block ${tooltipAlignment} ${tooltipVertical}`}
-                          >
-                            {tooltip}
-                            <span
-                              className={`absolute h-2 w-2 rotate-45 border-zinc-700 bg-zinc-950 ${tooltipArrowAlignment} ${tooltipArrowVertical}`}
-                            />
-                          </span>
-                        ) : null}
-                      </div>
-                    );
-                  }),
+                            className={`absolute h-2 w-2 rotate-45 border-zinc-700 bg-zinc-950 ${tooltipArrowAlignment} ${tooltipArrowVertical}`}
+                          />
+                        </span>
+                      ) : null}
+                    </div>
+                  );
+                }),
               )}
             </div>
           </div>

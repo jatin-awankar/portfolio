@@ -81,7 +81,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} ${inter.variable} ${jetBrainsMono.variable} min-h-screen bg-zinc-950 text-zinc-200 antialiased`}
+        className={`${inter.variable} ${jetBrainsMono.variable} min-h-screen bg-zinc-950 text-zinc-200 antialiased`}
       >
         <TerminalDataProvider>
           <div className="min-h-screen bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[24px_24px]">

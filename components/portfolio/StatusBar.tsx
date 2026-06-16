@@ -42,7 +42,7 @@ export function StatusBar() {
                     : "text-zinc-500 hover:text-zinc-200",
                 )}
               >
-                /{page.label}
+                /{page.key}
               </Link>
             );
           })}
@@ -70,7 +70,7 @@ export function StatusBar() {
                 active ? "text-orange-400" : "text-zinc-500",
               )}
             >
-              /{page.label}
+              /{page.key}
             </Link>
           );
         })}
