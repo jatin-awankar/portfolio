@@ -93,7 +93,7 @@ export async function getContributionGraph(): Promise<ContributionGraphData> {
 export interface PullRequest {
   repo: string;
   title: string;
-  status: "Merged" | "In review" | "Closed";
+  status: "Merged" | "In review";
   url: string;
 }
 
@@ -117,14 +117,23 @@ export async function getOpenSourcePRs(): Promise<PullRequest[]> {
 
   return json.items
     .filter(
-      (item: { repository_url: string }) => {
+      (item: {
+        repository_url: string;
+        state: string;
+        pull_request?: { merged_at: string | null };
+      }) => {
         const repo = item.repository_url
           .replace("https://api.github.com/repos/", "")
           .toLowerCase();
+        const isMerged = Boolean(item.pull_request?.merged_at);
+        const isOpen = item.state === "open";
 
         return (
           !repo.startsWith(`${GITHUB_USERNAME}/`) &&
-          !EXCLUDED_PR_REPO_MATCHES.some((excluded) => repo.includes(excluded))
+          !EXCLUDED_PR_REPO_MATCHES.some((excluded) =>
+            repo.includes(excluded),
+          ) &&
+          (isMerged || isOpen)
         );
       },
     )
@@ -138,11 +147,7 @@ export async function getOpenSourcePRs(): Promise<PullRequest[]> {
       }) => ({
         repo: item.repository_url.replace("https://api.github.com/repos/", ""),
         title: item.title,
-        status: item.pull_request?.merged_at
-          ? "Merged"
-          : item.state === "closed"
-            ? "Closed"
-            : "In review",
+        status: item.pull_request?.merged_at ? "Merged" : "In review",
         url: item.html_url,
       }),
     ) as PullRequest[];

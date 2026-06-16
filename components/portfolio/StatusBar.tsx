@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { LiveClock } from "@/components/portfolio/LiveClock";
 import { portfolioPages } from "@/lib/portfolio-data";
 
 function pathnameToLabel(pathname: string): string {
@@ -16,26 +16,7 @@ function pathnameToLabel(pathname: string): string {
 
 export function StatusBar() {
   const pathname = usePathname();
-  const [time, setTime] = useState("--:--:--");
   const currentPath = pathnameToLabel(pathname);
-
-  useEffect(() => {
-    const tick = () => {
-      setTime(
-        new Date().toLocaleTimeString("en-IN", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-          timeZone: "Asia/Kolkata",
-        }),
-      );
-    };
-
-    tick();
-    const timer = window.setInterval(tick, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-800/60 bg-zinc-950/90 backdrop-blur-md">
@@ -69,7 +50,7 @@ export function StatusBar() {
 
         <div className="flex items-center gap-2 text-zinc-500">
           <span className="h-1.5 w-1.5 rounded-full bg-orange-400 motion-safe:animate-pulse" />
-          <span>{time} IST</span>
+          <LiveClock />
         </div>
       </div>
 

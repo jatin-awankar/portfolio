@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export type PRStatus = "Merged" | "In review" | "Closed";
+export type PRStatus = "Merged" | "In review";
 
 export type StatusPillProps = {
   status: PRStatus;

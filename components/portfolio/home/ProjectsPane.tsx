@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/lib/data/projects";
 
@@ -20,12 +21,16 @@ function ProjectTile({ project, big = false }: ProjectTileProps) {
       }`}
     >
       {project.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={project.image}
-          alt={`${project.name} preview`}
-          className="aspect-video w-full border-b border-zinc-800/60 object-cover"
-        />
+        <div className="relative h-44 max-h-44 w-full border-b border-zinc-800/60">
+          <Image
+            src={project.image}
+            alt={`${project.name} preview`}
+            fill
+            unoptimized={project.image.endsWith(".gif")}
+            className="object-cover"
+            sizes="(min-width: 1024px) 512px, calc(100vw - 2rem)"
+          />
+        </div>
       ) : null}
       <div className="p-5">
         <div className="mb-2 flex items-center justify-between gap-3">

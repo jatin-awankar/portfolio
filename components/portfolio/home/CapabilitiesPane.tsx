@@ -29,10 +29,10 @@ export function CapabilitiesPane() {
           {"// 03 - what I work with"}
         </p>
         <Link
-          href="/services"
+          href="/about"
           className="rounded-sm font-display text-xs text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
         >
-          cd /services -&gt;
+          cd /about -&gt;
         </Link>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

@@ -25,7 +25,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
     <Pane id={project.slug} title={`~/projects/${project.slug}.tsx`}>
       <div className="space-y-6 scroll-mt-28">
         {project.image ? (
-          <div className="relative aspect-video overflow-hidden rounded-md border border-zinc-800">
+          <div className="relative h-56 max-h-56 w-full overflow-hidden rounded-md border border-zinc-800">
             <Image
               src={project.image}
               alt={`${project.name} preview`}
@@ -36,7 +36,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
             />
           </div>
         ) : (
-          <div className="relative flex aspect-video items-center justify-center rounded-md border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950">
+          <div className="relative flex h-56 max-h-56 w-full items-center justify-center rounded-md border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950">
             <span className="font-display text-xs text-zinc-600">
               preview.png
             </span>
@@ -58,7 +58,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
               className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
             >
               <ArrowUpRight className="h-3.5 w-3.5" />
-              open --live
+              {project.name === "Fortify" ? "view on npm" : "open --live"}
             </Link>
             <Link
               href={project.source}
