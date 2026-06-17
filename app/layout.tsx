@@ -19,7 +19,10 @@ export const metadata: Metadata = {
   creator: "Jatin Awankar",
 
   icons: {
-    icon: "/icon.png",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+    ],
     apple: "/apple-icon.png",
   },
 
@@ -69,9 +72,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className="min-h-screen bg-zinc-950 text-zinc-200 antialiased"
-      >
+      <body className="min-h-screen bg-zinc-950 text-zinc-200 antialiased">
         <TerminalDataProvider>
           <div className="min-h-screen bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[24px_24px]">
             <StatusBar />
