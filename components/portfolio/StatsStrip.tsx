@@ -16,12 +16,22 @@ export async function StatsStrip() {
     (pr) => pr.status === "In review",
   ).length;
 
+  const notZeroActiveContributions =
+    activeContributions !== 0
+      ? ` · ${activeContributions} ${formatPRLabel(activeContributions)} active`
+      : "";
+
+  const notZeroMergedContributions =
+    mergedContributions !== 0
+      ? `${mergedContributions} ${formatPRLabel(mergedContributions)} merged`
+      : "";
+
   const stats: Stat[] = [
     { label: "experience", value: "1+ yrs" },
     { label: "shipped", value: "4 products" },
     {
       label: "open source",
-      value: `${activeContributions} ${formatPRLabel(activeContributions)} active · ${mergedContributions} ${formatPRLabel(mergedContributions)} merged`,
+      value: notZeroMergedContributions + notZeroActiveContributions,
     },
     { label: "status", value: "available" },
   ];

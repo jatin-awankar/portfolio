@@ -5,6 +5,7 @@ import { FloatingTerminal } from "@/components/portfolio/FloatingTerminal";
 import { StatusBar } from "@/components/portfolio/StatusBar";
 import { TerminalDataProvider } from "@/components/portfolio/TerminalDataProvider";
 import { ContextMenu } from "@/components/portfolio/ContextMenu";
+import { IntroProvider } from "@/components/portfolio/IntroProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jatinawankar.dev"),
@@ -17,14 +18,6 @@ export const metadata: Metadata = {
   applicationName: "Jatin Awankar Portfolio",
   authors: [{ name: "Jatin Awankar" }],
   creator: "Jatin Awankar",
-
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: "/apple-icon.png",
-  },
 
   keywords: [
     "Jatin Awankar",
@@ -73,17 +66,22 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-zinc-950 text-zinc-200 antialiased">
-        <TerminalDataProvider>
-          <div className="min-h-screen bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[24px_24px]">
-            <StatusBar />
-            <main className="mx-auto max-w-6xl space-y-6 px-4 py-10">
-              {children}
-            </main>
-            <FloatingTerminal />
-            <ContextMenu />
-            <Analytics />
-          </div>
-        </TerminalDataProvider>
+        <IntroProvider>
+          {" "}
+          {/* ← wrap here */}
+          <TerminalDataProvider>
+            <div className="min-h-screen bg-[radial-gradient(...)]">
+              <StatusBar />
+              <main className="mx-auto max-w-6xl space-y-6 px-4 py-10">
+                {children}
+              </main>
+              <FloatingTerminal />
+              <ContextMenu />
+              <Analytics />
+            </div>
+          </TerminalDataProvider>
+        </IntroProvider>{" "}
+        {/* ← close here */}
       </body>
     </html>
   );

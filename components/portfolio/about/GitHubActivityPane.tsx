@@ -70,6 +70,10 @@ export function GitHubActivityPane({
 
       <div className="flex flex-wrap gap-6 rounded-md border border-zinc-800 bg-zinc-950/40 p-4">
         <AchievementBadge
+          src="https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png"
+          label="Pair Extraordinaire"
+        />
+        <AchievementBadge
           src="https://github.githubassets.com/assets/yolo-default-be0bbff04951.png"
           label="YOLO"
         />
