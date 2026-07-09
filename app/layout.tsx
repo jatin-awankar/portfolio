@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "Jatin Awankar",
     images: [
       {
-        url: "/og.png",
+        url: "/og.webp",
         width: 1200,
         height: 630,
         alt: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
     description:
       "I build scalable MVPs and SaaS products with clean backend systems, real-time features, and production-ready architecture.",
-    images: ["/og.png"],
+    images: ["/og.webp"],
   },
 };
 
@@ -67,8 +67,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-zinc-950 text-zinc-200 antialiased">
         <IntroProvider>
-          {" "}
-          {/* ← wrap here */}
           <TerminalDataProvider>
             <div className="min-h-screen bg-[radial-gradient(...)]">
               <StatusBar />
@@ -80,8 +78,7 @@ export default function RootLayout({
               <Analytics />
             </div>
           </TerminalDataProvider>
-        </IntroProvider>{" "}
-        {/* ← close here */}
+        </IntroProvider>
       </body>
     </html>
   );
