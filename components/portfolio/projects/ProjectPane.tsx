@@ -25,6 +25,13 @@ function formatStack(stack: Project["stack"]): string {
 export function ProjectPane({ project }: ProjectPaneProps) {
   const [demoOpen, setDemoOpen] = useState(false);
   const stack = formatStack(project.stack);
+  const isClientWork = project.tags?.includes("Client Work") ?? false;
+  const liveLabel =
+    project.name === "Fortify"
+      ? "view on npm"
+      : isClientWork
+        ? "open --delivered"
+        : "open --live";
 
   return (
     <Pane id={project.slug} title={`~/projects/${project.slug}.tsx`}>
@@ -53,6 +60,11 @@ export function ProjectPane({ project }: ProjectPaneProps) {
             <h2 className="font-display text-xl font-bold tracking-normal text-zinc-100 lg:text-2xl">
               {project.name}
             </h2>
+            {project.type === 'client' && (
+              <span className="rounded border border-orange-400/40 bg-orange-400/5 px-2 py-0.5 font-display text-xs text-orange-400">
+                Client Work
+              </span>
+            )}
             <p className="mt-1 max-w-md text-sm text-zinc-400">
               {project.tagline}
             </p>
@@ -73,15 +85,17 @@ export function ProjectPane({ project }: ProjectPaneProps) {
               className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
             >
               <ArrowUpRight className="h-3.5 w-3.5" />
-              {project.name === "Fortify" ? "view on npm" : "open --live"}
+              {liveLabel}
             </Link>
-            <Link
-              href={project.source}
-              className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-            >
-              <Github className="h-3.5 w-3.5" />
-              open --source
-            </Link>
+            {project.source ? (
+              <Link
+                href={project.source}
+                className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+              >
+                <Github className="h-3.5 w-3.5" />
+                open --source
+              </Link>
+            ) : null}
             {project.name === "UsageFlow" ? (
               <Link
                 href="https://usageflow.vercel.app/docs"

@@ -1,6 +1,6 @@
 export type ProjectLogEntry = {
   hash: string;
-  type: "feat" | "fix" | "perf" | "refactor" | "release";
+  type: "feat" | "fix" | "perf" | "refactor" | "release" | "docs";
   desc: string;
 };
 
@@ -22,6 +22,7 @@ export interface Project {
   tags?: string[];
   stack: Record<string, string>;
   log: ProjectLogEntry[];
+  type?: 'personal' | 'client';
 }
 
 export const projects: Project[] = [
@@ -71,7 +72,7 @@ export const projects: Project[] = [
     name: "UsageFlow",
     tagline:
       "SaaS billing & usage-tracking platform for products that charge by usage.",
-    image: "/projects/usageflow.png",
+    image: "/projects/usageflow.webp",
     overview:
       "UsageFlow lets SaaS teams meter usage, apply pricing rules, and generate accurate invoices -- without building billing infrastructure from scratch. It's built for products where usage spikes, retries, and partial failures are the norm, and handles each one without double-charging or losing data.",
     live: "https://usageflow.vercel.app",
@@ -116,7 +117,7 @@ export const projects: Project[] = [
     slug: "petrol-partner",
     name: "Petrol Partner",
     tagline: "Real-time ride-sharing with concurrency-safe seat booking.",
-    image: "/projects/petrol-partner.png",
+    image: "/projects/petrol-partner.webp",
     overview:
       "Petrol Partner connects drivers and riders for shared trips, with live location tracking and a booking flow that stays correct even when multiple riders try to claim the same seat at once.",
     live: "https://petrol-partner.vercel.app",
@@ -154,10 +155,51 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "olympic-windows",
+    type: 'client',
+    name: "Olympic Windows",
+    tagline:
+      "Corporate website for a premium aluminum windows manufacturer -- Lodha Group partner with 100k+ units delivered.",
+    image: "/projects/olympicwindows.webp",
+    overview:
+      "Full corporate website for Olympic Windows Pvt. Ltd. -- a European-precision aluminum windows and doors manufacturer operating in India since 2012. The site covers their product range across windows, doors, facades, and fins; project case studies including Casa Rio, Palava City, and Lodha Amara; and a consultation booking flow. Built for SEO, performance, and a premium brand feel matching their Lodha Group positioning.",
+    live: "https://olympicwindows.in",
+    source: "",
+    tags: ["Client Work", "Next.js", "SEO"],
+    stack: {
+      framework: "next.js",
+      styling: "tailwind css",
+      type: "client website",
+      seo: "structured metadata",
+    },
+    log: [
+      {
+        hash: "331ef89",
+        type: "feat",
+        desc: "integrate web3forms for consultation enquiry",
+      },
+      {
+        hash: "0855b0d",
+        type: "refactor",
+        desc: "floatingCTA, navbar, footer, and contactForm",
+      },
+      {
+        hash: "7166440",
+        type: "feat",
+        desc: "implement base layout with SEO metadata and create contact page with communication channels",
+      },
+      {
+        hash: "f9d0374",
+        type: "docs",
+        desc: "replace default Next.js template with project-specific documentation and deployment guides",
+      },
+    ],
+  },
+  {
     slug: "stem-video",
     name: "STEM Video App",
     tagline: "Low-latency video collaboration for live classes.",
-    image: "/projects/stem.png",
+    image: "/projects/stem.webp",
     overview:
       "A video platform built for live STEM classes -- role-based rooms for teachers and students, screen sharing, and session recording, designed to stay usable on unreliable connections.",
     live: "https://stem-connecting-people.vercel.app",
@@ -196,7 +238,7 @@ export const projects: Project[] = [
     slug: "civic-issue-reporter",
     name: "Civic Issue Reporter",
     tagline: "Map-based civic issue reporting with structured tracking.",
-    image: "/projects/civic.png",
+    image: "/projects/civic.webp",
     overview:
       "Lets residents report civic issues -- potholes, broken streetlights, garbage -- by pinning a location on a map and attaching a photo, then tracks each report through a status pipeline municipal staff can act on.",
     live: "https://civic-issue-reporter-application.vercel.app",
