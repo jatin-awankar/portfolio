@@ -34,6 +34,9 @@
 
 /* Shared portfolio language: warm charcoal, readable neutrals, one accent. */
 :root {
+  --portfolio-display-font:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
   --portfolio-surface: #111113;
   --portfolio-text: #f4f4f5;
   --portfolio-muted: #a1a1aa;
@@ -119,12 +122,13 @@
   padding-block: 20px 4px;
 }
 .hero-title {
+  font-family: var(--portfolio-display-font);
   max-width: 750px;
   color: var(--portfolio-text);
-  font-size: clamp(36px, 4.5vw, 62px);
+  font-size: clamp(30px, 4vw, 48px);
   font-weight: 650;
   line-height: 1.07;
-  letter-spacing: -0.055em;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 .hero-title span {
@@ -139,6 +143,7 @@
 }
 .action-primary,
 .action-secondary {
+  font-family: var(--portfolio-display-font);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -183,6 +188,7 @@
   background: #242426;
 }
 .text-action {
+  font-family: var(--portfolio-display-font);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -279,10 +285,11 @@
   margin-bottom: 8px;
 }
 .section-heading h2 {
+  font-family: var(--portfolio-display-font);
   color: var(--portfolio-text);
   font-size: clamp(22px, 2.5vw, 28px);
   font-weight: 600;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
   line-height: 1.25;
 }
 .project-grid {
@@ -329,8 +336,9 @@
   padding: 24px;
 }
 .work-copy h3 {
+  font-family: var(--portfolio-display-font);
   font-size: 25px;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
   font-weight: 600;
   color: var(--portfolio-text);
   transition: color 160ms;
@@ -428,6 +436,7 @@
   margin-top: 3px;
 }
 .capability-list h3 {
+  font-family: var(--portfolio-display-font);
   color: var(--portfolio-text);
   font-size: 15px;
   font-weight: 500;
@@ -446,10 +455,11 @@
   padding-top: 12px;
 }
 .contact-content h2 {
+  font-family: var(--portfolio-display-font);
   color: var(--portfolio-text);
   font-size: clamp(32px, 4vw, 48px);
   line-height: 1.1;
-  letter-spacing: -0.045em;
+  letter-spacing: 0;
   font-weight: 600;
 }
 .contact-email {

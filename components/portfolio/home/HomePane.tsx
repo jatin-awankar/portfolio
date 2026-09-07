@@ -26,7 +26,7 @@ export function HomePane() {
             rel="noopener noreferrer"
             className="action-primary"
           >
-            View résumé <ArrowUpRight size={17} />
+            View Resume <ArrowUpRight size={17} />
             <span className="sr-only"> (PDF, opens in a new tab)</span>
           </Link>
           <a href="#selected-work" className="action-secondary">

@@ -40,7 +40,7 @@ export function ContactPane() {
           rel="noopener noreferrer"
           className="action-secondary"
         >
-          View résumé <ArrowUpRight size={16} />
+          View Resume <ArrowUpRight size={16} />
           <span className="sr-only"> (PDF, opens in a new tab)</span>
         </Link>
       </div>

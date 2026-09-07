@@ -6,8 +6,17 @@ import { BookingDemo } from "./BookingDemo";
 
 const selected = [
   {
-    slug: "usageflow",
+    slug: "fortify",
     number: "01",
+    category: "DEVELOPER TOOLING",
+    decision: "Useful AI, right where developers work.",
+    detail:
+      "A published Node.js CLI for error explanations, git-aware commits, and persistent chat sessions.",
+    evidence: "Explore the CLI implementation",
+  },
+  {
+    slug: "usageflow",
+    number: "02",
     category: "BILLING INFRASTRUCTURE",
     decision: "Designed for retries, not just the happy path.",
     detail:
@@ -16,21 +25,12 @@ const selected = [
   },
   {
     slug: "petrol-partner",
-    number: "02",
+    number: "03",
     category: "CONCURRENCY & REALTIME",
     decision: "The last seat should only be booked once.",
     detail:
       "Row-level locking and an explicit booking state machine keep competing requests consistent.",
     evidence: "Explore the booking system",
-  },
-  {
-    slug: "fortify",
-    number: "03",
-    category: "DEVELOPER TOOLING",
-    decision: "Useful AI, right where developers work.",
-    detail:
-      "A published Node.js CLI for error explanations, git-aware commits, and persistent chat sessions.",
-    evidence: "Explore the CLI implementation",
   },
 ];
 
