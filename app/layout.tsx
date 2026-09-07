@@ -4,16 +4,15 @@ import { Analytics } from "@vercel/analytics/next";
 import { FloatingTerminal } from "@/components/portfolio/FloatingTerminal";
 import { StatusBar } from "@/components/portfolio/StatusBar";
 import { TerminalDataProvider } from "@/components/portfolio/TerminalDataProvider";
-import { ContextMenu } from "@/components/portfolio/ContextMenu";
 import { IntroProvider } from "@/components/portfolio/IntroProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jatinawankar.dev"),
 
-  title: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
+  title: "Jatin Awankar | Full-Stack Engineer",
 
   description:
-    "I build scalable MVPs and SaaS products with clean backend systems, real-time features, and production-ready architecture.",
+    "Full-stack engineer with a backend focus. Explore billing systems, concurrency-safe bookings, developer tools, and open-source contributions.",
 
   applicationName: "Jatin Awankar Portfolio",
   authors: [{ name: "Jatin Awankar" }],
@@ -33,9 +32,9 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
+    title: "Jatin Awankar | Full-Stack Engineer",
     description:
-      "I build scalable MVPs and SaaS products with clean backend systems, real-time features, and production-ready architecture.",
+      "Full-stack engineer with a backend focus. Explore billing systems, concurrency-safe bookings, developer tools, and open-source contributions.",
     url: "https://jatinawankar.dev",
     siteName: "Jatin Awankar",
     images: [
@@ -43,7 +42,7 @@ export const metadata: Metadata = {
         url: "/og.webp",
         width: 1200,
         height: 630,
-        alt: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
+        alt: "Jatin Awankar | Full-Stack Engineer",
       },
     ],
     type: "website",
@@ -51,9 +50,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Jatin Awankar | Full-Stack SaaS & MVP Developer",
+    title: "Jatin Awankar | Full-Stack Engineer",
     description:
-      "I build scalable MVPs and SaaS products with clean backend systems, real-time features, and production-ready architecture.",
+      "Full-stack engineer with a backend focus. Explore billing systems, concurrency-safe bookings, developer tools, and open-source contributions.",
     images: ["/og.webp"],
   },
 };
@@ -68,13 +67,18 @@ export default function RootLayout({
       <body className="min-h-screen bg-zinc-950 text-zinc-200 antialiased">
         <IntroProvider>
           <TerminalDataProvider>
-            <div className="min-h-screen bg-[radial-gradient(...)]">
+            <div className="min-h-screen portfolio-shell">
               <StatusBar />
-              <main className="mx-auto max-w-6xl space-y-6 px-4 py-10">
+              <a href="#main-content" className="skip-link">
+                Skip to content
+              </a>
+              <main
+                id="main-content"
+                className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:py-10"
+              >
                 {children}
               </main>
               <FloatingTerminal />
-              <ContextMenu />
               <Analytics />
             </div>
           </TerminalDataProvider>

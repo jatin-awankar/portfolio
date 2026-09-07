@@ -1,45 +1,68 @@
 import Link from "next/link";
-import type { SkillGroup } from "@/lib/portfolio-data";
-import { skillGroups } from "@/lib/portfolio-data";
-
-function CapabilityCard({ icon: Icon, title, items }: SkillGroup) {
-  return (
-    <article className="rounded-md border border-zinc-800/60 bg-zinc-950/30 p-5 transition-colors hover:border-orange-400/40 motion-reduce:transition-none">
-      <Icon className="mb-3 h-4 w-4 text-orange-400" />
-      <h3 className="mb-2 font-display text-sm font-medium text-zinc-100">
-        {title}
-      </h3>
-      <ul className="space-y-1 text-xs text-zinc-500">
-        {items.map((item) => (
-          <li key={item} className="flex gap-2">
-            <span className="text-orange-400/50">&gt;</span>
-            {item}
-          </li>
-        ))}
-      </ul>
-    </article>
-  );
-}
-
+import {
+  ArrowUpRight,
+  Database,
+  Workflow,
+  ShieldCheck,
+  PanelsTopLeft,
+} from "lucide-react";
+const capabilities = [
+  {
+    Icon: Database,
+    title: "Data that stays consistent",
+    text: "PostgreSQL, transactions, constraints, and atomic updates.",
+    href: "/projects#usageflow",
+    example: "UsageFlow / usage metering",
+  },
+  {
+    Icon: Workflow,
+    title: "Flows that handle failure",
+    text: "Queues, webhook retries, and explicit state transitions.",
+    href: "/projects#petrol-partner",
+    example: "Petrol Partner / booking states",
+  },
+  {
+    Icon: ShieldCheck,
+    title: "Clear access boundaries",
+    text: "Authentication, role-based access, and multi-tenant systems.",
+    href: "/projects#usageflow",
+    example: "UsageFlow / access control",
+  },
+  {
+    Icon: PanelsTopLeft,
+    title: "The complete product",
+    text: "React, Next.js, responsive interfaces, and API integration.",
+    href: "/projects#olympic-windows",
+    example: "Olympic Windows / client delivery",
+  },
+];
 export function CapabilitiesPane() {
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <p className="font-display text-xs text-zinc-500">
-          {"// 03 - what I work with"}
-        </p>
-        <Link
-          href="/about"
-          className="rounded-sm font-display text-xs text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-        >
-          cd /about -&gt;
-        </Link>
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">02 / Engineering toolkit</p>
+          <h2>Beyond the stack.</h2>
+        </div>
       </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {skillGroups.map((group) => (
-          <CapabilityCard key={group.title} {...group} />
+      <div className="capability-list">
+        {capabilities.map(({ Icon, title, text, href, example }) => (
+          <article key={title}>
+            <Icon size={19} className="text-orange-400" />
+            <div>
+              <h3>{title}</h3>
+              <p>{text}</p>
+              <Link href={href} className="text-action">
+                {example}
+                <ArrowUpRight size={13} />
+              </Link>
+            </div>
+          </article>
         ))}
       </div>
+      <Link href="/about" className="text-action mt-5">
+        More about me <ArrowUpRight size={16} />
+      </Link>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export function FocusedPane({ title, children, className }: FocusedPaneProps) {
   return (
     <section
       className={cn(
-        "overflow-hidden rounded-lg border border-l-2 border-zinc-800/60 border-l-orange-400 bg-zinc-900/40 backdrop-blur-sm",
+        "portfolio-pane overflow-hidden rounded-lg border border-l-2 border-zinc-800/60 border-l-orange-400 bg-zinc-900/40 backdrop-blur-sm",
         className,
       )}
     >
@@ -19,12 +19,12 @@ export function FocusedPane({ title, children, className }: FocusedPaneProps) {
         <span className="h-2.5 w-2.5 rounded-full bg-orange-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
-        <span className="ml-2 font-display text-xs text-zinc-500">{title}</span>
+        <span className="ml-2 font-display text-xs text-zinc-400">{title}</span>
         <span className="ml-auto hidden font-display text-xs text-orange-400/70 sm:inline">
           active
         </span>
       </div>
-      <div className="p-6 lg:p-10">{children}</div>
+      <div className="p-5 sm:p-7 lg:p-8">{children}</div>
     </section>
   );
 }

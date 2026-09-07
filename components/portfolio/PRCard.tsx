@@ -9,16 +9,24 @@ export type PRCardProps = {
   description?: string;
 };
 
-export function PRCard({ repo, title, status, href, description }: PRCardProps) {
+export function PRCard({
+  repo,
+  title,
+  status,
+  href,
+  description,
+}: PRCardProps) {
   const content = (
     <>
       <div className="mb-2 flex items-start justify-between gap-2">
-        <span className="font-display text-xs text-zinc-500">{repo}</span>
+        <span className="min-w-0 break-words font-display text-xs text-zinc-400">
+          {repo}
+        </span>
         <StatusPill status={status} />
       </div>
       <p className="text-sm text-zinc-200">{title}</p>
       {description ? (
-        <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+        <p className="mt-2 text-xs leading-relaxed text-zinc-400">
           {description}
         </p>
       ) : null}

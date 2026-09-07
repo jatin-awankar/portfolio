@@ -1,36 +1,45 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { PRCard } from "@/components/portfolio/PRCard";
 import { getOpenSourcePRs } from "@/lib/github";
 
 export async function OpenSourcePane() {
-  const prs = await getOpenSourcePRs().catch(() => []);
-  const totalContributions = prs.length;
-  const contributions = prs.slice(0, 3);
-
+  const prs = await getOpenSourcePRs().catch(() => null);
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <p className="font-display text-xs text-zinc-500">
-          {"// 04 - open source (" + totalContributions + " PRs)"}
-        </p>
-        <Link
-          href="/about"
-          className="rounded-sm font-display text-xs text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-        >
-          cd /about -&gt;
-        </Link>
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">03 / Open source</p>
+          <h2>Building in the open.</h2>
+        </div>
       </div>
+      <p className="mb-5 text-sm leading-relaxed text-zinc-400">
+        Contributing to shared tools, working through reviews, and improving the
+        details people interact with.
+      </p>
       <div className="grid gap-3">
-        {contributions.map((contribution) => (
-          <PRCard
-            key={contribution.url}
-            repo={contribution.repo}
-            title={contribution.title}
-            status={contribution.status}
-            href={contribution.url}
-          />
+        {prs?.slice(0, 3).map((pr) => (
+          <PRCard key={pr.url} {...pr} href={pr.url} />
         ))}
       </div>
+      {(!prs || prs.length === 0) && (
+        <p className="text-sm leading-relaxed text-zinc-400">
+          {prs
+            ? "Explore my contributions on GitHub."
+            : "The contribution feed is temporarily unavailable. You can still view my work on GitHub."}
+        </p>
+      )}
+      <Link
+        href="https://github.com/jatin-awankar"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-action mt-5"
+      >
+        View GitHub profile <ArrowUpRight size={16} />
+      </Link>
+      <p className="mt-4 font-display text-xs text-zinc-400">
+        Selected contributions · feed refreshes hourly
+      </p>
     </div>
   );
 }

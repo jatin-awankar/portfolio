@@ -15,7 +15,7 @@ export function StatusPill({ status }: StatusPillProps) {
         "shrink-0 rounded border px-2 py-0.5 font-display text-xs uppercase tracking-normal",
         merged
           ? "border-orange-400/40 bg-orange-400/10 text-orange-400"
-          : "border-zinc-700 text-zinc-500",
+          : "border-zinc-700 text-zinc-400",
       )}
     >
       {status}

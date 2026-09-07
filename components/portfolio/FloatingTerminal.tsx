@@ -2,7 +2,7 @@
 
 import {
   FormEvent,
-  MouseEvent as ReactMouseEvent,
+  PointerEvent as ReactPointerEvent,
   useEffect,
   useRef,
   useState,
@@ -50,11 +50,11 @@ const ascii = [
   "  +------+",
   "  |  JA  |   jatin@portfolio",
   "  +------+   ---------------------",
-  "  os      : Next.js 16",
+  "  os      : Next.js",
   "  shell   : TypeScript + Tailwind",
   "  stack   : Postgres, Redis, BullMQ",
-  "  repos   : 36, followers: 3",
-  "  status  : available for work",
+  "  focus   : full-stack engineering",
+  "  status  : open to engineering roles",
 ];
 
 export function FloatingTerminal() {
@@ -63,6 +63,31 @@ export function FloatingTerminal() {
   const { posts } = useTerminalData();
   const blogPosts = posts?.length ? posts : DEFAULT_POSTS;
   const [open, setOpen] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const dragCleanupRef = useRef<(() => void) | null>(null);
+  const closeTerminal = () => {
+    setOpen(false);
+    requestAnimationFrame(() => launcherRef.current?.focus());
+  };
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        requestAnimationFrame(() => launcherRef.current?.focus());
+      }
+    };
+    const resetPosition = () => setPos({ x: 0, y: 0 });
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", resetPosition);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", resetPosition);
+      dragCleanupRef.current?.();
+    };
+  }, [open]);
   const [pos, setPos] = useState<Position>({ x: 0, y: 0 });
   const [history, setHistory] = useState<TerminalLine[]>([
     {
@@ -80,29 +105,44 @@ export function FloatingTerminal() {
     }
   }, [history, open]);
 
-  const onDragStart = (event: ReactMouseEvent<HTMLDivElement>) => {
+  const onDragStart = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLElement).closest("button") || event.button !== 0)
+      return;
+    const rect = panelRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    dragCleanupRef.current?.();
     const startX = event.clientX;
     const startY = event.clientY;
     const origin = { ...pos };
-
-    const onMove = (moveEvent: MouseEvent) => {
-      setPos({
-        x: origin.x + (moveEvent.clientX - startX),
-        y: origin.y + (moveEvent.clientY - startY),
-      });
+    const onMove = (moveEvent: PointerEvent) => {
+      const dx = Math.max(
+        8 - rect.left,
+        Math.min(
+          moveEvent.clientX - startX,
+          window.innerWidth - rect.right - 8,
+        ),
+      );
+      const dy = Math.max(
+        8 - rect.top,
+        Math.min(
+          moveEvent.clientY - startY,
+          window.innerHeight - rect.bottom - 8,
+        ),
+      );
+      setPos({ x: origin.x + dx, y: origin.y + dy });
     };
-
     const onUp = () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
     };
-
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
+    dragCleanupRef.current = onUp;
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
   };
 
-  const canPlaySound = () =>
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canPlaySound = () => soundEnabled;
 
   const run = (raw: string) => {
     const cmd = raw.trim();
@@ -135,7 +175,7 @@ export function FloatingTerminal() {
         break;
       case "whoami":
         out = [
-          "jatin-awankar -- full-stack SaaS & MVP developer, based in India.",
+          "jatin-awankar -- full-stack engineer with a backend focus, based in India.",
         ];
         break;
       case "neofetch":
@@ -145,10 +185,8 @@ export function FloatingTerminal() {
       case "github":
         out = [
           "jatin-awankar",
-          "  repos      : 36",
-          "  followers  : 3",
-          "  starred    : 11",
-          "  badges     : YOLO, Pull Shark x2, Quickdraw",
+          "Profile: https://github.com/jatin-awankar",
+          "Visit GitHub for current repositories and contributions.",
         ];
         break;
       case "blog":
@@ -258,12 +296,12 @@ export function FloatingTerminal() {
   if (!open) {
     return (
       <button
+        ref={launcherRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open terminal"
         className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-zinc-800/60 bg-zinc-900/70 text-orange-400 backdrop-blur-md transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 motion-reduce:transition-none"
       >
-        <span className="absolute h-full w-full rounded-full border border-orange-400/40 motion-safe:animate-ping" />
         <Terminal className="relative h-5 w-5" />
       </button>
     );
@@ -271,23 +309,32 @@ export function FloatingTerminal() {
 
   return (
     <aside
+      ref={panelRef}
       style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
-      className="fixed bottom-6 right-6 z-50 w-[calc(100vw-2rem)] max-w-[420px] overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-950/95 font-display text-xs shadow-2xl shadow-black/40 backdrop-blur-md sm:w-[420px]"
+      className="terminal-panel fixed bottom-4 right-4 z-50 flex flex-col max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-[420px] overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-950/95 font-display text-xs shadow-2xl shadow-black/40 backdrop-blur-md sm:w-[420px]"
       aria-label="Floating terminal"
     >
       <div
-        onMouseDown={onDragStart}
-        className="flex cursor-grab items-center justify-between border-b border-zinc-800/60 bg-zinc-900/40 px-3 py-2 active:cursor-grabbing"
+        onPointerDown={onDragStart}
+        className="flex touch-none shrink-0 cursor-grab items-center justify-between border-b border-zinc-800/60 bg-zinc-900/40 px-3 py-2 active:cursor-grabbing"
       >
-        <div className="flex min-w-0 items-center gap-2 text-zinc-500">
+        <div className="flex min-w-0 items-center gap-2 text-zinc-400">
           <Terminal className="h-3.5 w-3.5 shrink-0" />
           <span className="truncate">jatin@portfolio: ~/{currentPath}</span>
         </div>
         <button
           type="button"
-          onClick={() => setOpen(false)}
+          className="text-action shrink-0 whitespace-nowrap px-2"
+          aria-pressed={soundEnabled}
+          onClick={() => setSoundEnabled(!soundEnabled)}
+        >
+          {soundEnabled ? "Sound on" : "Sound off"}
+        </button>
+        <button
+          type="button"
+          onClick={closeTerminal}
           aria-label="Close terminal"
-          className="rounded-sm text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 motion-reduce:transition-none"
+          className="icon-action shrink-0 rounded-sm transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 motion-reduce:transition-none"
         >
           <X className="h-3.5 w-3.5" />
         </button>
@@ -295,7 +342,7 @@ export function FloatingTerminal() {
 
       <div
         ref={bodyRef}
-        className="h-64 overflow-y-auto overflow-x-hidden px-3 py-2 text-zinc-400"
+        className="h-64 min-h-0 overflow-y-auto overflow-x-hidden px-3 py-2 text-zinc-400"
       >
         {history.map((line, index) => (
           <div
@@ -303,7 +350,7 @@ export function FloatingTerminal() {
             className={cn(
               line.type === "in"
                 ? "wrap-break-word text-zinc-100"
-                : "whitespace-pre-wrap wrap-break-word text-zinc-500",
+                : "whitespace-pre-wrap wrap-break-word text-zinc-400",
             )}
           >
             {line.type === "in" ? `$ ${line.text}` : line.text}
@@ -313,16 +360,20 @@ export function FloatingTerminal() {
 
       <form
         onSubmit={onSubmit}
-        className="flex items-center gap-2 border-t border-zinc-800/60 px-3 py-2"
+        className="flex shrink-0 items-center gap-2 border-t border-zinc-800/60 px-3 py-2"
       >
         <span className="text-orange-400">$</span>
         <input
+          aria-label="Terminal command"
+          autoCapitalize="none"
+          autoComplete="off"
+          spellCheck={false}
           value={input}
           onChange={(event) => {
             setInput(event.target.value);
             if (canPlaySound()) playKeyClick();
           }}
-          className="flex-1 rounded-sm bg-transparent text-zinc-100 outline-none placeholder:text-zinc-600 focus-visible:ring-2 focus-visible:ring-orange-400"
+          className="min-w-0 flex-1 rounded-sm text-base sm:text-xs bg-transparent text-zinc-100 outline-none placeholder:text-zinc-400 focus-visible:ring-2 focus-visible:ring-orange-400"
           placeholder="type a command..."
           autoFocus
         />
