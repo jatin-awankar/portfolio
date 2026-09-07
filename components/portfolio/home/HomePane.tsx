@@ -1,73 +1,93 @@
 import Link from "next/link";
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
-
-const iconLinkClass =
-  "rounded-sm text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none";
+import { ArrowDown, ArrowUpRight, Github, Linkedin } from "lucide-react";
 
 export function HomePane() {
   return (
-    <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-      <div className="max-w-xl">
-        <p className="mb-4 font-display text-xs text-zinc-500">
-          {"// 01 - intro"}
+    <div className="hero-layout">
+      <div>
+        <p className="eyebrow">
+          <span className="status-dot" /> Open to engineering roles · India /
+          remote
         </p>
-        <h1 className="mb-6 font-display text-3xl font-bold leading-tight tracking-normal text-zinc-100 lg:text-5xl">
-          I build scalable MVPs & SaaS products for startups
+        <h1 className="hero-title">
+          Jatin Awankar.
+          <br />
+          <span>Built for the hard parts.</span>
         </h1>
-        <p className="leading-relaxed text-zinc-400">
-          From idea to production -- fast, reliable, and built to scale. I help
-          founders launch products with clean backend systems, real-time
-          features, and architecture that won&apos;t break as you grow.
+        <p className="hero-description">
+          Full-stack engineer, backend focus. I build billing systems,
+          concurrency-safe bookings, and real-time products that account for
+          retries, failures, and edge cases.
         </p>
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-7 flex flex-wrap gap-3">
           <Link
-            href="mailto:jatinawankar02@gmail.com"
-            className="rounded-sm bg-orange-400 px-5 py-2.5 font-display text-sm font-medium text-zinc-950 transition-colors hover:bg-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+            href="/Jatin_Awankar_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="action-primary"
           >
-            Start a project
+            View résumé <ArrowUpRight size={17} />
+            <span className="sr-only"> (PDF, opens in a new tab)</span>
+          </Link>
+          <a href="#selected-work" className="action-secondary">
+            Explore my work <ArrowDown size={16} />
+          </a>
+        </div>
+        <div className="hero-socials">
+          <Link
+            href="https://github.com/jatin-awankar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-action"
+            aria-label="GitHub"
+          >
+            <Github size={18} />
           </Link>
           <Link
-            href="/projects"
-            className="rounded-sm border border-zinc-700 px-5 py-2.5 font-display text-sm text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+            href="https://www.linkedin.com/in/jatin-awankar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-action"
+            aria-label="LinkedIn"
           >
-            View work
+            <Linkedin size={18} />
+          </Link>
+          <Link href="mailto:jatinawankar02@gmail.com" className="text-action">
+            Get in touch <ArrowUpRight size={14} />
           </Link>
         </div>
       </div>
-      <div className="flex gap-4">
-        <Link
-          href="https://github.com/jatin-awankar"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={iconLinkClass}
-          aria-label="GitHub"
-        >
-          <Github className="h-5 w-5" />
-        </Link>
-        <Link
-          href="https://www.linkedin.com/in/jatin-awankar"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={iconLinkClass}
-          aria-label="LinkedIn"
-        >
-          <Linkedin className="h-5 w-5" />
-        </Link>
-        <Link
-          href="mailto:jatinawankar02@gmail.com"
-          className={iconLinkClass}
-          aria-label="Email"
-        >
-          <Mail className="h-5 w-5" />
-        </Link>
-        <Link
-          href="/Jatin_Awankar_Resume.pdf"
-          target="_blank"
-          className={iconLinkClass}
-          aria-label="Resume"
-        >
-          <ArrowUpRight className="h-5 w-5" />
-        </Link>
+      <div className="build-note" aria-label="My approach to building products">
+        <div className="build-note-header">
+          <span>THE WAY I BUILD</span>
+          <span className="text-orange-400">01 → 03</span>
+        </div>
+        <ol>
+          <li>
+            <span>01</span>
+            <div>
+              <strong>Understand the problem.</strong>
+              <p>What needs to work, and for whom?</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <strong>Build the essential.</strong>
+              <p>A clear interface. A dependable core.</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <strong>Account for the edges.</strong>
+              <p>Retries, permissions, and the last seat.</p>
+            </div>
+          </li>
+        </ol>
+        <p className="build-note-footer">
+          Thoughtful systems. Useful products.
+        </p>
       </div>
     </div>
   );

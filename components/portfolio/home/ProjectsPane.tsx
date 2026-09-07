@@ -1,87 +1,129 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { projects, type Project } from "@/lib/data/projects";
+import { projects } from "@/lib/data/projects";
+import { BookingDemo } from "./BookingDemo";
 
-type ProjectTileProps = {
-  project: Project;
-  big?: boolean;
-};
-
-const featuredProjectSlugs = ["fortify", "usageflow", "petrol-partner"];
-
-function ProjectTile({ project, big = false }: ProjectTileProps) {
-  const tags = project.tags ?? [];
-
-  return (
-    <Link
-      href={`/projects#${project.slug}`}
-      className={`group overflow-hidden rounded-md border border-zinc-800/60 bg-zinc-950/30 transition-colors hover:border-orange-400/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none ${
-        big ? "sm:col-span-2" : ""
-      }`}
-    >
-      {project.image ? (
-        <div className="relative h-44 max-h-44 w-full border-b border-zinc-800/60">
-          <Image
-            src={project.image}
-            alt={`${project.name} preview`}
-            fill
-            unoptimized={project.image.endsWith(".gif")}
-            className="object-cover object-top"
-            sizes="(min-width: 1024px) 512px, calc(100vw - 2rem)"
-          />
-        </div>
-      ) : null}
-      <div className="p-5">
-        <div className="mb-2 flex items-center justify-between gap-3">
-          <h3 className="font-display text-sm font-medium text-zinc-100">
-            {project.name}
-          </h3>
-          <ArrowUpRight className="h-4 w-4 shrink-0 text-zinc-500 transition-colors group-hover:text-orange-400 motion-reduce:transition-none" />
-        </div>
-        <p className="mb-3 text-sm leading-relaxed text-zinc-400">
-          {project.tagline}
-        </p>
-        {tags.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded border border-zinc-800 px-2 py-0.5 font-display text-xs text-zinc-500"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    </Link>
-  );
-}
+const selected = [
+  {
+    slug: "usageflow",
+    number: "01",
+    category: "BILLING INFRASTRUCTURE",
+    decision: "Designed for retries, not just the happy path.",
+    detail:
+      "Idempotent webhook handling, atomic usage updates, and background invoice processing.",
+    evidence: "Explore the billing architecture",
+  },
+  {
+    slug: "petrol-partner",
+    number: "02",
+    category: "CONCURRENCY & REALTIME",
+    decision: "The last seat should only be booked once.",
+    detail:
+      "Row-level locking and an explicit booking state machine keep competing requests consistent.",
+    evidence: "Explore the booking system",
+  },
+  {
+    slug: "fortify",
+    number: "03",
+    category: "DEVELOPER TOOLING",
+    decision: "Useful AI, right where developers work.",
+    detail:
+      "A published Node.js CLI for error explanations, git-aware commits, and persistent chat sessions.",
+    evidence: "Explore the CLI implementation",
+  },
+];
 
 export function ProjectsPane() {
-  const featuredProjects = featuredProjectSlugs
-    .map((slug) => projects.find((project) => project.slug === slug))
-    .filter((project): project is Project => Boolean(project));
-
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <p className="font-display text-xs text-zinc-500">
-          {"// 02 - featured work"}
-        </p>
-        <Link
-          href="/projects"
-          className="rounded-sm font-display text-xs text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-        >
-          cd /projects -&gt;
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">01 / Selected engineering</p>
+          <h2>Software with something to solve.</h2>
+        </div>
+        <Link href="/projects" className="text-action">
+          All projects <ArrowUpRight size={16} />
         </Link>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {featuredProjects.map((project, index) => (
-          <ProjectTile key={project.slug} project={project} big={index === 0} />
-        ))}
+      <div className="project-grid">
+        {selected.map((entry, index) => {
+          const project = projects.find((item) => item.slug === entry.slug)!;
+          return (
+            <article
+              key={entry.slug}
+              className={`work-card ${index === 0 ? "work-card-featured" : ""}`}
+            >
+              <Link
+                href={`/projects#${project.slug}`}
+                className="work-card-link"
+              >
+                {project.image && entry.slug !== "fortify" ? (
+                  <div className="work-preview">
+                    <Image
+                      src={project.image}
+                      alt={`${project.name} product preview`}
+                      fill
+                      className="object-contain"
+                      sizes="(min-width: 1024px) 520px, (min-width: 640px) 50vw, 90vw"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="cli-preview"
+                    aria-label="Fortify command examples"
+                  >
+                    <span className="text-zinc-400">~/projects/fortify</span>
+                    <p>
+                      <span>$</span> fortify explain ./error.log
+                    </p>
+                    <p>
+                      <span>$</span> fortify commit
+                    </p>
+                    <p>
+                      <span>$</span> fortify chat
+                    </p>
+                    <span className="text-zinc-400">
+                      Node.js · published on npm
+                    </span>
+                  </div>
+                )}
+                <div className="work-copy">
+                  <p className="eyebrow">
+                    {entry.number} / {entry.category}
+                  </p>
+                  <div className="flex items-center justify-between gap-3">
+                    <h3>{project.name}</h3>
+                    <ArrowUpRight size={19} className="text-orange-400" />
+                  </div>
+                  <p className="work-decision">{entry.decision}</p>
+                  <p className="work-detail">{entry.detail}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tags?.slice(0, 4).map((tag) => (
+                      <span className="tech-tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="work-evidence">
+                    {entry.evidence} <span aria-hidden="true">↗</span>
+                  </span>
+                </div>
+              </Link>
+            </article>
+          );
+        })}
       </div>
+      <div className="mt-6">
+        <BookingDemo />
+      </div>
+      <p className="mt-6 text-sm leading-relaxed text-zinc-400">
+        Also delivered:{" "}
+        <Link href="/projects#olympic-windows" className="inline-link">
+          Olympic Windows
+        </Link>
+        , a client website with product pages and a consultation enquiry flow.
+      </p>
     </div>
   );
 }

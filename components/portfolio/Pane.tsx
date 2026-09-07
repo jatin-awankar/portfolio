@@ -13,7 +13,7 @@ export function Pane({ title, children, className, id }: PaneProps) {
     <section
       id={id}
       className={cn(
-        "scroll-mt-28 overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-900/40 backdrop-blur-sm",
+        "portfolio-pane scroll-mt-28 overflow-hidden rounded-lg border border-zinc-800/60 bg-zinc-900/40 backdrop-blur-sm",
         className,
       )}
     >
@@ -21,9 +21,9 @@ export function Pane({ title, children, className, id }: PaneProps) {
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
-        <span className="ml-2 font-display text-xs text-zinc-500">{title}</span>
+        <span className="ml-2 font-display text-xs text-zinc-400">{title}</span>
       </div>
-      <div className="p-6 lg:p-10">{children}</div>
+      <div className="p-5 sm:p-7 lg:p-8">{children}</div>
     </section>
   );
 }

@@ -17,11 +17,11 @@ export default function Home() {
 
       <StatsStrip />
 
-      <Pane title="~/home/projects.tsx">
+      <Pane title="~/home/projects.tsx" id="selected-work">
         <ProjectsPane />
       </Pane>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
         <Pane title="~/home/capabilities.tsx">
           <CapabilitiesPane />
         </Pane>

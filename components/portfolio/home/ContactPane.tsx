@@ -1,61 +1,73 @@
+"use client";
+
 import Link from "next/link";
-import { Github, Linkedin, Mail } from "lucide-react";
-
-const iconLinkClass =
-  "rounded-sm text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 motion-reduce:transition-none";
-
+import { useState } from "react";
+import { ArrowUpRight, Copy, Check } from "lucide-react";
+const email = "jatinawankar02@gmail.com";
 export function ContactPane() {
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(false);
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setError(false);
+    } catch {
+      setError(true);
+      setCopied(false);
+    }
+  }
   return (
-    <div>
-      <p className="mb-3 font-display text-xs text-zinc-500">
-        $ contact --open
-      </p>
-      <h2 className="mb-6 max-w-xl font-display text-2xl font-bold tracking-normal text-zinc-100 lg:text-3xl">
-        Ready to build your next product with confidence?
+    <div className="contact-content">
+      <p className="eyebrow">04 / Let’s connect</p>
+      <h2>
+        Good teams build
+        <br />
+        <span className="text-orange-400">better software.</span>
       </h2>
-      <p className="mb-6 max-w-2xl leading-relaxed text-zinc-400">
-        If you are shipping an MVP, fixing unstable backend flows, or preparing
-        to scale, I can help as your full-stack delivery partner.
+      <p className="mt-5 max-w-xl leading-relaxed text-zinc-400">
+        Looking for a full-stack engineer who cares about the system behind the
+        interface? I’m open to engineering opportunities. Tell me about your
+        team and what you’re building.
       </p>
-      <div className="flex flex-wrap items-center gap-4">
-        <Link
-          href="mailto:jatinawankar02@gmail.com"
-          className="rounded-sm bg-orange-400 px-5 py-2.5 font-display text-sm font-medium text-zinc-950 transition-colors hover:bg-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 motion-reduce:transition-none"
-        >
-          contact --email
+      <div className="mt-7 flex flex-wrap gap-3">
+        <Link href={`mailto:${email}`} className="action-primary">
+          Get in touch <ArrowUpRight size={17} />
         </Link>
-        <div className="flex gap-3">
-          <Link
-            href="https://github.com/jatin-awankar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={iconLinkClass}
-            aria-label="GitHub"
-          >
-            <Github className="h-5 w-5" />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/jatin-awankar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={iconLinkClass}
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="h-5 w-5" />
-          </Link>
-          <Link
-            href="mailto:jatinawankar02@gmail.com"
-            className={iconLinkClass}
-            aria-label="Email"
-          >
-            <Mail className="h-5 w-5" />
-          </Link>
-        </div>
+        <Link
+          href="/Jatin_Awankar_Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="action-secondary"
+        >
+          View résumé <ArrowUpRight size={16} />
+          <span className="sr-only"> (PDF, opens in a new tab)</span>
+        </Link>
       </div>
-      <p className="mt-10 font-display text-xs text-zinc-600">
-        © 2026 Jatin Awankar -- built with Next.js, Tailwind & a terminal you
-        can&apos;t quit
+      <div className="contact-email">
+        <a href={`mailto:${email}`} className="inline-link">
+          {email}
+        </a>
+        <button
+          type="button"
+          className="icon-action"
+          onClick={copyEmail}
+          aria-label="Copy email address"
+        >
+          {copied ? <Check size={17} /> : <Copy size={17} />}
+        </button>
+      </div>
+      <p role="status" className="text-sm text-zinc-400">
+        {error
+          ? "Couldn’t copy automatically. Select the email address above to copy it."
+          : copied
+            ? "Email copied."
+            : ""}
       </p>
+      <footer className="contact-footer">
+        <span>© {new Date().getFullYear()} Jatin Awankar</span>
+        <span>Built with Next.js. Made with intention.</span>
+      </footer>
     </div>
   );
 }
