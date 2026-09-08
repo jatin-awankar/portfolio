@@ -1,14 +1,14 @@
 const currently = [
   "Open source contributions",
   "React internals",
-  "Backend architecture",
-  "Distributed systems fundamentals",
-  "Concurrency & networking",
+  "Accessible interfaces",
+  "Application architecture",
+  "Web performance",
 ];
 
 const building = [
   "Usage-based SaaS systems",
-  "Scalable backend APIs",
+  "Responsive interfaces and APIs",
   "Real-time web applications",
   "Startup-ready production systems",
 ];
@@ -21,11 +21,11 @@ export function BioPane() {
           {"// 01 - about.md"}
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-zinc-300">
-          I build full-stack web applications with a backend focus. I care
-          about the moments that make software reliable: requests that overlap,
-          billing events that repeat, and interfaces that stay clear while data
-          is still loading. I learn by reading the underlying systems, then use
-          that understanding to make practical product decisions.
+          I’m a full-stack engineer. I build web applications from the interface
+          to the API and database, with attention to how the whole experience
+          fits together. I care about clear interactions, responsive layouts,
+          and reliable behavior. I learn by understanding how things work, then
+          use that knowledge to make practical product decisions.
         </p>
       </div>
       <div className="grid gap-6 sm:grid-cols-2">

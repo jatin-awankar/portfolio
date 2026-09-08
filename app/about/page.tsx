@@ -1,8 +1,29 @@
+import type { Metadata } from "next";
 import { FocusedPane } from "@/components/portfolio/FocusedPane";
 import { Pane } from "@/components/portfolio/Pane";
 import { BioPane } from "@/components/portfolio/about/BioPane";
 import { GitHubActivityPane } from "@/components/portfolio/about/GitHubActivityPane";
 import { getContributionGraph, getOpenSourcePRs } from "@/lib/github";
+
+const description =
+  "Meet Jatin Awankar, a full-stack engineer building web applications from interfaces to APIs and databases. Explore his interests and open-source contributions.";
+
+export const metadata: Metadata = {
+  title: "About Jatin Awankar | Full-Stack Engineer",
+  description,
+  openGraph: {
+    title: "About Jatin Awankar | Full-Stack Engineer",
+    description,
+    url: "https://jatinawankar.dev/about",
+    images: [{ url: "/og.webp", width: 1200, height: 630, alt: "Jatin Awankar | Full-Stack Engineer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Jatin Awankar | Full-Stack Engineer",
+    description,
+    images: ["/og.webp"],
+  },
+};
 
 export default async function AboutPage() {
   const [graphResult, prsResult] = await Promise.allSettled([
