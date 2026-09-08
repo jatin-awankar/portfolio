@@ -4,11 +4,14 @@ export type PageIntroProps = {
 
 export function PageIntro({ count }: PageIntroProps) {
   return (
-    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg border border-zinc-800/60 bg-zinc-900/20 px-4 py-3 font-display text-xs text-zinc-500">
-      <span className="text-orange-400">
-        $ curl -s medium.com/feed/@jatinawankar02 | jq &apos;.title&apos;
-      </span>
-      <span className="text-zinc-200">{count} posts</span>
+    <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/20 px-4 py-4">
+      <p className="project-label mb-2">
+        <span className="project-highlight-marker">$ ls /writings</span> · {count} {count === 1 ? "post" : "posts"}
+      </p>
+      <h1 className="font-display text-2xl font-semibold text-zinc-100 sm:text-3xl">Engineering notes.</h1>
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
+        Notes on architecture, payments, and concurrency, grounded in the systems I build.
+      </p>
     </div>
   );
 }

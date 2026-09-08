@@ -13,6 +13,9 @@ export interface BlogPost {
   title: string;
   link: string;
   date: string; // formatted, e.g. "Mar 17, 2026"
+  publishedAt?: string;
+  featured?: boolean;
+  projectNote?: string;
   excerpt: string;
   tags: string[];
 }
@@ -38,12 +41,18 @@ export async function getMediumPosts(): Promise<BlogPost[]> {
   return feed.items.map((item) => {
     const raw =
       item.contentSnippet || item.summary || item["content:encoded"] || "";
-    const excerpt = stripHtml(raw).slice(0, 180);
-    const date = item.pubDate
-      ? new Date(item.pubDate).toLocaleDateString("en-US", {
+    const text = stripHtml(raw);
+    const excerpt = text.length > 180
+      ? text.slice(0, 180).replace(/\s+\S*$/, "") + "…"
+      : text;
+    const published = item.pubDate ? new Date(item.pubDate) : null;
+    const validDate = published && !Number.isNaN(published.getTime());
+    const date = validDate
+      ? published.toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
           year: "numeric",
+          timeZone: "UTC",
         })
       : "";
 
@@ -52,8 +61,11 @@ export async function getMediumPosts(): Promise<BlogPost[]> {
       title: (item.title ?? "").replace(/\u200B/g, "").trim(),
       link: item.link ?? "",
       date,
-      excerpt: excerpt + (excerpt.length === 180 ? "…" : ""),
-      tags: item.categories ?? [],
+      publishedAt: validDate ? published.toISOString() : undefined,
+      excerpt,
+      tags: [...new Set(item.categories ?? [])].slice(0, 2).map((tag) =>
+        tag.replace(/-/g, " ").replace(/^./, (letter) => letter.toUpperCase()),
+      ),
     };
   });
 }
