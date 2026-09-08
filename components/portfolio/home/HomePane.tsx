@@ -15,9 +15,8 @@ export function HomePane() {
           <span>Built for the hard parts.</span>
         </h1>
         <p className="hero-description">
-          Full-stack engineer, backend focus. I build billing systems,
-          concurrency-safe bookings, and real-time products that account for
-          retries, failures, and edge cases.
+          Full-stack engineer focused on reliable backends, billing systems,
+          and real-time products.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
@@ -67,27 +66,21 @@ export function HomePane() {
             <span>01</span>
             <div>
               <strong>Understand the problem.</strong>
-              <p>What needs to work, and for whom?</p>
             </div>
           </li>
           <li>
             <span>02</span>
             <div>
               <strong>Build the essential.</strong>
-              <p>A clear interface. A dependable core.</p>
             </div>
           </li>
           <li>
             <span>03</span>
             <div>
               <strong>Account for the edges.</strong>
-              <p>Retries, permissions, and the last seat.</p>
             </div>
           </li>
         </ol>
-        <p className="build-note-footer">
-          Thoughtful systems. Useful products.
-        </p>
       </div>
     </div>
   );

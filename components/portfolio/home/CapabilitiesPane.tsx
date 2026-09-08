@@ -9,31 +9,23 @@ import {
 const capabilities = [
   {
     Icon: Database,
-    title: "Data that stays consistent",
-    text: "PostgreSQL, transactions, constraints, and atomic updates.",
-    href: "/projects#usageflow",
-    example: "UsageFlow / usage metering",
+    title: "Data & consistency",
+    text: "PostgreSQL, transactions, atomic updates.",
   },
   {
     Icon: Workflow,
-    title: "Flows that handle failure",
-    text: "Queues, webhook retries, and explicit state transitions.",
-    href: "/projects#petrol-partner",
-    example: "Petrol Partner / booking states",
+    title: "Reliable workflows",
+    text: "Queues, retries, state machines.",
   },
   {
     Icon: ShieldCheck,
-    title: "Clear access boundaries",
-    text: "Authentication, role-based access, and multi-tenant systems.",
-    href: "/projects#usageflow",
-    example: "UsageFlow / access control",
+    title: "Access control",
+    text: "Authentication, roles, multi-tenancy.",
   },
   {
     Icon: PanelsTopLeft,
-    title: "The complete product",
-    text: "React, Next.js, responsive interfaces, and API integration.",
-    href: "/projects#olympic-windows",
-    example: "Olympic Windows / client delivery",
+    title: "Product interfaces",
+    text: "React, Next.js, responsive UI.",
   },
 ];
 export function CapabilitiesPane() {
@@ -42,20 +34,16 @@ export function CapabilitiesPane() {
       <div className="section-heading">
         <div>
           <p className="eyebrow">02 / Engineering toolkit</p>
-          <h2>Beyond the stack.</h2>
+          <h2>What I work with.</h2>
         </div>
       </div>
       <div className="capability-list">
-        {capabilities.map(({ Icon, title, text, href, example }) => (
+        {capabilities.map(({ Icon, title, text }) => (
           <article key={title}>
             <Icon size={19} className="text-orange-400" />
             <div>
               <h3>{title}</h3>
               <p>{text}</p>
-              <Link href={href} className="text-action">
-                {example}
-                <ArrowUpRight size={13} />
-              </Link>
             </div>
           </article>
         ))}
