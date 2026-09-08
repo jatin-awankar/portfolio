@@ -2,148 +2,92 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { ArrowUpRight, File, Github } from "lucide-react";
+import { useCallback, useState } from "react";
+import { ArrowUpRight, FileText, Github, Play, Square } from "lucide-react";
 import { Pane } from "@/components/portfolio/Pane";
 import type { Project } from "@/lib/data/projects";
 import { DemoDialog } from "./DemoDialog";
-import { LogEntry } from "./LogEntry";
+import { EngineeringHighlight } from "./EngineeringHighlight";
 
-export type ProjectPaneProps = {
-  project: Project;
-};
-
-function formatStack(stack: Project["stack"]): string {
-  const stackLines = Object.entries(stack).map(
-    ([key, value], index, entries) =>
-      `  "${key}": "${value}"${index < entries.length - 1 ? "," : ""}`,
-  );
-
-  return `{\n${stackLines.join("\n")}\n}`;
-}
+export type ProjectPaneProps = { project: Project };
 
 export function ProjectPane({ project }: ProjectPaneProps) {
   const [demoOpen, setDemoOpen] = useState(false);
-  const stack = formatStack(project.stack);
-  const isClientWork = project.tags?.includes("Client Work") ?? false;
-  const liveLabel =
-    project.name === "Fortify"
-      ? "view on npm"
-      : isClientWork
-        ? "open --delivered"
-        : "open --live";
+  const [playing, setPlaying] = useState(false);
+  const closeDemo = useCallback(() => setDemoOpen(false), []);
+  const animated = project.image?.endsWith(".gif");
 
   return (
-    <Pane id={project.slug} title={`~/projects/${project.slug}.tsx`}>
-      <div className="space-y-6 scroll-mt-28">
+    <Pane id={project.slug} title={`~/projects/${project.slug}.tsx`} className="project-detail">
+      <div className="min-w-0 space-y-6">
         {project.image ? (
-          <div className="relative h-56 max-h-56 w-full overflow-hidden rounded-md border border-zinc-800">
-            <Image
-              src={project.image}
-              alt={`${project.name} preview`}
-              fill
-              unoptimized={project.image.endsWith(".gif")}
-              className="object-cover object-top"
-              sizes="(min-width: 1024px) 1024px, calc(100vw - 2rem)"
-            />
-          </div>
-        ) : (
-          <div className="relative flex h-56 max-h-56 w-full items-center justify-center rounded-md border border-zinc-800 bg-linear-to-br from-zinc-900 to-zinc-950">
-            <span className="font-display text-xs text-zinc-600">
-              preview.png
-            </span>
-          </div>
-        )}
-
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h2 className="font-display text-xl font-bold tracking-normal text-zinc-100 lg:text-2xl">
-              {project.name}
-            </h2>
-            {project.type === 'client' && (
-              <span className="rounded border border-orange-400/40 bg-orange-400/5 px-2 py-0.5 font-display text-xs text-orange-400">
-                Client Work
-              </span>
+          <div className="project-preview">
+            {animated && !playing ? (
+              <div className="project-cli-preview" aria-label="Fortify command examples">
+                <p className="project-label">~/projects/fortify</p>
+                <p><span>$</span> fortify explain ./error.log</p>
+                <p><span>$</span> fortify commit</p>
+                <p><span>$</span> fortify chat</p>
+              </div>
+            ) : (
+              <Image
+                src={project.image}
+                alt={`${project.name} ${animated ? "terminal recording" : "website preview"}`}
+                fill
+                unoptimized={animated}
+                className="object-contain"
+                sizes="(min-width: 1152px) 1054px, (min-width: 640px) calc(100vw - 90px), calc(100vw - 74px)"
+              />
             )}
-            <p className="mt-1 max-w-md text-sm text-zinc-400">
-              {project.tagline}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {project.demo ? (
-              <button
-                type="button"
-                onClick={() => setDemoOpen(true)}
-                className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-              >
-                <ArrowUpRight className="h-3.5 w-3.5" />
-                open --demo
+            {animated ? (
+              <button type="button" className="project-preview-toggle" aria-pressed={playing} onClick={() => setPlaying(!playing)}>
+                {playing ? <Square size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
+                {playing ? "Stop recording" : "Play recording"}
               </button>
             ) : null}
-            <Link
-              href={project.live}
-              className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-            >
-              <ArrowUpRight className="h-3.5 w-3.5" />
-              {liveLabel}
+          </div>
+        ) : null}
+
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="min-w-0 max-w-xl">
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="font-display text-2xl font-semibold text-zinc-100">{project.name}</h2>
+              {project.type === "client" ? <span className="project-client-label">Client work</span> : null}
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">{project.tagline}</p>
+          </div>
+          <div className="project-actions">
+            {project.demo ? (
+              <button type="button" onClick={() => setDemoOpen(true)} className="action-primary" aria-haspopup="dialog">
+                {project.demo.kind === "sign-in" ? "Try app" : "Try demo"} <ArrowUpRight size={16} aria-hidden="true" />
+              </button>
+            ) : null}
+            <Link href={project.live} className={project.demo ? "action-secondary" : "action-primary"}>
+              {project.liveLabel ?? "Visit site"} <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
-            {project.source ? (
-              <Link
-                href={project.source}
-                className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-              >
-                <Github className="h-3.5 w-3.5" />
-                open --source
-              </Link>
-            ) : null}
-            {project.name === "UsageFlow" ? (
-              <Link
-                href="https://usageflow.vercel.app/docs"
-                className="flex items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-1.5 font-display text-xs text-zinc-200 transition-colors hover:border-orange-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
-              >
-                <File className="h-3.5 w-3.5" />
-                docs
-              </Link>
-            ) : null}
+            {project.source ? <Link href={project.source} className="text-action"><Github size={16} aria-hidden="true" /> Source</Link> : null}
+            {project.docs ? <Link href={project.docs} className="text-action"><FileText size={16} aria-hidden="true" /> Docs</Link> : null}
           </div>
         </div>
 
-        {demoOpen && project.demo ? (
-          <DemoDialog
-            demo={project.demo}
-            projectName={project.name}
-            onClose={() => setDemoOpen(false)}
-          />
-        ) : null}
+        {demoOpen && project.demo ? <DemoDialog demo={project.demo} projectName={project.name} onClose={closeDemo} /> : null}
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <div className="space-y-6 lg:col-span-2">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-3">
+          <div className="min-w-0 space-y-6 lg:col-span-2">
             <div>
-              <p className="mb-2 font-display text-xs text-zinc-500">
-                README.md
-              </p>
-              <p className="text-sm leading-relaxed text-zinc-300">
-                {project.overview}
-              </p>
+              <h3 className="project-label mb-2">Overview</h3>
+              <p className="text-base leading-relaxed text-zinc-300">{project.overview}</p>
             </div>
             <div>
-              <p className="mb-2 font-display text-xs text-zinc-500">
-                $ git log --oneline
-              </p>
-              <ul className="space-y-2 rounded-md border border-zinc-800 bg-zinc-950/40 p-4">
-                {project.log.map((entry) => (
-                  <LogEntry key={entry.hash} {...entry} />
-                ))}
+              <h3 className="project-label mb-2">Engineering highlights</h3>
+              <ul className="space-y-3 rounded-md border border-zinc-800 bg-zinc-950/40 p-4">
+                {project.highlights.map((entry) => <EngineeringHighlight key={entry.desc} {...entry} />)}
               </ul>
             </div>
           </div>
-          <div>
-            <p className="mb-2 font-display text-xs text-zinc-500">
-              package.json
-            </p>
-            <pre className="overflow-x-auto whitespace-pre rounded-md border border-zinc-800 bg-zinc-950/40 p-4 font-display text-xs leading-relaxed text-zinc-400">
-              {stack}
-            </pre>
+          <div className="min-w-0">
+            <h3 className="project-label mb-2">Stack</h3>
+            <pre className="project-stack">{JSON.stringify(project.stack, null, 2)}</pre>
           </div>
         </div>
       </div>

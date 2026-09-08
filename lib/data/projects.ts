@@ -1,14 +1,11 @@
-export type ProjectLogEntry = {
-  hash: string;
-  type: "feat" | "fix" | "perf" | "refactor" | "release" | "docs";
+export type ProjectHighlight = {
   desc: string;
 };
 
-export interface DemoAccess {
-  url: string;
-  email: string;
-  password: string;
-}
+export type DemoAccess = { url: string } & (
+  | { kind: "credentials"; email: string; password: string }
+  | { kind: "sign-in"; instructions: string }
+);
 
 export interface Project {
   slug: string;
@@ -18,11 +15,13 @@ export interface Project {
   overview: string;
   live: string;
   source: string;
+  docs?: string;
+  liveLabel?: string;
   demo?: DemoAccess;
   tags?: string[];
   stack: Record<string, string>;
-  log: ProjectLogEntry[];
-  type?: 'personal' | 'client';
+  highlights: ProjectHighlight[];
+  type?: "personal" | "client";
 }
 
 export const projects: Project[] = [
@@ -30,11 +29,12 @@ export const projects: Project[] = [
     slug: "fortify",
     name: "Fortify",
     tagline:
-      "AI-powered terminal assistant -- explains errors, writes commit messages, and summarizes codebases from the CLI.",
+      "An AI assistant for the terminal.",
     image: "https://github.com/jatin-awankar/fortify/raw/main/assets/demo.gif",
     overview:
-      "Fortify is a terminal-first AI assistant: it explains error logs and stack traces in plain English, generates git-aware commit messages, summarizes codebases, and runs an interactive chat -- all without leaving the CLI. Published to npm as fortify-ai-cli, with local config and chat history stored in ~/.fortify.",
+      "Built to reduce context switching while debugging and reviewing code. Fortify brings error explanations, commit drafts, and codebase conversations into the CLI, with configuration and history stored locally.",
     live: "https://www.npmjs.com/package/fortify-ai-cli",
+    liveLabel: "View on npm",
     source: "https://github.com/jatin-awankar/fortify",
     tags: ["Node.js", "OpenAI", "CLI", "npm"],
     stack: {
@@ -44,27 +44,10 @@ export const projects: Project[] = [
       ux: "chalk + ora + inquirer",
       distribution: "npm (fortify-ai-cli)",
     },
-    log: [
-      {
-        hash: "6410bea",
-        type: "release",
-        desc: "update version to 0.2.2",
-      },
-      {
-        hash: "c9b11a9",
-        type: "feat",
-        desc: "enhance chat history management with session inspection and improved cancellation handling",
-      },
-      {
-        hash: "c2f0145",
-        type: "feat",
-        desc: "Integrate history management into chat service and command service, enabling session persistence and retrieval",
-      },
-      {
-        hash: "6d18ade",
-        type: "feat",
-        desc: "alias for CLI command, enhance command options, and update model version",
-      },
+    highlights: [
+      { desc: "Explain errors, draft git-aware commits, and explore a codebase without leaving the terminal." },
+      { desc: "Keep local chat history so a conversation can continue across sessions." },
+      { desc: "Distributed as fortify-ai-cli on npm." },
     ],
   },
   {
@@ -74,10 +57,12 @@ export const projects: Project[] = [
       "SaaS billing & usage-tracking platform for products that charge by usage.",
     image: "/projects/usageflow.webp",
     overview:
-      "UsageFlow lets SaaS teams meter usage, apply pricing rules, and generate accurate invoices -- without building billing infrastructure from scratch. It's built for products where usage spikes, retries, and partial failures are the norm, and handles each one without double-charging or losing data.",
+      "Built the metering, pricing, and invoicing flow for SaaS products that charge by usage. The implementation brings together a usage ledger, background jobs, and billing rules so teams can follow how usage becomes a charge.",
     live: "https://usageflow.vercel.app",
     source: "https://github.com/jatin-awankar/UsageFlow",
+    docs: "https://usageflow.vercel.app/docs",
     demo: {
+      kind: "credentials",
       url: "https://usageflow.vercel.app",
       email: "demo@usageflow.com",
       password: "Test@1234",
@@ -90,27 +75,10 @@ export const projects: Project[] = [
       queue: "bullmq",
       auth: "jwt",
     },
-    log: [
-      {
-        hash: "a3f29c1",
-        type: "feat",
-        desc: "idempotent webhook handlers -- duplicate Stripe events no longer double-charge",
-      },
-      {
-        hash: "e88d042",
-        type: "fix",
-        desc: "atomic usage increments via row-level locks under concurrent writes",
-      },
-      {
-        hash: "7c1b9aa",
-        type: "perf",
-        desc: "invoice generation moved to a background queue, cut p95 response time",
-      },
-      {
-        hash: "4f0a6de",
-        type: "refactor",
-        desc: "ledger-based billing -- every charge traceable to a usage event",
-      },
+    highlights: [
+      { desc: "Meter usage and apply pricing rules for usage-based billing." },
+      { desc: "Trace charges back to usage events with a billing ledger." },
+      { desc: "Process invoice generation in a background queue." },
     ],
   },
   {
@@ -123,6 +91,7 @@ export const projects: Project[] = [
     live: "https://petrol-partner.vercel.app",
     source: "https://github.com/jatin-awankar/Petrol-Partner",
     demo: {
+      kind: "credentials",
       url: "https://petrol-partner.vercel.app/",
       email: "demo@petrolpartner.com",
       password: "Test@1234",
@@ -136,33 +105,21 @@ export const projects: Project[] = [
       payments: "razorpay",
       runtime: "node@20+",
     },
-    log: [
-      {
-        hash: "b91f3a2",
-        type: "fix",
-        desc: "row-level locking prevents double-booking the same seat",
-      },
-      {
-        hash: "23ee613",
-        type: "feat",
-        desc: "implement automatic retry for pending payment reconciliations and enhance state handling",
-      },
-      {
-        hash: "99ab1f0",
-        type: "refactor",
-        desc: "booking state machine -- pending -> confirmed -> completed, no invalid transitions",
-      },
+    highlights: [
+      { desc: "Connect drivers and riders through a shared-trip booking flow." },
+      { desc: "Model the booking lifecycle as explicit states, from pending to completed." },
+      { desc: "Combine live location updates with payment reconciliation." },
     ],
   },
   {
     slug: "olympic-windows",
-    type: 'client',
+    type: "client",
     name: "Olympic Windows",
     tagline:
-      "Corporate website for a premium aluminum windows manufacturer -- Lodha Group partner with 100k+ units delivered.",
+      "A product catalogue and consultation flow for a windows manufacturer.",
     image: "/projects/olympicwindows.webp",
     overview:
-      "Full corporate website for Olympic Windows Pvt. Ltd. -- a European-precision aluminum windows and doors manufacturer operating in India since 2012. The site covers their product range across windows, doors, facades, and fins; project case studies including Casa Rio, Palava City, and Lodha Amara; and a consultation booking flow. Built for SEO, performance, and a premium brand feel matching their Lodha Group positioning.",
+      "Delivered the corporate website for Olympic Windows, from product and project pages to consultation enquiries. My work covered the site implementation, enquiry integration, and search metadata.",
     live: "https://olympicwindows.in",
     source: "",
     tags: ["Client Work", "Next.js", "SEO"],
@@ -172,42 +129,25 @@ export const projects: Project[] = [
       type: "client website",
       seo: "structured metadata",
     },
-    log: [
-      {
-        hash: "331ef89",
-        type: "feat",
-        desc: "integrate web3forms for consultation enquiry",
-      },
-      {
-        hash: "0855b0d",
-        type: "refactor",
-        desc: "floatingCTA, navbar, footer, and contactForm",
-      },
-      {
-        hash: "7166440",
-        type: "feat",
-        desc: "implement base layout with SEO metadata and create contact page with communication channels",
-      },
-      {
-        hash: "f9d0374",
-        type: "docs",
-        desc: "replace default Next.js template with project-specific documentation and deployment guides",
-      },
+    highlights: [
+      { desc: "Built the product catalogue and project pages for an established windows manufacturer." },
+      { desc: "Connected consultation enquiries through Web3Forms." },
+      { desc: "Added structured metadata and dedicated contact pages." },
     ],
   },
   {
     slug: "stem-video",
     name: "STEM Video App",
-    tagline: "Low-latency video collaboration for live classes.",
+    tagline: "Video collaboration for live STEM classes.",
     image: "/projects/stem.webp",
     overview:
-      "A video platform built for live STEM classes -- role-based rooms for teachers and students, screen sharing, and session recording, designed to stay usable on unreliable connections.",
+      "Built the classroom experience around GetStream video: teacher and student roles, screen sharing, and session recording. The integration includes reconnect handling when a participant loses their connection.",
     live: "https://stem-connecting-people.vercel.app",
     source: "https://github.com/jatin-awankar/STEM-video-conference-app",
     demo: {
+      kind: "sign-in",
       url: "https://stem-connecting-people.vercel.app/",
-      email: "sign-in-with-your-email",
-      password: "otp-based",
+      instructions: "Sign in with your own email and enter the one-time code sent to your inbox. This project does not have a shared demo account.",
     },
     stack: {
       framework: "next@14",
@@ -216,22 +156,10 @@ export const projects: Project[] = [
       realtime: "websockets",
       ui: "tailwind css",
     },
-    log: [
-      {
-        hash: "d5e6f23",
-        type: "feat",
-        desc: "GetStream video rooms with role-based permissions for teachers and students",
-      },
-      {
-        hash: "12ac9b4",
-        type: "perf",
-        desc: "pre-warmed connections cut room-join latency",
-      },
-      {
-        hash: "88f02d1",
-        type: "fix",
-        desc: "graceful reconnect handling on network drops mid-session",
-      },
+    highlights: [
+      { desc: "Integrate GetStream rooms with teacher and student permissions." },
+      { desc: "Support screen sharing and session recording for live classes." },
+      { desc: "Handle reconnects when a session loses its network connection." },
     ],
   },
   {
@@ -240,10 +168,11 @@ export const projects: Project[] = [
     tagline: "Map-based civic issue reporting with structured tracking.",
     image: "/projects/civic.webp",
     overview:
-      "Lets residents report civic issues -- potholes, broken streetlights, garbage -- by pinning a location on a map and attaching a photo, then tracks each report through a status pipeline municipal staff can act on.",
+      "Built a reporting flow that combines a map location, photo, and issue details. A shared status pipeline lets residents follow progress and gives staff a structured way to manage each report.",
     live: "https://civic-issue-reporter-application.vercel.app",
     source: "https://github.com/jatin-awankar/civic-issue-reporter",
     demo: {
+      kind: "credentials",
       url: "https://civic-issue-reporter-application.vercel.app/",
       email: "demo@civic.com",
       password: "Demo@1234",
@@ -254,22 +183,10 @@ export const projects: Project[] = [
       database: "mongodb",
       maps: "mapbox",
     },
-    log: [
-      {
-        hash: "2a7c5e9",
-        type: "feat",
-        desc: "geotagged issue submission with photo upload",
-      },
-      {
-        hash: "f013ab6",
-        type: "feat",
-        desc: "status pipeline -- reported -> in progress -> resolved",
-      },
-      {
-        hash: "6d4e8c2",
-        type: "refactor",
-        desc: "versioned REST API for mobile client compatibility",
-      },
+    highlights: [
+      { desc: "Submit a location and photo together so each issue has actionable context." },
+      { desc: "Track reports through reported, in-progress, and resolved states." },
+      { desc: "Expose reporting through a versioned REST API." },
     ],
   },
 ];
