@@ -175,31 +175,4 @@ export const projects: Project[] = [
       { desc: "Handle reconnects when a session loses its network connection." },
     ],
   },
-  {
-    slug: "civic-issue-reporter",
-    name: "Civic Issue Reporter",
-    tagline: "Map-based civic issue reporting with structured tracking.",
-    image: "/projects/civic.webp",
-    overview:
-      "Built a reporting flow that combines a map location, photo, and issue details. A shared status pipeline lets residents follow progress and gives staff a structured way to manage each report.",
-    live: "https://civic-issue-reporter-application.vercel.app",
-    source: "https://github.com/jatin-awankar/civic-issue-reporter",
-    demo: {
-      kind: "credentials",
-      url: "https://civic-issue-reporter-application.vercel.app/",
-      email: "demo@civic.com",
-      password: "Demo@1234",
-    },
-    stack: {
-      framework: "react",
-      backend: "node + express",
-      database: "mongodb",
-      maps: "mapbox",
-    },
-    highlights: [
-      { desc: "Submit a location and photo together so each issue has actionable context." },
-      { desc: "Track reports through reported, in-progress, and resolved states." },
-      { desc: "Expose reporting through a versioned REST API." },
-    ],
-  },
 ];

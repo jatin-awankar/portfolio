@@ -6,24 +6,24 @@ import { BookingDemo } from "./BookingDemo";
 
 const selected = [
   {
-    slug: "num1",
-    number: "01",
-    category: "CURRENTLY BUILDING",
-    detail: "Measuring agent performance. Improving codebases for AI.",
-  },
-  {
     slug: "fortify",
-    number: "02",
+    number: "01",
     category: "AI DEVELOPER TOOLS",
     detail:
       "An AI-powered CLI for error explanations, commits, and codebase summaries.",
   },
   {
     slug: "usageflow",
-    number: "03",
+    number: "02",
     category: "SAAS BILLING",
     detail:
       "Usage-based billing with safe retries and accurate metering.",
+  },
+  {
+    slug: "petrol-partner",
+    number: "03",
+    category: "REAL-TIME PRODUCTS",
+    detail: "Real-time ride sharing with concurrency-safe seat booking.",
   },
 ];
 
@@ -51,15 +51,7 @@ export function ProjectsPane() {
                 href={`/projects#${project.slug}`}
                 className="work-card-link"
               >
-                {entry.slug === "num1" ? (
-                  <div className="cli-preview" aria-label="Num1 product focus">
-                    <span className="text-zinc-400">~/projects/num1</span>
-                    <p>Cost & speed</p>
-                    <p>Reliability & human effort</p>
-                    <p>Codebase improvements</p>
-                    <span className="text-zinc-400">In development · Not yet public</span>
-                  </div>
-                ) : project.image && entry.slug !== "fortify" ? (
+                {project.image && entry.slug !== "fortify" ? (
                   <div className="work-preview">
                     <Image
                       src={project.image}
