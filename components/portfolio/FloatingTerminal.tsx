@@ -52,8 +52,8 @@ const ascii = [
   "  +------+   ---------------------",
   "  os      : Next.js",
   "  shell   : TypeScript + Tailwind",
-  "  stack   : Postgres, Redis, BullMQ",
-  "  focus   : full-stack engineering",
+  "  stack   : React, Node.js, Postgres, OpenAI",
+  "  focus   : full-stack & AI products",
   "  status  : open to engineering roles",
 ];
 
@@ -175,7 +175,7 @@ export function FloatingTerminal() {
         break;
       case "whoami":
         out = [
-          "jatin-awankar -- full-stack engineer with a backend focus, based in India.",
+          "jatin-awankar -- full-stack engineer building AI-powered products and integrations.",
         ];
         break;
       case "neofetch":
@@ -240,9 +240,8 @@ export function FloatingTerminal() {
       case "cat":
         if (args[0] === "about.md") {
           out = [
-            "I design and build production-grade web applications from",
-            "scratch -- focused on system design, performance, and",
-            "understanding internals rather than just using abstractions.",
+            "I build full-stack products and practical AI integrations.",
+            "Currently building Num1: AI agent benchmarks (in development).",
           ];
         } else if (args[0] === "resume" || args[0] === "resume.pdf") {
           window.open(

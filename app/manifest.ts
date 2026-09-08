@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Jatin Awankar",
     short_name: "Jatin",
     description:
-      "Full-stack developer building production-grade web applications.",
+      "Full-stack engineer building AI-powered products and integrations.",
     start_url: "/",
     display: "standalone",
     background_color: "#0B0E14",

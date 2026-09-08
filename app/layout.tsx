@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Jatin Awankar | Full-Stack Engineer",
 
   description:
-    "Full-stack engineer with a backend focus. Explore billing systems, concurrency-safe bookings, developer tools, and open-source contributions.",
+    "Full-stack engineer building AI-powered products and integrations.",
 
   applicationName: "Jatin Awankar Portfolio",
   authors: [{ name: "Jatin Awankar" }],
@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   keywords: [
     "Jatin Awankar",
     "Software Engineer",
-    "Scalable Systems",
-    "SaaS Architecture",
-    "System Design",
-    "Concurrency",
-    "Backend Engineering",
+    "Full-Stack Engineer",
+    "AI Products",
+    "AI Integration",
+    "Developer Tools",
+    "Agent Evaluation",
     "Next.js",
     "PostgreSQL",
     "Multi-Tenant Systems",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jatin Awankar | Full-Stack Engineer",
     description:
-      "Full-stack engineer with a backend focus. Explore billing systems, concurrency-safe bookings, developer tools, and open-source contributions.",
+      "Full-stack engineer building AI-powered products and integrations.",
     url: "https://jatinawankar.dev",
     siteName: "Jatin Awankar",
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Jatin Awankar | Full-Stack Engineer",
     description:
-      "Full-stack engineer with a backend focus. Explore billing systems, concurrency-safe bookings, developer tools, and open-source contributions.",
+      "Full-stack engineer building AI-powered products and integrations.",
     images: ["/og.webp"],
   },
 };

@@ -53,6 +53,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="font-display text-2xl font-semibold text-zinc-100">{project.name}</h2>
               {project.type === "client" ? <span className="project-client-label">Client work</span> : null}
+              {project.status ? <span className="project-client-label">{project.status}</span> : null}
             </div>
             <p className="mt-2 text-sm leading-relaxed text-zinc-400">{project.tagline}</p>
           </div>
@@ -62,9 +63,9 @@ export function ProjectPane({ project }: ProjectPaneProps) {
                 {project.demo.kind === "sign-in" ? "Try app" : "Try demo"} <ArrowUpRight size={16} aria-hidden="true" />
               </button>
             ) : null}
-            <Link href={project.live} className={project.demo ? "action-secondary" : "action-primary"}>
+            {project.live ? <Link href={project.live} className={project.demo ? "action-secondary" : "action-primary"}>
               {project.liveLabel ?? "Visit site"} <ArrowUpRight size={16} aria-hidden="true" />
-            </Link>
+            </Link> : null}
             {project.source ? <Link href={project.source} className="text-action"><Github size={16} aria-hidden="true" /> Source</Link> : null}
             {project.docs ? <Link href={project.docs} className="text-action"><FileText size={16} aria-hidden="true" /> Docs</Link> : null}
           </div>
@@ -72,7 +73,9 @@ export function ProjectPane({ project }: ProjectPaneProps) {
 
         {demoOpen && project.demo ? <DemoDialog demo={project.demo} projectName={project.name} onClose={closeDemo} /> : null}
 
-        <div className="grid min-w-0 gap-6 lg:grid-cols-3">
+        {project.status ? (
+          <p className="max-w-2xl text-base leading-relaxed text-zinc-300">{project.overview}</p>
+        ) : <div className="grid min-w-0 gap-6 lg:grid-cols-3">
           <div className="min-w-0 space-y-6 lg:col-span-2">
             <div>
               <h3 className="project-label mb-2">Overview</h3>
@@ -89,7 +92,7 @@ export function ProjectPane({ project }: ProjectPaneProps) {
             <h3 className="project-label mb-2">Stack</h3>
             <pre className="project-stack">{JSON.stringify(project.stack, null, 2)}</pre>
           </div>
-        </div>
+        </div>}
       </div>
     </Pane>
   );

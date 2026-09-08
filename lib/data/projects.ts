@@ -13,7 +13,7 @@ export interface Project {
   tagline: string;
   image?: string;
   overview: string;
-  live: string;
+  live?: string;
   source: string;
   docs?: string;
   liveLabel?: string;
@@ -22,9 +22,22 @@ export interface Project {
   stack: Record<string, string>;
   highlights: ProjectHighlight[];
   type?: "personal" | "client";
+  status?: "In development";
 }
 
 export const projects: Project[] = [
+  {
+    slug: "num1",
+    name: "Num1",
+    tagline: "Benchmarking AI agents on engineering work.",
+    overview:
+      "Building a platform to measure agent cost, speed, reliability, and human effort on standardized codebase tasks, then identify improvements that help agents work more effectively.",
+    status: "In development",
+    source: "",
+    tags: ["AI agents", "Benchmarks", "In development"],
+    stack: {},
+    highlights: [],
+  },
   {
     slug: "fortify",
     name: "Fortify",

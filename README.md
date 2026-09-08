@@ -4,9 +4,9 @@
 
 # Jatin Awankar — Portfolio
 
-**Full-Stack SaaS & MVP Developer**
+**Full-Stack Engineer**
 
-_Scalable backend systems · Real-time features · Production-ready architecture_
+_Building AI-powered products and integrations._
 
 [![Live](https://img.shields.io/badge/Live-jatinawankar.dev-f97316?style=flat-square&logo=vercel&logoColor=white)](https://jatinawankar.dev)
 [![Resume](https://img.shields.io/badge/Resume-PDF-f97316?style=flat-square&logo=adobeacrobatreader&logoColor=white)](https://jatinawankar.dev/Jatin_Awankar_Resume.pdf)
