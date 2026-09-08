@@ -39,7 +39,7 @@ export default async function AboutPage() {
     <>
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg border border-zinc-800/60 bg-zinc-900/20 px-4 py-3 font-display text-xs text-zinc-500">
         <span className="text-orange-400">$ whoami</span>
-        <h1 className="text-zinc-200">jatin-awankar</h1>
+        <h1 className="font-display text-2xl font-semibold text-zinc-100 sm:text-3xl">Jatin Awankar</h1>
       </div>
 
       <FocusedPane title="~/about/bio.tsx">

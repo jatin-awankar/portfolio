@@ -24,16 +24,16 @@ export function GitHubActivityPane({
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="font-display text-xs text-zinc-500">
-          {"// 02 - github activity"}
+        <h2 className="font-display text-xl font-semibold text-zinc-100 sm:text-2xl">
+          GitHub activity
         </h2>
         <Link
           href="https://github.com/jatin-awankar"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm font-display text-xs text-zinc-500 transition-colors hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 motion-reduce:transition-none"
+          className="text-action rounded-sm"
         >
-          $ open github.com/jatin-awankar ↗
+          View GitHub profile ↗
         </Link>
       </div>
 
@@ -51,7 +51,7 @@ export function GitHubActivityPane({
           <p className="text-sm text-zinc-400">
             Full-stack engineer.
           </p>
-          <p className="mt-1 font-display text-xs text-zinc-500">
+          <p className="mt-1 font-display text-xs text-zinc-400">
             Based in India · open-source contributor
           </p>
         </div>
@@ -80,8 +80,8 @@ export function GitHubActivityPane({
       <ContributionGraph days={contributionDays} total={contributionTotal} />
 
       <div>
-        <h3 className="mb-2 font-display text-xs text-zinc-500">
-          $ gh pr list --author jatin-awankar
+        <h3 className="mb-3 font-display text-base font-medium text-zinc-200">
+          Open-source contributions
         </h3>
         <div className="grid gap-3">
           {prs.map((pr) => (

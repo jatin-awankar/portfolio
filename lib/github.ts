@@ -3,7 +3,7 @@
 // Requires GITHUB_TOKEN env var (classic PAT, no special scopes needed —
 // contribution + public PR data is readable by any authenticated request).
 // If GITHUB_TOKEN is missing, callers should catch the error and fall back
-// to the placeholder UI (see ContributionGraph's `days` prop in
+// to the unavailable state (see ContributionGraph's `days` prop in
 // components/portfolio/about/GitHubActivityPane.tsx).
 
 const GITHUB_USERNAME = "jatin-awankar";
@@ -118,94 +118,89 @@ const FEATURED_OPEN_SOURCE_PRS: PullRequest[] = [
   },
 ];
 
-export async function getOpenSourcePRs(): Promise<PullRequest[]> {
-  const headers: HeadersInit = process.env.GITHUB_TOKEN
-    ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
-    : {};
+type SearchItem = {
+  repository_url: string;
+  title: string;
+  html_url: string;
+  number: number;
+};
 
-  const [mergedRes, openRes] = await Promise.all([
-    fetch(
-      `https://api.github.com/search/issues?q=is:pr+is:merged+author:${GITHUB_USERNAME}&sort=updated&order=desc&per_page=100`,
-      {
-        headers,
-        next: { revalidate: 3600 },
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      },
-    ),
-    fetch(
-      `https://api.github.com/search/issues?q=is:pr+is:open+author:${GITHUB_USERNAME}&sort=updated&order=desc&per_page=100`,
-      {
-        headers,
-        next: { revalidate: 3600 },
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      },
-    ),
-  ]);
+async function githubFetch(path: string): Promise<Response> {
+  const response = await fetch(`https://api.github.com/${path}`, {
+    headers: process.env.GITHUB_TOKEN
+      ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+      : {},
+    next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  });
+  if (!response.ok) throw new Error(`GitHub request failed: ${response.status}`);
+  return response;
+}
 
-  if (!mergedRes.ok || !openRes.ok) {
-    throw new Error(
-      `GitHub search error: ${mergedRes.status} / ${openRes.status}`,
-    );
+async function searchPRs(state: "merged" | "open"): Promise<PullRequest[]> {
+  const results: PullRequest[] = [];
+  // GitHub search exposes at most 1,000 results per query.
+  for (let page = 1; page <= 10; page++) {
+    const params = new URLSearchParams({
+      q: `is:pr is:${state} is:public author:${GITHUB_USERNAME} -user:${GITHUB_USERNAME} -org:firstcontributions`,
+      sort: "updated",
+      order: "desc",
+      per_page: "100",
+      page: String(page),
+    });
+    try {
+      const response = await githubFetch(`search/issues?${params}`);
+      const data: { items: SearchItem[]; total_count: number } = await response.json();
+      results.push(...data.items.map((item): PullRequest => ({
+        repo: `${item.repository_url.replace("https://api.github.com/repos/", "")} #${item.number}`,
+        title: item.title,
+        status: state === "merged" ? "Merged" : "In review",
+        url: item.html_url,
+      })));
+      if (data.items.length < 100 || page * 100 >= data.total_count) break;
+    } catch {
+      // Preserve earlier pages if a later request fails.
+      break;
+    }
   }
+  return results;
+}
 
-  const [mergedJson, openJson] = await Promise.all([
-    mergedRes.json(),
-    openRes.json(),
+async function fetchFeaturedPR(fallback: PullRequest): Promise<PullRequest | null> {
+  try {
+    const path = new URL(fallback.url).pathname.replace("/pull/", "/pulls/");
+    const response = await githubFetch(`repos${path}`);
+    const data: { merged: boolean; state: string; html_url: string } = await response.json();
+    if (!data.merged && data.state !== "open") return null;
+    return {
+      ...fallback,
+      url: data.html_url,
+      status: data.merged ? "Merged" : "In review",
+    };
+  } catch {
+    // These public merges were verified; keep them visible during outages.
+    return { ...fallback };
+  }
+}
+
+export async function getOpenSourcePRs(): Promise<PullRequest[]> {
+  const [featured, merged, open] = await Promise.all([
+    Promise.all(FEATURED_OPEN_SOURCE_PRS.map(fetchFeaturedPR)),
+    searchPRs("merged"),
+    searchPRs("open"),
   ]);
-
-  const merged = (mergedJson.items ?? [])
-    .filter(
-      (item: { repository_url: string }) =>
-        !item.repository_url.includes(`/repos/${GITHUB_USERNAME}/`) &&
-        !item.repository_url.includes('/repos/firstcontributions/')
-    )
-    .map(
-      (item: {
-        repository_url: string;
-        title: string;
-        html_url: string;
-      }) => ({
-        repo: item.repository_url.replace("https://api.github.com/repos/", ""),
-        title: item.title,
-        status: "Merged" as const,
-        url: item.html_url,
-      }),
-    );
-
-  const open = (openJson.items ?? [])
-    .filter(
-      (item: { repository_url: string }) =>
-        !item.repository_url.includes(`/repos/${GITHUB_USERNAME}/`) &&
-        !item.repository_url.includes('/repos/firstcontributions/')
-    )
-    .map(
-      (item: {
-        repository_url: string;
-        title: string;
-        html_url: string;
-      }) => ({
-        repo: item.repository_url.replace("https://api.github.com/repos/", ""),
-        title: item.title,
-        status: "In review" as const,
-        url: item.html_url,
-      }),
-    );
+  const featuredUrls = new Set(FEATURED_OPEN_SOURCE_PRS.map((pr) => pr.url));
   const seen = new Set<string>();
-  const dynamicPRs = [...merged, ...open].filter(({ url }) => {
-    if (seen.has(url)) return false;
-    seen.add(url);
+  return [
+    ...featured.filter((pr): pr is PullRequest => pr !== null),
+    ...[...merged, ...open].filter((pr) => !featuredUrls.has(pr.url)),
+  ].filter((pr) => {
+    if (seen.has(pr.url)) return false;
+    seen.add(pr.url);
     return true;
   });
-
-  // Keep featured public contributions visible even when GitHub's recency-based
-  // search ranking omits them.
-  const featuredUrls = new Set(FEATURED_OPEN_SOURCE_PRS.map((pr) => pr.url));
-  return [
-    ...FEATURED_OPEN_SOURCE_PRS,
-    ...dynamicPRs.filter((pr) => !featuredUrls.has(pr.url)),
-  ];
 }
 
 export function getFeaturedOpenSourcePRs(): PullRequest[] {
-  return FEATURED_OPEN_SOURCE_PRS;
+  return FEATURED_OPEN_SOURCE_PRS.map((pr) => ({ ...pr }));
 }

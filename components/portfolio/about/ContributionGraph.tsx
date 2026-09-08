@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { ContributionDay } from "@/lib/github";
 
 export type ContributionGraphProps = {
@@ -135,6 +135,11 @@ function getMonthLabels(weeks: GraphWeek[]): MonthLabel[] {
 
 export function ContributionGraph({ days, total }: ContributionGraphProps) {
   const liveCells = normalizeDays(days);
+  const dateInputId = useId();
+  const [selectedDate, setSelectedDate] = useState("");
+  const sortedCells = [...liveCells].sort((a, b) => a.date.localeCompare(b.date));
+  const activeDate = selectedDate || sortedCells.at(-1)?.date || "";
+  const selectedDay = liveCells.find((day) => day.date === activeDate);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isLive = liveCells.length > 0;
   const cells = liveCells;
@@ -155,7 +160,7 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
   if (!isLive) {
     return (
       <div>
-        <h3 className="mb-2 font-display text-xs text-zinc-500">
+        <h3 className="mb-2 font-display text-sm text-zinc-400">
           contributions.svg
         </h3>
         <p className="rounded-md border border-zinc-800 bg-zinc-950/40 px-3 py-2 font-display text-xs text-zinc-400">
@@ -167,18 +172,21 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
 
   return (
     <div>
-      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 font-display text-xs text-zinc-500">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 font-display text-xs text-zinc-400">
         <h3>
           contributions.svg
           {contributionTotal != null
             ? ` - ${contributionTotal} in the last 12 months`
             : " - last 12 months"}
         </h3>
-        <span className="text-zinc-500 sm:hidden">latest activity first</span>
+        <span className="text-zinc-400 sm:hidden">Scroll to explore the year</span>
       </div>
 
       <div
         ref={scrollContainerRef}
+        tabIndex={0}
+        role="region"
+        aria-label="Contribution chart; scroll horizontally to explore the year"
         className="overflow-x-auto rounded-md border border-zinc-800 bg-zinc-950/40 p-3"
       >
         <div className="w-full min-w-[720px]">
@@ -194,7 +202,7 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
               {monthLabels.map((label) => (
                 <span
                   key={`${label.month}-${label.column}`}
-                  className="font-display text-[10px] leading-none text-zinc-600"
+                  className="font-display text-xs leading-none text-zinc-400"
                   style={{ gridColumnStart: label.column + 1 }}
                 >
                   {label.month}
@@ -202,7 +210,7 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
               ))}
             </div>
 
-            <div className="grid grid-rows-7 gap-1 font-display text-[10px] leading-none text-zinc-600">
+            <div className="grid grid-rows-7 gap-1 font-display text-xs leading-none text-zinc-400" aria-hidden="true">
               {weekdayLabels.map((label, index) => (
                 <span
                   key={`${label || "empty"}-${index}`}
@@ -254,7 +262,7 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
                       className="group relative aspect-square min-h-2.5 min-w-2.5 rounded-[2px]"
                     >
                       <span
-                        className={`block h-full w-full rounded-[2px] border transition-transform duration-150 group-hover:scale-125 group-focus-visible:scale-125 motion-reduce:transition-none ${levelStyles[level]}`}
+                        className={`block h-full w-full rounded-[2px] border transition-transform duration-150 group-hover:scale-125 motion-reduce:transition-none ${levelStyles[level]}`}
                       />
                       {cell ? (
                         <span
@@ -272,7 +280,7 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
               )}
             </div>
           </div>
-          <div className="mt-3 flex items-center justify-end gap-1.5 font-display text-[10px] text-zinc-600">
+          <div className="mt-3 flex items-center justify-end gap-1.5 font-display text-xs text-zinc-400">
             <span>Less</span>
             {levelStyles.map((style, level) => (
               <span
@@ -284,6 +292,23 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
             <span>More</span>
           </div>
         </div>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-400">
+        <label htmlFor={dateInputId}>Explore a day</label>
+        <input
+          id={dateInputId}
+          type="date"
+          min={sortedCells[0]?.date}
+          max={sortedCells.at(-1)?.date}
+          value={activeDate}
+          onChange={(event) => setSelectedDate(event.target.value)}
+          className="min-h-11 min-w-0 max-w-full rounded border border-zinc-700 bg-zinc-950 px-3 text-zinc-200 [color-scheme:dark]"
+        />
+        <output htmlFor={dateInputId} aria-live="polite">
+          {selectedDay
+            ? `${pluralizeContributions(selectedDay.count)} on ${formatDayLabel(activeDate)}`
+            : "No contribution data for this date"}
+        </output>
       </div>
     </div>
   );
