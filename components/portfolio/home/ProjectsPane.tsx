@@ -9,28 +9,22 @@ const selected = [
     slug: "fortify",
     number: "01",
     category: "DEVELOPER TOOLING",
-    decision: "Useful AI, right where developers work.",
     detail:
-      "A published Node.js CLI for error explanations, git-aware commits, and persistent chat sessions.",
-    evidence: "Explore the CLI implementation",
+      "An AI-powered CLI for error explanations, commits, and codebase summaries.",
   },
   {
     slug: "usageflow",
     number: "02",
     category: "BILLING INFRASTRUCTURE",
-    decision: "Designed for retries, not just the happy path.",
     detail:
-      "Idempotent webhook handling, atomic usage updates, and background invoice processing.",
-    evidence: "Explore the billing architecture",
+      "Usage-based billing with safe retries and accurate metering.",
   },
   {
     slug: "petrol-partner",
     number: "03",
     category: "CONCURRENCY & REALTIME",
-    decision: "The last seat should only be booked once.",
     detail:
-      "Row-level locking and an explicit booking state machine keep competing requests consistent.",
-    evidence: "Explore the booking system",
+      "Real-time ride sharing with concurrency-safe seat booking.",
   },
 ];
 
@@ -40,7 +34,7 @@ export function ProjectsPane() {
       <div className="section-heading">
         <div>
           <p className="eyebrow">01 / Selected engineering</p>
-          <h2>Software with something to solve.</h2>
+          <h2>Selected work.</h2>
         </div>
         <Link href="/projects" className="text-action">
           All projects <ArrowUpRight size={16} />
@@ -96,34 +90,24 @@ export function ProjectsPane() {
                     <h3>{project.name}</h3>
                     <ArrowUpRight size={19} className="text-orange-400" />
                   </div>
-                  <p className="work-decision">{entry.decision}</p>
                   <p className="work-detail">{entry.detail}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {project.tags?.slice(0, 4).map((tag) => (
+                    {project.tags?.slice(0, 3).map((tag) => (
                       <span className="tech-tag" key={tag}>
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <span className="work-evidence">
-                    {entry.evidence} <span aria-hidden="true">↗</span>
-                  </span>
                 </div>
               </Link>
             </article>
           );
         })}
       </div>
-      <div className="mt-6">
+      <details className="project-experiment mt-6">
+        <summary>Try a booking simulation</summary>
         <BookingDemo />
-      </div>
-      <p className="mt-6 text-sm leading-relaxed text-zinc-400">
-        Also delivered:{" "}
-        <Link href="/projects#olympic-windows" className="inline-link">
-          Olympic Windows
-        </Link>
-        , a client website with product pages and a consultation enquiry flow.
-      </p>
+      </details>
     </div>
   );
 }

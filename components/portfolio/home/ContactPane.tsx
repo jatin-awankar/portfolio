@@ -21,27 +21,14 @@ export function ContactPane() {
     <div className="contact-content">
       <p className="eyebrow">04 / Let’s connect</p>
       <h2>
-        Good teams build
-        <br />
-        <span className="text-orange-400">better software.</span>
+        Let’s <span className="text-orange-400">work together.</span>
       </h2>
       <p className="mt-5 max-w-xl leading-relaxed text-zinc-400">
-        Looking for a full-stack engineer who cares about the system behind the
-        interface? I’m open to engineering opportunities. Tell me about your
-        team and what you’re building.
+        Open to engineering roles. Tell me about your team.
       </p>
       <div className="mt-7 flex flex-wrap gap-3">
         <Link href={`mailto:${email}`} className="action-primary">
           Get in touch <ArrowUpRight size={17} />
-        </Link>
-        <Link
-          href="/Jatin_Awankar_Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="action-secondary"
-        >
-          View Resume <ArrowUpRight size={16} />
-          <span className="sr-only"> (PDF, opens in a new tab)</span>
         </Link>
       </div>
       <div className="contact-email">
@@ -66,7 +53,6 @@ export function ContactPane() {
       </p>
       <footer className="contact-footer">
         <span>© {new Date().getFullYear()} Jatin Awankar</span>
-        <span>Built with Next.js. Made with intention.</span>
       </footer>
     </div>
   );

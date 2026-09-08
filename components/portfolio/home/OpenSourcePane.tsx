@@ -13,12 +13,8 @@ export async function OpenSourcePane() {
           <h2>Building in the open.</h2>
         </div>
       </div>
-      <p className="mb-5 text-sm leading-relaxed text-zinc-400">
-        Contributing to shared tools, working through reviews, and improving the
-        details people interact with.
-      </p>
       <div className="grid gap-3">
-        {prs?.slice(0, 3).map((pr) => (
+        {prs?.slice(0, 2).map((pr) => (
           <PRCard key={pr.url} {...pr} href={pr.url} />
         ))}
       </div>
@@ -26,7 +22,7 @@ export async function OpenSourcePane() {
         <p className="text-sm leading-relaxed text-zinc-400">
           {prs
             ? "Explore my contributions on GitHub."
-            : "The contribution feed is temporarily unavailable. You can still view my work on GitHub."}
+            : "The feed is unavailable. View my contributions on GitHub."}
         </p>
       )}
       <Link
@@ -37,9 +33,6 @@ export async function OpenSourcePane() {
       >
         View GitHub profile <ArrowUpRight size={16} />
       </Link>
-      <p className="mt-4 font-display text-xs text-zinc-400">
-        Selected contributions · feed refreshes hourly
-      </p>
     </div>
   );
 }

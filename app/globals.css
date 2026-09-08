@@ -394,6 +394,20 @@
 .cli-preview p span {
   color: var(--portfolio-accent);
 }
+.project-experiment {
+  border-top: 1px solid var(--portfolio-line);
+}
+.project-experiment > summary {
+  padding-block: 14px;
+  min-height: 44px;
+  font-family: var(--portfolio-display-font);
+  font-size: 12px;
+  color: var(--portfolio-muted);
+  cursor: pointer;
+}
+.project-experiment > summary:hover {
+  color: var(--portfolio-accent);
+}
 .booking-demo {
   padding: 24px;
   border-top: 1px solid var(--portfolio-line);
