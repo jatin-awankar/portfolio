@@ -49,7 +49,7 @@ export function GitHubActivityPane({
             jatin-awankar
           </p>
           <p className="text-sm text-zinc-400">
-            Full-stack engineer.
+            Full-stack engineer · AI products & integrations
           </p>
           <p className="mt-1 font-display text-xs text-zinc-400">
             Based in India · open-source contributor

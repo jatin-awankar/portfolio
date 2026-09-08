@@ -8,23 +8,22 @@ const selected = [
   {
     slug: "fortify",
     number: "01",
-    category: "DEVELOPER TOOLING",
+    category: "AI DEVELOPER TOOLS",
     detail:
       "An AI-powered CLI for error explanations, commits, and codebase summaries.",
   },
   {
     slug: "usageflow",
     number: "02",
-    category: "BILLING INFRASTRUCTURE",
+    category: "SAAS BILLING",
     detail:
       "Usage-based billing with safe retries and accurate metering.",
   },
   {
     slug: "petrol-partner",
     number: "03",
-    category: "CONCURRENCY & REALTIME",
-    detail:
-      "Real-time ride sharing with concurrency-safe seat booking.",
+    category: "REAL-TIME PRODUCTS",
+    detail: "Real-time ride sharing with concurrency-safe seat booking.",
   },
 ];
 

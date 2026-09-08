@@ -6,7 +6,7 @@ import { GitHubActivityPane } from "@/components/portfolio/about/GitHubActivityP
 import { getContributionGraph, getOpenSourcePRs } from "@/lib/github";
 
 const description =
-  "Meet Jatin Awankar, a full-stack engineer building web applications from interfaces to APIs and databases. Explore his interests and open-source contributions.";
+  "Meet Jatin Awankar, a full-stack engineer building AI-powered products and integrations.";
 
 export const metadata: Metadata = {
   title: "About Jatin Awankar | Full-Stack Engineer",

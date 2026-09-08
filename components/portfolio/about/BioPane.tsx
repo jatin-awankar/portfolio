@@ -1,16 +1,13 @@
 const currently = [
   "Open source contributions",
-  "React internals",
+  "AI agent evaluation",
   "Accessible interfaces",
-  "Application architecture",
-  "Web performance",
 ];
 
 const building = [
-  "Usage-based SaaS systems",
-  "Responsive interfaces and APIs",
-  "Real-time web applications",
-  "Startup-ready production systems",
+  "Num1 — agent benchmarks (in development)",
+  "Fortify — AI tools for the terminal",
+  "Full-stack web products",
 ];
 
 export function BioPane() {
@@ -21,11 +18,9 @@ export function BioPane() {
           About me
         </h2>
         <p className="max-w-2xl text-base leading-relaxed text-zinc-300">
-          I’m a full-stack engineer. I build web applications from the interface
-          to the API and database, with attention to how the whole experience
-          fits together. I care about clear interactions, responsive layouts,
-          and reliable behavior. I learn by understanding how things work, then
-          use that knowledge to make practical product decisions.
+          I’m a full-stack engineer building AI-powered products and integrations.
+          I work across interfaces, APIs, and data, with a focus on useful products
+          and clear experiences.
         </p>
       </div>
       <div className="grid gap-6 sm:grid-cols-2">

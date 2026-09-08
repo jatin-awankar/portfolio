@@ -24,7 +24,7 @@ export function ContactPane() {
         Let’s <span className="text-orange-400">work together.</span>
       </h2>
       <p className="mt-5 max-w-xl leading-relaxed text-zinc-400">
-        Open to engineering roles. Tell me about your team.
+        Open to full-stack and AI product roles.
       </p>
       <div className="mt-7 flex flex-wrap gap-3">
         <Link href={`mailto:${email}`} className="action-primary">

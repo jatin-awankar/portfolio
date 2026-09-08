@@ -13,7 +13,7 @@ export interface Project {
   tagline: string;
   image?: string;
   overview: string;
-  live: string;
+  live?: string;
   source: string;
   docs?: string;
   liveLabel?: string;
@@ -22,9 +22,22 @@ export interface Project {
   stack: Record<string, string>;
   highlights: ProjectHighlight[];
   type?: "personal" | "client";
+  status?: "In development";
 }
 
 export const projects: Project[] = [
+  {
+    slug: "num1",
+    name: "Num1",
+    tagline: "Benchmarking AI agents on engineering work.",
+    overview:
+      "Building a platform to measure agent cost, speed, reliability, and human effort on standardized codebase tasks, then identify improvements that help agents work more effectively.",
+    status: "In development",
+    source: "",
+    tags: ["AI agents", "Benchmarks", "In development"],
+    stack: {},
+    highlights: [],
+  },
   {
     slug: "fortify",
     name: "Fortify",
@@ -160,33 +173,6 @@ export const projects: Project[] = [
       { desc: "Integrate GetStream rooms with teacher and student permissions." },
       { desc: "Support screen sharing and session recording for live classes." },
       { desc: "Handle reconnects when a session loses its network connection." },
-    ],
-  },
-  {
-    slug: "civic-issue-reporter",
-    name: "Civic Issue Reporter",
-    tagline: "Map-based civic issue reporting with structured tracking.",
-    image: "/projects/civic.webp",
-    overview:
-      "Built a reporting flow that combines a map location, photo, and issue details. A shared status pipeline lets residents follow progress and gives staff a structured way to manage each report.",
-    live: "https://civic-issue-reporter-application.vercel.app",
-    source: "https://github.com/jatin-awankar/civic-issue-reporter",
-    demo: {
-      kind: "credentials",
-      url: "https://civic-issue-reporter-application.vercel.app/",
-      email: "demo@civic.com",
-      password: "Demo@1234",
-    },
-    stack: {
-      framework: "react",
-      backend: "node + express",
-      database: "mongodb",
-      maps: "mapbox",
-    },
-    highlights: [
-      { desc: "Submit a location and photo together so each issue has actionable context." },
-      { desc: "Track reports through reported, in-progress, and resolved states." },
-      { desc: "Expose reporting through a versioned REST API." },
     ],
   },
 ];

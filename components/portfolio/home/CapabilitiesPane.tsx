@@ -3,24 +3,24 @@ import {
   ArrowUpRight,
   Database,
   Workflow,
-  ShieldCheck,
+  Sparkles,
   PanelsTopLeft,
 } from "lucide-react";
 const capabilities = [
   {
     Icon: Database,
-    title: "Data & consistency",
-    text: "PostgreSQL, transactions, atomic updates.",
+    title: "APIs & data",
+    text: "Node.js, PostgreSQL, authentication.",
   },
   {
     Icon: Workflow,
-    title: "Reliable workflows",
-    text: "Queues, retries, state machines.",
+    title: "Product integrations",
+    text: "Payments, real-time features, workflows.",
   },
   {
-    Icon: ShieldCheck,
-    title: "Access control",
-    text: "Authentication, roles, multi-tenancy.",
+    Icon: Sparkles,
+    title: "AI integration",
+    text: "OpenAI APIs, developer tools, agent evaluation.",
   },
   {
     Icon: PanelsTopLeft,

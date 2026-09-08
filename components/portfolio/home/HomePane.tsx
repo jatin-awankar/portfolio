@@ -12,11 +12,10 @@ export function HomePane() {
         <h1 className="hero-title">
           Jatin Awankar.
           <br />
-          <span>Built for the hard parts.</span>
+          <span>From idea to product.</span>
         </h1>
         <p className="hero-description">
-          Full-stack engineer focused on reliable backends, billing systems,
-          and real-time products.
+          Full-stack engineer building AI-powered products and integrations.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
