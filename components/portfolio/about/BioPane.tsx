@@ -1,14 +1,14 @@
 const currently = [
   "Open source contributions",
   "React internals",
-  "Backend architecture",
-  "Distributed systems fundamentals",
-  "Concurrency & networking",
+  "Accessible interfaces",
+  "Application architecture",
+  "Web performance",
 ];
 
 const building = [
   "Usage-based SaaS systems",
-  "Scalable backend APIs",
+  "Responsive interfaces and APIs",
   "Real-time web applications",
   "Startup-ready production systems",
 ];
@@ -17,23 +17,23 @@ export function BioPane() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="mb-2 font-display text-xs text-zinc-500">
-          {"// 01 - about.md"}
-        </p>
-        <p className="max-w-2xl text-sm leading-relaxed text-zinc-300">
-          I design and build production-grade web applications from scratch --
-          with a focus on system design, performance, and understanding
-          internals rather than just using abstractions. I enjoy reading
-          documentation deeply, breaking down how things work, and building
-          systems that scale beyond CRUD.
+        <h2 className="mb-3 font-display text-xl font-semibold text-zinc-100 sm:text-2xl">
+          About me
+        </h2>
+        <p className="max-w-2xl text-base leading-relaxed text-zinc-300">
+          I’m a full-stack engineer. I build web applications from the interface
+          to the API and database, with attention to how the whole experience
+          fits together. I care about clear interactions, responsive layouts,
+          and reliable behavior. I learn by understanding how things work, then
+          use that knowledge to make practical product decisions.
         </p>
       </div>
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <p className="mb-2 font-display text-xs text-zinc-500">
+          <h3 className="mb-3 font-display text-sm text-zinc-300">
             $ cat currently.md
-          </p>
-          <ul className="space-y-1.5 text-xs text-zinc-400">
+          </h3>
+          <ul className="space-y-2 text-sm text-zinc-400">
             {currently.map((item) => (
               <li key={item} className="flex gap-2">
                 <span className="text-orange-400/50">&gt;</span>
@@ -43,10 +43,10 @@ export function BioPane() {
           </ul>
         </div>
         <div>
-          <p className="mb-2 font-display text-xs text-zinc-500">
+          <h3 className="mb-3 font-display text-sm text-zinc-300">
             $ cat building.md
-          </p>
-          <ul className="space-y-1.5 text-xs text-zinc-400">
+          </h3>
+          <ul className="space-y-2 text-sm text-zinc-400">
             {building.map((item) => (
               <li key={item} className="flex gap-2">
                 <span className="text-orange-400/50">&gt;</span>
