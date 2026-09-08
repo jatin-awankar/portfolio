@@ -713,3 +713,23 @@
     bottom: max(16px, env(safe-area-inset-bottom));
   }
 }
+
+/* Writings keep the shared pane and a quiet, readable article list. */
+.writing-card {
+  border-color: var(--portfolio-line);
+  overflow-wrap: anywhere;
+}
+.writing-card:hover,
+.writing-card:focus-visible {
+  border-color: var(--portfolio-accent);
+}
+.writing-accent,
+.writing-card:hover .writing-arrow,
+.writing-card:focus-visible .writing-arrow {
+  color: var(--portfolio-accent);
+}
+@media (max-width: 639px) {
+  .writings-pane > div:last-child {
+    padding: 12px;
+  }
+}
