@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { ContributionDay } from "@/lib/github";
 
 export type ContributionGraphProps = {
@@ -31,15 +32,6 @@ const levelStyles = [
   "border-orange-300/80 bg-orange-400",
 ];
 
-function contributionLevel(index: number): number {
-  const value = (index * 13 + (index % 7) * 5) % 17;
-  if (value < 7) return 0;
-  if (value < 11) return 1;
-  if (value < 14) return 2;
-  if (value < 16) return 3;
-  return 4;
-}
-
 function toDateKey(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
@@ -69,22 +61,6 @@ function formatDayLabel(dateKey: string): string {
 
 function pluralizeContributions(count: number): string {
   return `${count} contribution${count === 1 ? "" : "s"}`;
-}
-
-function makePlaceholderDays(): GraphDay[] {
-  const start = new Date(Date.UTC(2024, 6, 1));
-
-  return Array.from({ length: 364 }, (_, index) => {
-    const date = addDaysUTC(start, index);
-    const level = contributionLevel(index);
-    const count = level === 0 ? 0 : level + ((index * 3) % 4);
-
-    return {
-      date: toDateKey(date),
-      count,
-      level,
-    };
-  });
 }
 
 function normalizeDays(days: ContributionDay[] | undefined): GraphDay[] {
@@ -159,30 +135,52 @@ function getMonthLabels(weeks: GraphWeek[]): MonthLabel[] {
 
 export function ContributionGraph({ days, total }: ContributionGraphProps) {
   const liveCells = normalizeDays(days);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isLive = liveCells.length > 0;
-  const cells = isLive ? liveCells : makePlaceholderDays();
+  const cells = liveCells;
   const weeks = buildWeeks(cells);
   const monthLabels = getMonthLabels(weeks);
   const contributionTotal =
     total ?? cells.reduce((sum, cell) => sum + cell.count, 0);
 
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || !window.matchMedia("(max-width: 639px)").matches) {
+      return;
+    }
+
+    container.scrollLeft = container.scrollWidth;
+  }, [weeks.length]);
+
+  if (!isLive) {
+    return (
+      <div>
+        <h3 className="mb-2 font-display text-xs text-zinc-500">
+          contributions.svg
+        </h3>
+        <p className="rounded-md border border-zinc-800 bg-zinc-950/40 px-3 py-2 font-display text-xs text-zinc-400">
+          GitHub contribution history is temporarily unavailable.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2 font-display text-xs text-zinc-500">
-        <span>
+        <h3>
           contributions.svg
           {contributionTotal != null
             ? ` - ${contributionTotal} in the last 12 months`
             : " - last 12 months"}
-        </span>
-        {!isLive ? (
-          <span className="text-zinc-600">
-            fallback preview - GitHub data unavailable
-          </span>
-        ) : null}
+        </h3>
+        <span className="text-zinc-500 sm:hidden">latest activity first</span>
       </div>
 
-      <div className="overflow-x-auto rounded-md border border-zinc-800 bg-zinc-950/40 p-3">
+      <div
+        ref={scrollContainerRef}
+        className="overflow-x-auto rounded-md border border-zinc-800 bg-zinc-950/40 p-3"
+      >
         <div className="w-full min-w-[720px]">
           <div className="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-2">
             <div aria-hidden="true" />
@@ -219,7 +217,7 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
               style={{
                 gridTemplateColumns: `repeat(${weeks.length}, minmax(0, 1fr))`,
               }}
-              role="grid"
+              role="img"
               aria-label={`${contributionTotal} GitHub contributions in the last 12 months`}
             >
               {weeks.flatMap((week, weekIndex) =>
@@ -252,17 +250,15 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
                   return (
                     <div
                       key={`${week.key}-${day}`}
-                      role="gridcell"
-                      tabIndex={cell ? 0 : -1}
-                      aria-label={tooltip}
-                      className="group relative aspect-square min-h-2.5 min-w-2.5 rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                      title={tooltip}
+                      className="group relative aspect-square min-h-2.5 min-w-2.5 rounded-[2px]"
                     >
                       <span
                         className={`block h-full w-full rounded-[2px] border transition-transform duration-150 group-hover:scale-125 group-focus-visible:scale-125 motion-reduce:transition-none ${levelStyles[level]}`}
                       />
                       {cell ? (
                         <span
-                          className={`pointer-events-none absolute z-20 hidden w-max max-w-52 rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1 text-center font-display text-[10px] leading-snug text-zinc-200 shadow-xl shadow-black/40 group-hover:block group-focus-visible:block ${tooltipAlignment} ${tooltipVertical}`}
+                          className={`pointer-events-none absolute z-20 hidden w-max max-w-52 rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1 text-center font-display text-[10px] leading-snug text-zinc-200 shadow-xl shadow-black/40 group-hover:block ${tooltipAlignment} ${tooltipVertical}`}
                         >
                           {tooltip}
                           <span
@@ -276,14 +272,6 @@ export function ContributionGraph({ days, total }: ContributionGraphProps) {
               )}
             </div>
           </div>
-
-          {!isLive ? (
-            <p className="mt-3 rounded border border-zinc-800 bg-zinc-950/40 px-3 py-2 font-display text-[10px] text-zinc-600">
-              fallback: using deterministic preview activity until GitHub
-              contribution data is available.
-            </p>
-          ) : null}
-
           <div className="mt-3 flex items-center justify-end gap-1.5 font-display text-[10px] text-zinc-600">
             <span>Less</span>
             {levelStyles.map((style, level) => (

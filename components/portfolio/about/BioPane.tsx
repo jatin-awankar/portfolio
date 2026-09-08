@@ -17,22 +17,22 @@ export function BioPane() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="mb-2 font-display text-xs text-zinc-500">
+        <h2 className="mb-2 font-display text-xs text-zinc-500">
           {"// 01 - about.md"}
-        </p>
+        </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-zinc-300">
-          I design and build production-grade web applications from scratch --
-          with a focus on system design, performance, and understanding
-          internals rather than just using abstractions. I enjoy reading
-          documentation deeply, breaking down how things work, and building
-          systems that scale beyond CRUD.
+          I build full-stack web applications with a backend focus. I care
+          about the moments that make software reliable: requests that overlap,
+          billing events that repeat, and interfaces that stay clear while data
+          is still loading. I learn by reading the underlying systems, then use
+          that understanding to make practical product decisions.
         </p>
       </div>
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <p className="mb-2 font-display text-xs text-zinc-500">
+          <h3 className="mb-2 font-display text-xs text-zinc-500">
             $ cat currently.md
-          </p>
+          </h3>
           <ul className="space-y-1.5 text-xs text-zinc-400">
             {currently.map((item) => (
               <li key={item} className="flex gap-2">
@@ -43,9 +43,9 @@ export function BioPane() {
           </ul>
         </div>
         <div>
-          <p className="mb-2 font-display text-xs text-zinc-500">
+          <h3 className="mb-2 font-display text-xs text-zinc-500">
             $ cat building.md
-          </p>
+          </h3>
           <ul className="space-y-1.5 text-xs text-zinc-400">
             {building.map((item) => (
               <li key={item} className="flex gap-2">

@@ -130,7 +130,7 @@ Contributions that went into building this:
 | PR                                                            | Repository              | Status       |
 | ------------------------------------------------------------- | ----------------------- | ------------ |
 | [#2261](https://github.com/openstatusHQ/openstatus/pull/2261) | openstatusHQ/openstatus | ✅ Merged    |
-| [#2276](https://github.com/openstatusHQ/openstatus/pull/2276) | openstatusHQ/openstatus | 🔄 In review |
+| [#2276](https://github.com/openstatusHQ/openstatus/pull/2276) | openstatusHQ/openstatus | ✅ Merged    |
 
 ---
 
@@ -153,4 +153,3 @@ Built with Next.js, Tailwind CSS, and a terminal you can't quit.
 [![jatinawankar.dev](https://img.shields.io/badge/jatinawankar.dev-f97316?style=for-the-badge&logo=vercel&logoColor=white)](https://jatinawankar.dev)
 
 </div>
-

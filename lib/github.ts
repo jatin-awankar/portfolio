@@ -96,7 +96,27 @@ export interface PullRequest {
   title: string;
   status: "Merged" | "In review";
   url: string;
+  description?: string;
 }
+
+const FEATURED_OPEN_SOURCE_PRS: PullRequest[] = [
+  {
+    repo: "openstatusHQ/openstatus #2261",
+    title: "Added a loading skeleton to the status pages list",
+    description:
+      "Replaced the empty loading state with a table skeleton so the interface stays legible while data loads.",
+    status: "Merged",
+    url: "https://github.com/openstatusHQ/openstatus/pull/2261",
+  },
+  {
+    repo: "openstatusHQ/openstatus #2276",
+    title: "Added a loading state to DomainConfiguration",
+    description:
+      "Connected the existing loading flag to visible feedback while custom-domain data is fetched.",
+    status: "Merged",
+    url: "https://github.com/openstatusHQ/openstatus/pull/2276",
+  },
+];
 
 export async function getOpenSourcePRs(): Promise<PullRequest[]> {
   const headers: HeadersInit = process.env.GITHUB_TOKEN
@@ -105,7 +125,7 @@ export async function getOpenSourcePRs(): Promise<PullRequest[]> {
 
   const [mergedRes, openRes] = await Promise.all([
     fetch(
-      `https://api.github.com/search/issues?q=is:pr+is:merged+author:${GITHUB_USERNAME}&sort=updated&order=desc&per_page=10`,
+      `https://api.github.com/search/issues?q=is:pr+is:merged+author:${GITHUB_USERNAME}&sort=updated&order=desc&per_page=100`,
       {
         headers,
         next: { revalidate: 3600 },
@@ -113,7 +133,7 @@ export async function getOpenSourcePRs(): Promise<PullRequest[]> {
       },
     ),
     fetch(
-      `https://api.github.com/search/issues?q=is:pr+is:open+author:${GITHUB_USERNAME}&sort=updated&order=desc&per_page=10`,
+      `https://api.github.com/search/issues?q=is:pr+is:open+author:${GITHUB_USERNAME}&sort=updated&order=desc&per_page=100`,
       {
         headers,
         next: { revalidate: 3600 },
@@ -170,17 +190,6 @@ export async function getOpenSourcePRs(): Promise<PullRequest[]> {
         url: item.html_url,
       }),
     );
-
-
-  const knownMerged: PullRequest[] = [
-    {
-      repo: "openstatusHQ/openstatus",
-      title: "feat(dashboard): add loading skeleton to status pages list",
-      status: "Merged",
-      url: "https://github.com/openstatusHQ/openstatus/pull/2261",
-    },
-  ];
-
   const seen = new Set<string>();
   const dynamicPRs = [...merged, ...open].filter(({ url }) => {
     if (seen.has(url)) return false;
@@ -188,10 +197,15 @@ export async function getOpenSourcePRs(): Promise<PullRequest[]> {
     return true;
   });
 
-  // Inject known merged PRs the Search API misses, dedup by URL
-  const dynamicUrls = new Set(dynamicPRs.map((pr) => pr.url));
+  // Keep featured public contributions visible even when GitHub's recency-based
+  // search ranking omits them.
+  const featuredUrls = new Set(FEATURED_OPEN_SOURCE_PRS.map((pr) => pr.url));
   return [
-    ...knownMerged.filter((pr) => !dynamicUrls.has(pr.url)),
-    ...dynamicPRs,
+    ...FEATURED_OPEN_SOURCE_PRS,
+    ...dynamicPRs.filter((pr) => !featuredUrls.has(pr.url)),
   ];
+}
+
+export function getFeaturedOpenSourcePRs(): PullRequest[] {
+  return FEATURED_OPEN_SOURCE_PRS;
 }

@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { PRCard } from "@/components/portfolio/PRCard";
-import type { ContributionDay, PullRequest } from "@/lib/github";
+import {
+  getFeaturedOpenSourcePRs,
+  type ContributionDay,
+  type PullRequest,
+} from "@/lib/github";
 import { AchievementBadge } from "./AchievementBadge";
 import { ContributionGraph } from "./ContributionGraph";
 
@@ -10,22 +14,7 @@ export type GitHubActivityPaneProps = {
   contributionTotal?: number;
 };
 
-const defaultPRs: PullRequest[] = [
-  {
-    repo: "openstatusHQ/openstatus #2261 · 8.7k★",
-    title:
-      "Added a loading skeleton to the status pages list -- replaced the blank loading state with a DataTableSkeleton component",
-    status: "Merged",
-    url: "https://github.com/openstatusHQ/openstatus/pull/2261",
-  },
-  {
-    repo: "openstatusHQ/openstatus #2276 · 8.7k★",
-    title:
-      "Added a loading state to DomainConfiguration -- wired the existing isLoading flag to show a spinner during domain queries",
-    status: "In review",
-    url: "https://github.com/openstatusHQ/openstatus/pull/2276",
-  },
-];
+const defaultPRs: PullRequest[] = getFeaturedOpenSourcePRs();
 
 export function GitHubActivityPane({
   prs = defaultPRs,
@@ -35,9 +24,9 @@ export function GitHubActivityPane({
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <p className="font-display text-xs text-zinc-500">
+        <h2 className="font-display text-xs text-zinc-500">
           {"// 02 - github activity"}
-        </p>
+        </h2>
         <Link
           href="https://github.com/jatin-awankar"
           target="_blank"
@@ -60,15 +49,15 @@ export function GitHubActivityPane({
             jatin-awankar
           </p>
           <p className="text-sm text-zinc-400">
-            Software Engineer building scalable SaaS systems.
+            Full-stack engineer with a backend focus.
           </p>
           <p className="mt-1 font-display text-xs text-zinc-500">
-            36 repositories · 3 followers · 11 starred · India
+            Based in India · open-source contributor
           </p>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-6 rounded-md border border-zinc-800 bg-zinc-950/40 p-4">
+      <div className="grid grid-cols-2 gap-5 rounded-md border border-zinc-800 bg-zinc-950/40 p-4 sm:flex sm:flex-wrap sm:gap-6">
         <AchievementBadge
           src="https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png"
           label="Pair Extraordinaire"
@@ -91,9 +80,9 @@ export function GitHubActivityPane({
       <ContributionGraph days={contributionDays} total={contributionTotal} />
 
       <div>
-        <p className="mb-2 font-display text-xs text-zinc-500">
+        <h3 className="mb-2 font-display text-xs text-zinc-500">
           $ gh pr list --author jatin-awankar
-        </p>
+        </h3>
         <div className="grid gap-3">
           {prs.map((pr) => (
             <PRCard
@@ -102,6 +91,7 @@ export function GitHubActivityPane({
               title={pr.title}
               status={pr.status}
               href={pr.url}
+              description={pr.description}
             />
           ))}
         </div>
